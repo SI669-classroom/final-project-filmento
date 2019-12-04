@@ -8,12 +8,11 @@ export class EditMCPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.movieInfo = this.props.navigation.getParam("movieInfo", undefined);
+    this.movie = this.props.navigation.getParam("movieInfo", undefined);
     this.mainScreen = this.props.navigation.getParam("mainScreen");
 
     this.state = {};
   }
-
 
   //   componentDidMount() {
   //     let newLabels = []
@@ -65,16 +64,13 @@ export class EditMCPage extends React.Component {
   //     }
   //     this.props.navigation.goBack();
   //   }
-  
 
   render() {
+    console.log(this.movie)
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Edit my movie </Text>
-          <View style={styles.headerButtons}>
-            
-          </View>
+          <Text style={styles.headerText}>Edit my movie</Text>
         </View>
         <View style={styles.bodyContainer}>
           {/* <FlatList
@@ -85,16 +81,22 @@ export class EditMCPage extends React.Component {
               </Text>
             )}
           /> */}
-          {/* <Image
-            style={styles.imageStyle}
-            resizeMode="contain"
-            source={{ uri: this.movie["poster"] }}
-          />
-          <Text>Director: {this.movie["director"]}</Text>
-          {/* <Text>Release Date: {this.movie["releaseDate"]}</Text> */}
-          {/* <Text>Note: {this.movie["note"]}</Text>
-          <Text>Genre: {this.movie["genre"]}</Text>
-          <Text>Mood: {this.movie["emoji"]}</Text> */} 
+          <View style={styles.infoImageContainer}>
+            <Image
+              style={styles.imageStyle}
+              resizeMode="contain"
+              source={{ uri: this.movie.poster }}
+            />
+          </View>
+          <View style={styles.movieInfoContainer}>
+            {/* <Text>Release Date: {this.movie["releaseDate"]}</Text> */}
+            <Text style={styles.detailText}>Note: {this.movie.note}</Text>
+            <Text style={styles.detailText}>
+              Director: {this.movie.director}
+            </Text>
+            <Text style={styles.detailText}>Mood: {this.movie.emoji}</Text>
+            <Text style={styles.detailText}>Genre: {this.movie.genre}</Text>
+          </View>
         </View>
         <View style={styles.footerContainer}></View>
       </View>

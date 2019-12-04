@@ -30,6 +30,23 @@ export const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "flex-start"
   },
+  infoImageContainer: {
+    flex: 0.6, //here you can use flex:1 also
+    aspectRatio: 1,
+    backgroundColor: "yellow",
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  movieInfoContainer: {
+    marginTop: 10,
+    flex: 0.4,
+    width: "100%",
+  },
+  detailText:{
+    fontSize: 16,
+    textAlign: 'left',
+    margin: 5,
+  },
   imageContainer: {
     flex: 1, //here you can use flex:1 also
     aspectRatio: 1,
