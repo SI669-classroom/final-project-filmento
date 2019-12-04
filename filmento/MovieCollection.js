@@ -16,26 +16,30 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 
 
-
 export class MovieCollectionPage extends React.Component {
   constructor(props) {
     super(props);
 
+
     this.UID = this.props.navigation.getParam('UID');
+
 
     this.state = {
       user: {},
       selectedIndex: 0
     };
 
+
     this.db = firebase.firestore();
 
     // read entries collection from database and store in state
     this.usersRef = this.db.collection("users").doc(this.UID);
+
     this.usersRef.get().then(queryRef => {
       let docData = queryRef.data();
       let newUser = {
         moviesCollection: docData.movies,
+
         wishList: docData.wishList
       };
 
@@ -132,4 +136,6 @@ export class MovieCollectionPage extends React.Component {
       </View>
     );
   }
+
 }
+
