@@ -28,9 +28,9 @@ export class MovieCollectionPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
+      user: [],
       selectedIndex: 0,
-      test: {}
+      movies: []
     };
 
     // set up database
@@ -38,31 +38,44 @@ export class MovieCollectionPage extends React.Component {
     this.db = firebase.firestore();
 
     // read entries collection from database and store in state
-    this.usersRef = this.db.collection("users").doc("charlene123");
+    this.usersRef = this.db.collection("users").doc("testsub");
     this.usersRef.get().then(queryRef => {
       let docData = queryRef.data();
       let newUser = {
-        moviesCollection: docData.movies,
-        password: docData.password,
-        wishList: docData.wishList
+        username: docData.username,
+        firstname: docData.firstName,
+        lastname: docData.lastName,
+        email: docData.email
       };
 
       this.setState({ user: newUser });
     });
 
-    this.testRef = this.db.collection('users').doc('testsub').collection('movies'); 
-    this.testRef.get().then(queryRef=>{
-      let newEntries = [];
-      queryRef.forEach(docRef=>{
+    //get subcollection
+    this.moviesRef = this.db
+      .collection("users")
+      .doc("testsub")
+      .collection("movies");
+    this.moviesRef.get().then(queryRef => {
+      let newMovies = [];
+      queryRef.forEach(docRef => {
         let docData = docRef.data();
-        let newEntry = {
+        let newMovie = {
+          key: docRef.id,
           title: docData.title,
-          key: docRef.id, 
-        }
-        newEntries.push(newEntry);
+          director: docData.director,
+          releasedate: docData.releaseDate,
+          poster: docData.poster,
+          genre: docData.genre,
+          note: docData.note,
+          emoji: docData.emoji,
+          labels: docData.labels,
+          tag: docData.tag
+        };
+        newMovies.push(newMovie);
       });
       // newEntries.sort((a, b) => (a.priority > b.priority) ? 1 : -1) //get sorting code from https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
-      this.setState({ test: newEntries });
+      this.setState({ movies: newMovies });
     });
 
     this.tabs = ["My Movies", "Watch List", "Friend List"];
@@ -92,34 +105,38 @@ export class MovieCollectionPage extends React.Component {
       this.setState({ entries: newEntries });
     });
   }
+
   updateEntry(movieToUpdate) {
     //let entryKey = entryToUpdate.key;
-    this.usersRef
+    this.moviesRef
       .doc(movieToUpdate.key)
       .set({
-        summary: entryToUpdate.summary,
-        detail: entryToUpdate.detail,
-        priority: entryToUpdate.priority,
-        timestamp: entryToUpdate.timestamp,
-        label: entryToUpdate.label,
-        isCheck: entryToUpdate.isCheck
+        title: docData.title,
+        director: docData.director,
+        releasedate: docData.releaseDate,
+        poster: docData.poster,
+        genre: docData.genre,
+        note: docData.note,
+        emoji: docData.emoji,
+        labels: docData.labels,
+        tag: docData.tag
       })
       .then(() => {
-        let newEntries = [];
-        for (entry of this.state.entries) {
-          if (entry.key === entryToUpdate.key) {
-            newEntries.push(entryToUpdate);
+        let newMovies = [];
+        for (movie of this.state.movies) {
+          if (movie.key === movieToUpdate.key) {
+            newMovies.push(movieToUpdate);
           } else {
-            newEntries.push(entry);
+            newMovies.push(movie);
           }
         }
-        this.setState({ entries: newEntries });
+        this.setState({ movies: newMovies });
       });
   }
 
   render() {
-    console.log(this.state.user)
-    console.log(this.state.test)
+    // console.log(this.state.user);
+    console.log("test console log", this.state.movies);
     let navigatePage = "";
     if (this.state.selectedIndex == 0) {
       navigatePage == "MovieCollection";
@@ -154,7 +171,7 @@ export class MovieCollectionPage extends React.Component {
         </View>
         <View style={styles.bodyContainer}>
           <FlatList
-            data={this.state.user.moviesCollection}
+            data={this.state.movies}
             numColumns={2}
             renderItem={({ item }) => {
               return (
@@ -192,7 +209,7 @@ export class MovieCollectionPage extends React.Component {
             onPress={() => {
               this.props.navigation.navigate("AddMovieToCollection", {
                 mainScreen: this,
-                user: this.state.user
+                movies: this.state.movies
               });
             }}
           />

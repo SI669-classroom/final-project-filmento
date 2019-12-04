@@ -66,7 +66,7 @@ export class MCDetailPage extends React.Component {
   //   }
   handleEdit(infoToEdit) {
     this.props.navigation.navigate("EditMovieCollection", {
-      info: infoToEdit,
+      movieInfo: infoToEdit,
       // labelCollection: this.state.labels,
       mainScreen: this
     });
@@ -77,13 +77,15 @@ export class MCDetailPage extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>{this.movie["title"]}</Text>
+          <Text style={styles.headerText}>{this.movie.title}</Text>
           <View style={styles.headerButtons}>
             <Icon.Button
               name="edit"
               color="black"
               backgroundColor="transparent"
-              onPress={()=>{this.handleEdit(this.movie)}}
+              onPress={() => {
+                this.handleEdit(this.movie);
+              }}
             />
           </View>
         </View>
@@ -99,13 +101,15 @@ export class MCDetailPage extends React.Component {
           <Image
             style={styles.imageStyle}
             resizeMode="contain"
-            source={{ uri: this.movie["poster"] }}
+            source={{ uri: this.movie.poster }}
           />
-          <Text>Director: {this.movie["director"]}</Text>
-          {/* <Text>Release Date: {this.movie["releaseDate"]}</Text> */}
-          <Text>Note: {this.movie["note"]}</Text>
-          <Text>Genre: {this.movie["genre"]}</Text>
-          <Text>Mood: {this.movie["emoji"]}</Text>
+          <View style={styles.movieInfoContainer}>
+            {/* <Text>Release Date: {this.movie["releaseDate"]}</Text> */}
+            <Text>Note: {this.movie.note}</Text>
+            <Text>Director: {this.movie.director}</Text>
+            <Text>Mood: {this.movie.emoji}</Text>
+            <Text>Genre: {this.movie.genre}</Text>
+          </View>
         </View>
         <View style={styles.footerContainer}></View>
       </View>
