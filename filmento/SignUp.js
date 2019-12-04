@@ -90,6 +90,9 @@ export class SignUpPage extends React.Component {
                 <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
                     <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.cancelButton} onPress={()=>{this.props.navigation.navigate('Login')}}>
+                    <Text style={styles.buttonText}>Cancel</Text>
+                </TouchableOpacity>
             </KeyboardAvoidingView>
         )
     }
@@ -116,10 +119,20 @@ const styles = StyleSheet.create({
     },
     button: {
         marginTop: 30,
-        marginBottom: 20,
         paddingVertical: 5,
         alignItems: 'center',
         backgroundColor: '#000000',
+        borderWidth: 1,
+        borderRadius: 5,
+        width: 200
+    },
+    cancelButton: {
+        marginTop: 20,
+        marginBottom: 20,
+        paddingVertical: 5,
+        alignItems: 'center',
+        backgroundColor: '#60676e',
+        borderColor:'#60676e',
         borderWidth: 1,
         borderRadius: 5,
         width: 200
