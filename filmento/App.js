@@ -1,19 +1,30 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+// import { LoginPage } from "./Login";
+// import { SignUpPage } from "./SignUp";
+import { MovieCollectionPage } from "./MovieCollection";
+//import { AddToMCPage } from './AddToMC';
+import { MCDetailPage } from './MCDetail';
+//import { WatchListPage } from './WatchList';
+//import { AddToWLPage } from './AddToWL';
+//import { WLDetailPage } from './WLDetail';
+//import { FriendListPage } from './FriendList';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const AppNavigator = createStackNavigator(
+  {
+    // Login: LoginPage,
+    // SignUp: SignUpPage,
+    MovieCollection: MovieCollectionPage,
+    //AddMovieToCollection: AddToMCPage,
+    MovieCollectionDetail: MCDetailPage,
+    //WatchList: WatchListPage,
+    //AddMovietoWatchList: AddToWLPage,
+    //WatchListDetail: WLDetailPage,
+    //FriendList: FriendListPage,
   },
-});
+  {
+    initialRouteName: "MovieCollection"
+  }
+);
+const AppContainer = createAppContainer(AppNavigator);
+export default AppContainer;
