@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image, KeyboardAvoidingView } from 'react-native';
 import Firebase from './Firebase';
 
 
@@ -35,7 +35,7 @@ export class LoginPage extends React.Component {
     }
     render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior='padding'>
                 <Image 
                     style={{margin:50}}
                     source={require('./images/logo.png')}
@@ -59,7 +59,7 @@ export class LoginPage extends React.Component {
                 </TouchableOpacity>
                 <Button title="Sign Up" style={{color:''}}
                 onPress={() => this.props.navigation.navigate('SignUp')}/>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, KeyboardAvoidingView } from 'react-native';
 import Firebase from './Firebase';
 import firebase from 'firebase'
 import '@firebase/firestore';
@@ -54,7 +54,7 @@ export class SignUpPage extends React.Component {
 
       render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior='padding'>
                 <TextInput
                     style={styles.inputBox}
                     value={this.state.firstName}
@@ -90,7 +90,7 @@ export class SignUpPage extends React.Component {
                 <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
                     <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
