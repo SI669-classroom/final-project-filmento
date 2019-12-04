@@ -1,11 +1,15 @@
 import React from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import Firebase from './Firebase';
-
+import firebase from 'firebase'
+import '@firebase/firestore';
 
 export class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
+
+        this.db = firebase.firestore();
+        this.userRef = this.db.collection('users');
 
         this.state = {
             firstName: '',
@@ -17,10 +21,22 @@ export class SignUpPage extends React.Component {
       }
 
       handleSignUp = () => {
-        const { email, password } = this.state
+        //const { email, password, firstName, lastName, username } = this.state
+        let userData={
+            firstName: this.state.firstName,
+            lastName:this.state.lastName,
+            username:this.state.username,
+            email: this.state.email,
+            movies: [],
+            wishlist:[]
+        };
         Firebase.auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then(() => this.props.navigation.navigate('MovieCollection'))
+            .createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then(()=>{
+                this.userRef.doc(this.state.email).set(userData);
+                this.props.navigation.navigate('MovieCollection', {UID:this.state.email});
+                }
+            )
             .catch(function(error) {
                 // Handle Errors here.
                 var errorCode = error.code;
@@ -33,6 +49,8 @@ export class SignUpPage extends React.Component {
                 console.log(error);
               });
     }
+
+    //this.props.navigation.navigate('MovieCollection')
 
       render() {
         return (

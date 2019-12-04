@@ -15,11 +15,11 @@ export class LoginPage extends React.Component {
       }
 
     handleLogin = () => {
-        const { email, password } = this.state
+        
 
         Firebase.auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(() => this.props.navigation.navigate('MovieCollection'))
+            .signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then(() => this.props.navigation.navigate('MovieCollection', {UID:this.state.email}))
             .catch(function(error) {
                 var errorCode = error.code;
                 var errorMessage = error.message;
