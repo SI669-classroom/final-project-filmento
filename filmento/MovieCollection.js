@@ -52,9 +52,9 @@ export class MovieCollectionPage extends React.Component {
     this.tabs = ["My Movies", "Watch List", "Friend List"];
   }
 
-  handleGoToInfo(movie) {
+  handleGoToInfo(clickedMovie) {
     this.props.navigation.navigate("MovieCollectionDetail", {
-      user: this.state.user,
+      movie: clickedMovie,
       mainScreen: this
     });
   }
@@ -76,7 +76,7 @@ export class MovieCollectionPage extends React.Component {
     } else if (this.state.selectedIndex == 2){
         navigatePage == "FriendList"
     }
-    console.log(this.state.moviesCollection);
+
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
