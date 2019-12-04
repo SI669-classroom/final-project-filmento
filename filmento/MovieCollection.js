@@ -4,13 +4,15 @@ import {
   Text,
   FlatList,
   Switch,
-  SegmentedControlIOSComponent
+  SegmentedControlIOSComponent,
+  Image,
+  TouchableOpacity
 } from "react-native";
-// import { Button, CheckBox } from "react-native-elements";
+import { Overlay, ButtonGroup } from "react-native-elements";
 import { styles } from "./Styles";
 import firebase from "firebase";
 import "@firebase/firestore";
-// import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBTcn24Cx35Cw5s1jeqEnQh9gaXccv_c_8",
@@ -27,6 +29,7 @@ export class MovieCollectionPage extends React.Component {
     super(props);
     this.state = {
       user: {},
+      selectedIndex: 0
     };
 
     // set up database
@@ -45,32 +48,94 @@ export class MovieCollectionPage extends React.Component {
 
       this.setState({ user: newUser });
     });
+
+    this.tabs = ["My Movies", "Watch List", "Friend List"];
+  }
+
+  handleGoToInfo(movie) {
+    this.props.navigation.navigate("MovieCollectionDetail", {
+      user: this.state.user,
+      mainScreen: this
+    });
+  }
+
+  //still don't know how to navigate to other page
+  handleTab(item) {
+    this.props.navigation.navigate(navigatePage, {
+      user: this.state.user,
+      mainScreen: this
+    });
   }
 
   render() {
+    let navigatePage = "";
+    if (this.state.selectedIndex == 0){
+        navigatePage == "MovieCollection"
+    } else if (this.state.selectedIndex == 1){
+        navigatePage == "WatchList"
+    } else if (this.state.selectedIndex == 2){
+        navigatePage == "FriendList"
+    }
     console.log(this.state.moviesCollection);
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Ｍy Movies</Text>
+          <View style={styles.headerButtons}>
+            <Icon.Button
+              name="search"
+              color="black"
+              backgroundColor="transparent"
+              // onPress={() => {
+              //   this.handleEdit(item);
+              // }}
+            />
+            <Icon.Button
+              name="filter"
+              color="black"
+              backgroundColor="transparent"
+              // onPress={() => {
+              //   this.handleEdit(item);
+              // }}
+            />
+          </View>
         </View>
         <View style={styles.bodyContainer}>
           <FlatList
             data={this.state.user.moviesCollection}
+            numColumns={2}
             renderItem={({ item }) => {
               return (
-                <View style={styles.bodyListItem}>
-                  <View style={styles.bodyListItemLeft}>
-                    <Text numberOfLines={1} style={styles.bodyListItemText}>
-                      {item.title}
-                    </Text>
-                  </View>
-                </View>
+                <TouchableOpacity
+                  style={styles.imageContainer}
+                  onPress={() => {
+                    this.handleGoToInfo(item);
+                  }}
+                >
+                  <Image
+                    style={styles.imageStyle}
+                    resizeMode="contain"
+                    source={{ uri: item.poster }}
+                  />
+                </TouchableOpacity>
               );
             }}
           />
         </View>
-        <View style={styles.footerContainer}></View>
+        <View style={styles.footerContainer}>
+          <ButtonGroup
+            onPress={newIndex =>
+              this.setState({ selectedIndex: newIndex }) 
+            }
+            selectedIndex={this.state.selectedIndex}
+            buttons={this.tabs}
+            containerStyle={styles.buttonGroupContainer}
+            // selectedButtonStyle={styles.buttonGroupSelected}
+            // selectedTextStyle={styles.buttonGroupSelectedText}
+            // buttonStyle={styles.buttonGroupStyle}
+            // textStyle={styles.buttonGroupText}
+          />
+        </View>
       </View>
     );
   }
