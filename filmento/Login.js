@@ -20,7 +20,18 @@ export class LoginPage extends React.Component {
         Firebase.auth()
             .signInWithEmailAndPassword(email, password)
             .then(() => this.props.navigation.navigate('MovieCollection'))
-            .catch(error => console.log(error))
+            .catch(function(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                if (errorCode == 'auth/user-not-found') {
+                  alert('The email does not exist. Please sign up.');
+                } else if(errorCode == 'auth/wrong-password'){
+                  alert('Wrong Password');
+                }else{
+                    alert(errorMessage);
+                }
+                console.log(error);
+              });
     }
     render() {
         return (

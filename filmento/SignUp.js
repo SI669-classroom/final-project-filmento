@@ -21,7 +21,17 @@ export class SignUpPage extends React.Component {
         Firebase.auth()
             .createUserWithEmailAndPassword(email, password)
             .then(() => this.props.navigation.navigate('MovieCollection'))
-            .catch(error => console.log(error))
+            .catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                if (errorCode == 'auth/email-already-in-use') {
+                  alert('This email is already in use. Please sign in.');
+                } else {
+                  alert(errorMessage);
+                }
+                console.log(error);
+              });
     }
 
       render() {
