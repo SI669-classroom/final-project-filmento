@@ -52,4 +52,6 @@ export const styles = StyleSheet.create({
     width: '90%',
     borderColor: '#4189D6'
   },
+
 });
+
