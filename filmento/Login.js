@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image } from 'react-native';
 import Firebase from './Firebase';
 
 
@@ -25,6 +25,10 @@ export class LoginPage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <Image 
+                    style={{margin:50}}
+                    source={require('./images/logo.png')}
+                />
                 <TextInput
                     style={styles.inputBox}
                     value={this.state.email}
@@ -42,7 +46,7 @@ export class LoginPage extends React.Component {
                 <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
-                <Button title="Don't have an account yet? Sign up" 
+                <Button title="Sign Up" style={{color:''}}
                 onPress={() => this.props.navigation.navigate('SignUp')}/>
             </View>
         )
@@ -71,8 +75,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         paddingVertical: 5,
         alignItems: 'center',
-        backgroundColor: '#F6820D',
-        borderColor: '#F6820D',
+        backgroundColor: '#000000',
         borderWidth: 1,
         borderRadius: 5,
         width: 200
@@ -80,9 +83,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#fff'
+        color: 'white'
     },
-    buttonSignup: {
-        fontSize: 12
-    }
+
 })

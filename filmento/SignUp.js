@@ -60,7 +60,7 @@ export class SignUpPage extends React.Component {
                     secureTextEntry={true}
                 />
                 <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
-                    <Text style={styles.buttonText}>Signup</Text>
+                    <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -91,8 +91,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         paddingVertical: 5,
         alignItems: 'center',
-        backgroundColor: '#FFA611',
-        borderColor: '#FFA611',
+        backgroundColor: '#000000',
         borderWidth: 1,
         borderRadius: 5,
         width: 200
@@ -100,7 +99,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#fff'
+        color: 'white'
     },
     buttonSignup: {
         fontSize: 12
