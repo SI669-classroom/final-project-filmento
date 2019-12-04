@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Image } from "react-native";
 // import { Button, Input, CheckBox, ButtonGroup } from 'react-native-elements';
 import { styles } from "./Styles";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export class MCDetailPage extends React.Component {
   constructor(props) {
@@ -63,16 +64,50 @@ export class MCDetailPage extends React.Component {
   //     }
   //     this.props.navigation.goBack();
   //   }
+  handleEdit(infoToEdit) {
+    this.props.navigation.navigate("EditMovieCollection", {
+      info: infoToEdit,
+      // labelCollection: this.state.labels,
+      mainScreen: this
+    });
+  }
 
   render() {
-    console.log(this.movie);
+    console.log(this.movie["genre"]);
     return (
       <View style={styles.container}>
-        <FlatList
-          data={Object.keys(this.movie)}
-          renderItem={({ item }) => 
-          <Text>{item} : {this.movie[item]}</Text>}
-        />
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>{this.movie["title"]}</Text>
+          <View style={styles.headerButtons}>
+            <Icon.Button
+              name="edit"
+              color="black"
+              backgroundColor="transparent"
+              onPress={()=>{this.handleEdit(this.movie)}}
+            />
+          </View>
+        </View>
+        <View style={styles.bodyContainer}>
+          {/* <FlatList
+            data={Object.keys(this.movie)}
+            renderItem={({ item }) => (
+              <Text>
+                {item} : {this.movie[item]}
+              </Text>
+            )}
+          /> */}
+          <Image
+            style={styles.imageStyle}
+            resizeMode="contain"
+            source={{ uri: this.movie["poster"] }}
+          />
+          <Text>Director: {this.movie["director"]}</Text>
+          {/* <Text>Release Date: {this.movie["releaseDate"]}</Text> */}
+          <Text>Note: {this.movie["note"]}</Text>
+          <Text>Genre: {this.movie["genre"]}</Text>
+          <Text>Mood: {this.movie["emoji"]}</Text>
+        </View>
+        <View style={styles.footerContainer}></View>
       </View>
     );
   }

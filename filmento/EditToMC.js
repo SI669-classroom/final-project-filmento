@@ -4,7 +4,7 @@ import { View, Text, FlatList, Image } from "react-native";
 import { styles } from "./Styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-export class AddToMCPage extends React.Component {
+export class EditMCPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -71,7 +71,7 @@ export class AddToMCPage extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Add movie </Text>
+          <Text style={styles.headerText}>Edit my movie </Text>
           <View style={styles.headerButtons}>
             
           </View>
