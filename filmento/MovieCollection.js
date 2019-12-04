@@ -30,9 +30,19 @@ export class MovieCollectionPage extends React.Component {
     this.state = {
       user: {},
       selectedIndex: 0,
+      prevIndex: 99, // Stores previous page index, initialize with impossible page number
       userCollectionData: [], // this array is for storing the user collection movie data, will be used for searching within collection
       arrayholder: [], // also for storing user collection movie data
     };
+
+    this.navigatePage = "";
+    // if (this.state.selectedIndex == 0){
+    //     navigatePage = "MovieCollection"
+    // } else if (this.state.selectedIndex == 1){
+    //     navigatePage = "WatchList"
+    // } else if (this.state.selectedIndex == 2){
+    //     navigatePage = "FriendList"
+    // }
 
     // set up database
     firebase.initializeApp(firebaseConfig);
@@ -66,8 +76,15 @@ export class MovieCollectionPage extends React.Component {
   }
 
   //still don't know how to navigate to other page
-  handleTab(item) {
-    this.props.navigation.navigate(navigatePage, {
+  handleTab() {
+    if (this.state.selectedIndex == 0 && this.state.selectedIndex != this.state.prevIndex){
+      this.navigatePage = "MovieCollection"
+    } else if (this.state.selectedIndex == 1 && this.state.selectedIndex != this.state.prevIndex){
+      this.navigatePage = "WatchList"
+    } else if (this.state.selectedIndex == 2 && this.state.selectedIndex != this.state.prevIndex){
+      this.navigatePage = "FriendList"
+    }
+    this.props.navigation.navigate('FriendList', {
       user: this.state.user,
       mainScreen: this
     });
@@ -144,14 +161,6 @@ export class MovieCollectionPage extends React.Component {
   // }
 
   render() {
-    let navigatePage = "";
-    if (this.state.selectedIndex == 0){
-        navigatePage == "MovieCollection"
-    } else if (this.state.selectedIndex == 1){
-        navigatePage == "WatchList"
-    } else if (this.state.selectedIndex == 2){
-        navigatePage == "FriendList"
-    }
 
     return (
       <View style={styles.container}>
@@ -163,7 +172,7 @@ export class MovieCollectionPage extends React.Component {
               color="black"
               backgroundColor="transparent"
                onPress={() => {
-                 this.renderCollectionSearch(); // calls the function for pulling up the search bar
+                //  this.renderCollectionSearch(); // calls the function for pulling up the search bar
                }}
             />
             <Icon.Button
@@ -204,7 +213,8 @@ export class MovieCollectionPage extends React.Component {
         <View style={styles.footerContainer}>
           <ButtonGroup
             onPress={newIndex =>
-              this.setState({ selectedIndex: newIndex }) 
+              this.setState({ prevIndex: this.state.selectedIndex, selectedIndex: newIndex }),
+              this.handleTab() 
             }
             selectedIndex={this.state.selectedIndex}
             buttons={this.tabs}
