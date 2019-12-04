@@ -5,7 +5,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import { MovieCollectionPage } from "./MovieCollection";
 //import { AddToMCPage } from './AddToMC';
 import { MCDetailPage } from './MCDetail';
-//import { WatchListPage } from './WatchList';
+import { WatchListPage } from './WatchList';
 //import { AddToWLPage } from './AddToWL';
 //import { WLDetailPage } from './WLDetail';
 import { FriendListPage } from './FriendList';
@@ -17,7 +17,7 @@ const AppNavigator = createStackNavigator(
     MovieCollection: MovieCollectionPage,
     //AddMovieToCollection: AddToMCPage,
     MovieCollectionDetail: MCDetailPage,
-    //WatchList: WatchListPage,
+    WatchList: WatchListPage,
     //AddMovietoWatchList: AddToWLPage,
     //WatchListDetail: WLDetailPage,
     FriendList: FriendListPage,

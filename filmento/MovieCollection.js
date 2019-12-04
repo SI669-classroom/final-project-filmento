@@ -30,19 +30,12 @@ export class MovieCollectionPage extends React.Component {
     this.state = {
       user: {},
       selectedIndex: 0,
-      prevIndex: 99, // Stores previous page index, initialize with impossible page number
+      //prevIndex: 0, // Stores previous page index, initialize with number same as default
       userCollectionData: [], // this array is for storing the user collection movie data, will be used for searching within collection
       arrayholder: [], // also for storing user collection movie data
     };
 
     this.navigatePage = "";
-    // if (this.state.selectedIndex == 0){
-    //     navigatePage = "MovieCollection"
-    // } else if (this.state.selectedIndex == 1){
-    //     navigatePage = "WatchList"
-    // } else if (this.state.selectedIndex == 2){
-    //     navigatePage = "FriendList"
-    // }
 
     // set up database
     firebase.initializeApp(firebaseConfig);
@@ -75,16 +68,20 @@ export class MovieCollectionPage extends React.Component {
     });
   }
 
-  //still don't know how to navigate to other page
-  handleTab() {
-    if (this.state.selectedIndex == 0 && this.state.selectedIndex != this.state.prevIndex){
+  // Added navigation logic, may still contain a minor bug, but so far testing has been fine.
+  handleTab(newIndex) {
+    this.setState({ prevIndex: this.state.selectedIndex, selectedIndex: newIndex })
+    // alert('prev ' + this.state.prevIndex);
+    // alert('new ' + this.state.selectedIndex);
+    if (newIndex == 0 && newIndex != this.state.selectedIndex){
       this.navigatePage = "MovieCollection"
-    } else if (this.state.selectedIndex == 1 && this.state.selectedIndex != this.state.prevIndex){
+    } else if (newIndex == 1 && newIndex != this.state.selectedIndex){
       this.navigatePage = "WatchList"
-    } else if (this.state.selectedIndex == 2 && this.state.selectedIndex != this.state.prevIndex){
+    } else if (newIndex == 2 && newIndex != this.state.selectedIndex){
       this.navigatePage = "FriendList"
     }
-    this.props.navigation.navigate('FriendList', {
+
+    this.props.navigation.navigate(this.navigatePage, {
       user: this.state.user,
       mainScreen: this
     });
@@ -134,32 +131,6 @@ export class MovieCollectionPage extends React.Component {
     );
   };
 
-  // renderCollectionSearch = () => {
-  //   return (
-  //     <View style={{ flex: 1 }}>          
-  //       <FlatList
-  //         data={this.state.userCollectionData}
-  //         renderItem={({ item }) => (
-  //           <ListItem
-  //             leftAvatar={{ size: 'medium', rounded: false, source: { uri: item.poster } }}
-  //             title={`${item.title}`}
-  //             titleStyle={{ color: 'black', fontWeight: 'bold', fontSize: '20' }}
-  //             subtitle={`${item.releaseDate}`}
-  //             subtitleStyle={{ color: 'black' }}
-  //           />
-  //         )}
-  //         keyExtractor={item => item.title} 
-  //         ItemSeparatorComponent={this.renderSeparator}
-  //         ListHeaderComponent={this.renderHeader}
-  //       />
-  //     </View>
-  //   );
-  // }
-
-  // searchMyCollection() {
-  //   alert(this.state.userCollectionData[0].title)
-  // }
-
   render() {
 
     return (
@@ -172,6 +143,8 @@ export class MovieCollectionPage extends React.Component {
               color="black"
               backgroundColor="transparent"
                onPress={() => {
+                alert(this.state.selectedIndex);
+                alert(this.state.prevIndex);
                 //  this.renderCollectionSearch(); // calls the function for pulling up the search bar
                }}
             />
@@ -212,9 +185,10 @@ export class MovieCollectionPage extends React.Component {
         </View>
         <View style={styles.footerContainer}>
           <ButtonGroup
-            onPress={newIndex =>
-              this.setState({ prevIndex: this.state.selectedIndex, selectedIndex: newIndex }),
-              this.handleTab() 
+            onPress={ newIndex =>
+              //newIndex =>
+              //this.setState({ prevIndex: this.state.selectedIndex, selectedIndex: newIndex }),
+              this.handleTab(newIndex)
             }
             selectedIndex={this.state.selectedIndex}
             buttons={this.tabs}
