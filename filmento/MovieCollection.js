@@ -29,7 +29,8 @@ export class MovieCollectionPage extends React.Component {
     super(props);
     this.state = {
       user: {},
-      selectedIndex: 0
+      selectedIndex: 0,
+      test: {}
     };
 
     // set up database
@@ -47,6 +48,21 @@ export class MovieCollectionPage extends React.Component {
       };
 
       this.setState({ user: newUser });
+    });
+
+    this.testRef = this.db.collection('users').doc('testsub').collection('movies'); 
+    this.testRef.get().then(queryRef=>{
+      let newEntries = [];
+      queryRef.forEach(docRef=>{
+        let docData = docRef.data();
+        let newEntry = {
+          title: docData.title,
+          key: docRef.id, 
+        }
+        newEntries.push(newEntry);
+      });
+      // newEntries.sort((a, b) => (a.priority > b.priority) ? 1 : -1) //get sorting code from https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
+      this.setState({ test: newEntries });
     });
 
     this.tabs = ["My Movies", "Watch List", "Friend List"];
@@ -67,14 +83,50 @@ export class MovieCollectionPage extends React.Component {
     });
   }
 
+  addEntry(newEntry) {
+    this.entriesRef.add(newEntry).then(docRef => {
+      newEntry.key = docRef.id;
+      let newEntries = this.state.entries.slice(); // clone the list
+      newEntries.push(newEntry);
+      newEntries.sort((a, b) => (a.priority > b.priority ? 1 : -1)); //get sorting code from https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
+      this.setState({ entries: newEntries });
+    });
+  }
+  updateEntry(movieToUpdate) {
+    //let entryKey = entryToUpdate.key;
+    this.usersRef
+      .doc(movieToUpdate.key)
+      .set({
+        summary: entryToUpdate.summary,
+        detail: entryToUpdate.detail,
+        priority: entryToUpdate.priority,
+        timestamp: entryToUpdate.timestamp,
+        label: entryToUpdate.label,
+        isCheck: entryToUpdate.isCheck
+      })
+      .then(() => {
+        let newEntries = [];
+        for (entry of this.state.entries) {
+          if (entry.key === entryToUpdate.key) {
+            newEntries.push(entryToUpdate);
+          } else {
+            newEntries.push(entry);
+          }
+        }
+        this.setState({ entries: newEntries });
+      });
+  }
+
   render() {
+    console.log(this.state.user)
+    console.log(this.state.test)
     let navigatePage = "";
-    if (this.state.selectedIndex == 0){
-        navigatePage == "MovieCollection"
-    } else if (this.state.selectedIndex == 1){
-        navigatePage == "WatchList"
-    } else if (this.state.selectedIndex == 2){
-        navigatePage == "FriendList"
+    if (this.state.selectedIndex == 0) {
+      navigatePage == "MovieCollection";
+    } else if (this.state.selectedIndex == 1) {
+      navigatePage == "WatchList";
+    } else if (this.state.selectedIndex == 2) {
+      navigatePage == "FriendList";
     }
 
     return (
@@ -124,9 +176,7 @@ export class MovieCollectionPage extends React.Component {
         </View>
         <View style={styles.footerContainer}>
           <ButtonGroup
-            onPress={newIndex =>
-              this.setState({ selectedIndex: newIndex }) 
-            }
+            onPress={newIndex => this.setState({ selectedIndex: newIndex })}
             selectedIndex={this.state.selectedIndex}
             buttons={this.tabs}
             containerStyle={styles.buttonGroupContainer}
@@ -136,15 +186,16 @@ export class MovieCollectionPage extends React.Component {
             // textStyle={styles.buttonGroupText}
           />
           <Icon.Button
-              name="plus-circle"
-              color="black"
-              backgroundColor="transparent"
-              onPress={() => {
-                this.props.navigation.navigate('AddMovieToCollection', {
-                  mainScreen: this,
-                  user: this.state.user})
-              }}
-            />
+            name="plus-circle"
+            color="black"
+            backgroundColor="transparent"
+            onPress={() => {
+              this.props.navigation.navigate("AddMovieToCollection", {
+                mainScreen: this,
+                user: this.state.user
+              });
+            }}
+          />
         </View>
       </View>
     );
