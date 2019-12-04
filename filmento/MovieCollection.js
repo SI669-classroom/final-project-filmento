@@ -135,6 +135,16 @@ export class MovieCollectionPage extends React.Component {
             // buttonStyle={styles.buttonGroupStyle}
             // textStyle={styles.buttonGroupText}
           />
+          <Icon.Button
+              name="plus-circle"
+              color="black"
+              backgroundColor="transparent"
+              onPress={() => {
+                this.props.navigation.navigate('AddMovieToCollection', {
+                  mainScreen: this,
+                  user: this.state.user})
+              }}
+            />
         </View>
       </View>
     );

@@ -4,15 +4,16 @@ import { View, Text, FlatList, Image } from "react-native";
 import { styles } from "./Styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-export class MCDetailPage extends React.Component {
+export class AddToMCPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.movie = this.props.navigation.getParam("movie", undefined);
+    this.info = this.props.navigation.getParam("info", undefined);
     this.mainScreen = this.props.navigation.getParam("mainScreen");
 
     this.state = {};
   }
+
 
   //   componentDidMount() {
   //     let newLabels = []
@@ -64,27 +65,15 @@ export class MCDetailPage extends React.Component {
   //     }
   //     this.props.navigation.goBack();
   //   }
-  handleEdit(infoToEdit) {
-    this.props.navigation.navigate("EditMovieCollection", {
-      info: infoToEdit,
-      // labelCollection: this.state.labels,
-      mainScreen: this
-    });
-  }
+  
 
   render() {
-    console.log(this.movie["genre"]);
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>{this.movie["title"]}</Text>
+          <Text style={styles.headerText}>Add movie </Text>
           <View style={styles.headerButtons}>
-            <Icon.Button
-              name="edit"
-              color="black"
-              backgroundColor="transparent"
-              onPress={()=>{this.handleEdit(this.movie)}}
-            />
+            
           </View>
         </View>
         <View style={styles.bodyContainer}>
@@ -96,16 +85,16 @@ export class MCDetailPage extends React.Component {
               </Text>
             )}
           /> */}
-          <Image
+          {/* <Image
             style={styles.imageStyle}
             resizeMode="contain"
             source={{ uri: this.movie["poster"] }}
           />
           <Text>Director: {this.movie["director"]}</Text>
           {/* <Text>Release Date: {this.movie["releaseDate"]}</Text> */}
-          <Text>Note: {this.movie["note"]}</Text>
+          {/* <Text>Note: {this.movie["note"]}</Text>
           <Text>Genre: {this.movie["genre"]}</Text>
-          <Text>Mood: {this.movie["emoji"]}</Text>
+          <Text>Mood: {this.movie["emoji"]}</Text> */} 
         </View>
         <View style={styles.footerContainer}></View>
       </View>
