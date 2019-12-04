@@ -8,7 +8,7 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
-import { Overlay, ButtonGroup } from "react-native-elements";
+import { Overlay, ButtonGroup, SearchBar } from "react-native-elements";
 import { styles } from "./Styles";
 import firebase from "firebase";
 import "@firebase/firestore";
@@ -26,7 +26,9 @@ export class MovieCollectionPage extends React.Component {
 
     this.state = {
       user: {},
-      selectedIndex: 0
+      selectedIndex: 0,
+      userCollectionData: [], // this array is for storing the user collection movie data, will be used for searching within collection
+      arrayholder: [], // also for storing user collection movie data
     };
 
 
@@ -43,7 +45,11 @@ export class MovieCollectionPage extends React.Component {
         wishList: docData.wishList
       };
 
-      this.setState({ user: newUser });
+      this.setState({ 
+        user: newUser, 
+        userCollectionData: docData.movies,
+        arrayholder: docData.movies,
+      });
     });
 
     this.tabs = ["My Movies", "Watch List", "Friend List"];
@@ -64,6 +70,76 @@ export class MovieCollectionPage extends React.Component {
     });
   }
 
+  // The following functions are for searching within the collection
+
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: '86%',
+          backgroundColor: '#CED0CE',
+          marginLeft: '14%',
+        }}
+      />
+    );
+  };
+
+  searchFilterFunction = text => {
+    this.setState({
+      value: text,
+    });
+
+    const newData = this.state.arrayholder.filter(item => {
+      const itemData = `${item.title.toUpperCase()}`;
+      const textData = text.toUpperCase();
+
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({
+      userCollectionData: newData,
+    });
+  };
+
+  renderHeader = () => {
+    return (
+      <SearchBar
+        placeholder="Search within My Movies"
+        darkTheme
+        round
+        onChangeText={text => this.searchFilterFunction(text)}
+        autoCorrect={false}
+        value={this.state.value}
+      />
+    );
+  };
+
+  // renderCollectionSearch = () => {
+  //   return (
+  //     <View style={{ flex: 1 }}>          
+  //       <FlatList
+  //         data={this.state.userCollectionData}
+  //         renderItem={({ item }) => (
+  //           <ListItem
+  //             leftAvatar={{ size: 'medium', rounded: false, source: { uri: item.poster } }}
+  //             title={`${item.title}`}
+  //             titleStyle={{ color: 'black', fontWeight: 'bold', fontSize: '20' }}
+  //             subtitle={`${item.releaseDate}`}
+  //             subtitleStyle={{ color: 'black' }}
+  //           />
+  //         )}
+  //         keyExtractor={item => item.title} 
+  //         ItemSeparatorComponent={this.renderSeparator}
+  //         ListHeaderComponent={this.renderHeader}
+  //       />
+  //     </View>
+  //   );
+  // }
+
+  // searchMyCollection() {
+  //   alert(this.state.userCollectionData[0].title)
+  // }
+
   render() {
     let navigatePage = "";
     if (this.state.selectedIndex == 0){
@@ -77,15 +153,15 @@ export class MovieCollectionPage extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Ｍy Movies</Text>
+          <Text style={styles.headerText}>My Movies</Text>
           <View style={styles.headerButtons}>
             <Icon.Button
               name="search"
               color="black"
               backgroundColor="transparent"
-              // onPress={() => {
-              //   this.handleEdit(item);
-              // }}
+               onPress={() => {
+                 this.renderCollectionSearch(); // calls the function for pulling up the search bar
+               }}
             />
             <Icon.Button
               name="filter"
@@ -99,7 +175,7 @@ export class MovieCollectionPage extends React.Component {
         </View>
         <View style={styles.bodyContainer}>
           <FlatList
-            data={this.state.user.moviesCollection}
+            data={this.state.userCollectionData}
             numColumns={2}
             renderItem={({ item }) => {
               return (
@@ -117,6 +193,9 @@ export class MovieCollectionPage extends React.Component {
                 </TouchableOpacity>
               );
             }}
+            keyExtractor={item => item.id} 
+            ItemSeparatorComponent={this.renderSeparator}
+            ListHeaderComponent={this.renderHeader}
           />
         </View>
         <View style={styles.footerContainer}>
