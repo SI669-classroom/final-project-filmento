@@ -67,13 +67,11 @@ export class MCDetailPage extends React.Component {
   handleEdit(infoToEdit) {
     this.props.navigation.navigate("EditMovieCollection", {
       movieInfo: infoToEdit,
-      // labelCollection: this.state.labels,
       mainScreen: this
     });
   }
 
   render() {
-    console.log(this.movie["genre"]);
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -98,17 +96,19 @@ export class MCDetailPage extends React.Component {
               </Text>
             )}
           /> */}
-          <Image
-            style={styles.imageStyle}
-            resizeMode="contain"
-            source={{ uri: this.movie.poster }}
-          />
+          <View style={styles.infoImageContainer}>
+            <Image
+              style={styles.imageStyle}
+              resizeMode="contain"
+              source={{ uri: this.movie.poster }}
+            />
+          </View>
           <View style={styles.movieInfoContainer}>
             {/* <Text>Release Date: {this.movie["releaseDate"]}</Text> */}
-            <Text>Note: {this.movie.note}</Text>
-            <Text>Director: {this.movie.director}</Text>
-            <Text>Mood: {this.movie.emoji}</Text>
-            <Text>Genre: {this.movie.genre}</Text>
+            <Text style={styles.detailText}>Note: {this.movie.note}</Text>
+            <Text style={styles.detailText}>Director: {this.movie.director}</Text>
+            <Text style={styles.detailText}>Mood: {this.movie.emoji}</Text>
+            <Text style={styles.detailText}>Genre: {this.movie.genre}</Text>
           </View>
         </View>
         <View style={styles.footerContainer}></View>
