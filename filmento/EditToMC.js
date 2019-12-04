@@ -8,7 +8,7 @@ export class EditMCPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.info = this.props.navigation.getParam("info", undefined);
+    this.movieInfo = this.props.navigation.getParam("movieInfo", undefined);
     this.mainScreen = this.props.navigation.getParam("mainScreen");
 
     this.state = {};
