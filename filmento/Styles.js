@@ -4,13 +4,15 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1.0,
     justifyContent: "flex-start",
-    alignItems: "center"
+    alignItems: "center",
   },
   headerContainer: {
     flex: 0.1,
     justifyContent: "flex-start",
     width: "100%",
     flexDirection: "row",
+    borderBottomColor:'transparent',
+    borderTopColor:'transparent',
   },
   headerText: {
     flex: 0.7,
@@ -28,12 +30,12 @@ export const styles = StyleSheet.create({
   bodyContainer: {
     flex: 0.8,
     width: "100%",
-    justifyContent: "flex-start"
+    justifyContent: 'space-between'
   },
   infoImageContainer: {
     flex: 0.6, //here you can use flex:1 also
     aspectRatio: 1,
-    backgroundColor: "yellow",
+    //backgroundColor: "yellow",
     alignItems: 'center',
     alignSelf: 'center',
   },
@@ -54,13 +56,21 @@ export const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1, //here you can use flex:1 also
-    aspectRatio: 1,
-    backgroundColor: "yellow"
+    //aspectRatio: 1,
+    //backgroundColor: "yellow",
+    margin:16,
+    overflow:'hidden',
+    height:270,
+    width:180,
+    justifyContent:'center',
+    borderRadius: 10,
   },
   imageStyle: {
-    width: "90%",
-    height: "90%",
+    width: "120%",
+    height: "120%",
     alignSelf: "center",
+    resizeMode:'cover',
+    
   },
   footerContainer: {
     flex: 0.1,
@@ -74,6 +84,20 @@ export const styles = StyleSheet.create({
     width: '90%',
     borderColor: '#4189D6'
   },
+  posterContianer:{
+    flex:1,
+    shadowColor:'#000',
+    shadowOffset: { width: 1, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 3,
+    alignItems:'center'
+  },
+  searchBar:{
+  backgroundColor:'transparent',
+  borderBottomColor:'transparent',
+  borderTopColor:'transparent',
+  }
+  
 
 });
 

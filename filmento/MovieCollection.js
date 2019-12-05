@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
-import { ButtonGroup } from "react-native-elements";
+import { Overlay, ButtonGroup, SearchBar } from "react-native-elements";
 import { styles } from "./Styles";
 import firebase from "firebase";
 import "@firebase/firestore";
@@ -10,33 +10,34 @@ export class MovieCollectionPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.UID = this.props.navigation.getParam("UID");
+    //this.UID = this.props.navigation.getParam("UID");
 
     this.state = {
       user: [],
       selectedIndex: 0,
       movies: [],
-      userCollectionData: [], // this array is for storing the user collection movie data, will be used for searching within collection	      movies: []
-      arrayholder: [], // also for storing user collection movie data
+      arrayholder: [] ,// also for storing user collection movie data
+      //value: ''
     };
 
     this.db = firebase.firestore();
 
     // read entries collection from database and store in state
-    this.usersRef = this.db.collection("users").doc(this.UID);
+
+    //this.usersRef = this.db.collection("users").doc(this.UID);
+    this.usersRef = this.db.collection("users").doc("testsub");
 
     this.usersRef.get().then(queryRef => {
       let docData = queryRef.data();
-      let newUser = {
-        moviesCollection: docData.movies,
-
-        wishList: docData.wishList
-      };
+      //let newUser = {
+      // moviesCollection: docData.movies,
+      // wishList: docData.wishList
+      //};
 
       this.setState({
-        user: newUser,
-        userCollectionData: docData.movies,
-        arrayholder: docData.movies
+        //user: newUser,
+        userCollectionData: docData.collection("movies"),
+        arrayholder: docData.collection("movies")
       });
     });
 
@@ -63,7 +64,10 @@ export class MovieCollectionPage extends React.Component {
         };
         newMovies.push(newMovie);
       });
-      this.setState({ movies: newMovies });
+      this.setState({
+        movies: newMovies,
+        arrayholder: newMovies,
+      });
     });
 
     this.tabs = ["My Movies", "Watch List", "Friend List"];
@@ -89,12 +93,13 @@ export class MovieCollectionPage extends React.Component {
         }}
       />
     );
+    
   };
 
   searchFilterFunction = text => {
     this.setState({
-      value: text
-    });
+       value: text
+     });
 
     const newData = this.state.arrayholder.filter(item => {
       const itemData = `${item.title.toUpperCase()}`;
@@ -103,21 +108,28 @@ export class MovieCollectionPage extends React.Component {
       return itemData.indexOf(textData) > -1;
     });
     this.setState({
-      userCollectionData: newData
+      movies: newData,
+      //value: text
     });
+    console.log('check value', this.state.value)
+    console.log('newData', newData)
   };
 
   renderHeader = () => {
     return (
       <SearchBar
         placeholder="Search within My Movies"
-        darkTheme
+        //placeholderTextColor='#'
+        lightTheme
         round
         onChangeText={text => this.searchFilterFunction(text)}
         autoCorrect={false}
         value={this.state.value}
+        containerStyle={styles.searchBar}
+        inputContainerStyle={{ backgroundColor: "#eff0f1" }}
       />
     );
+    
   };
 
   // renderCollectionSearch = () => {
@@ -183,6 +195,7 @@ export class MovieCollectionPage extends React.Component {
   }
 
   render() {
+    console.log('test render')
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -209,18 +222,20 @@ export class MovieCollectionPage extends React.Component {
             numColumns={2}
             renderItem={({ item }) => {
               return (
-                <TouchableOpacity
-                  style={styles.imageContainer}
-                  onPress={() => {
-                    this.handleGoToMCDetail(item);
-                  }}
-                >
-                  <Image
-                    style={styles.imageStyle}
-                    resizeMode="contain"
-                    source={{ uri: item.poster }}
-                  />
-                </TouchableOpacity>
+                <View style={styles.posterContianer}>
+                  <TouchableOpacity
+                    style={styles.imageContainer}
+                    onPress={() => {
+                      this.handleGoToMCDetail(item);
+                    }}
+                  >
+                    <Image
+                      style={styles.imageStyle}
+                      resizeMode="contain"
+                      source={{ uri: item.poster }}
+                    />
+                  </TouchableOpacity>
+                </View>
               );
             }}
             keyExtractor={item => item.id}
