@@ -1,25 +1,23 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { LoginPage } from './Login';
-import { SignUpPage } from './SignUp';
-import { MovieCollectionPage} from './MovieCollection';
-import { AddToMCPage } from './AddToMC';
-import { EditMCPage } from './EditToMC';
-import { MCDetailPage } from './MCDetail';
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import { LoginPage } from "./Login";
+import { SignUpPage } from "./SignUp";
+import { MovieCollectionPage } from "./MovieCollection";
+import { AddToMCPage } from "./AddToMC";
+import { EditMCPage } from "./EditToMC";
+import { MCDetailPage } from "./MCDetail";
 //import { WatchListPage } from './WatchList';
 //import { AddToWLPage } from './AddToWL';
 //import { WLDetailPage } from './WLDetail';
 //import { FriendListPage } from './FriendList';
 
-
-const AuthStack = createStackNavigator({ 
+const AuthStack = createStackNavigator({
   Login: LoginPage,
-  SignUp: SignUpPage,
-  
+  SignUp: SignUpPage
 });
-const AppStack = createStackNavigator({ 
+const AppStack = createStackNavigator({
   MovieCollection: MovieCollectionPage,
-  AddMovieToCollection: AddToMCPage,
+  AddMovieToCollection: AddToMCPage
   //MovieCollectionDetail: MCDetailPage,
   //WatchList: WatchListPage,
   //AddMovietoWatchList: AddToWLPage,
@@ -29,31 +27,26 @@ const AppStack = createStackNavigator({
 
 const App = createSwitchNavigator(
   {
-    Auth: AuthStack,  
+    Auth: AuthStack,
     App: AppStack,
     // Login: LoginPage,
     // SignUp: SignUpPage,
     MovieCollection: MovieCollectionPage,
     AddMovieToCollection: AddToMCPage,
     EditMovieCollection: EditMCPage,
-    MovieCollectionDetail: MCDetailPage,
+    MovieCollectionDetail: MCDetailPage
     //WatchList: WatchListPage,
     //AddMovietoWatchList: AddToWLPage,
     //WatchListDetail: WLDetailPage,
     //FriendList: FriendListPage,
   },
   {
-    initialRouteName: 'Auth',
+    initialRouteName: "Auth"
   }
 );
-
-
-
 
 const AppContainer = createAppContainer(App);
 
 export default AppContainer;
 
-
 //test2@gmail.com
-

@@ -8,12 +8,9 @@ export class AddToMCPage extends React.Component {
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Add movie </Text>
-          <View style={styles.headerButtons}>
-            
-          </View>
+          <View style={styles.headerButtons}></View>
         </View>
-        <View style={styles.bodyContainer}>
-        </View>
+        <View style={styles.bodyContainer}></View>
         <View style={styles.footerContainer}></View>
       </View>
     );

@@ -6,23 +6,17 @@ import firebase from "firebase";
 import "@firebase/firestore";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-
-
 export class MovieCollectionPage extends React.Component {
   constructor(props) {
     super(props);
 
-
-    this.UID = this.props.navigation.getParam('UID');
-
+    this.UID = this.props.navigation.getParam("UID");
 
     this.state = {
       user: [],
       selectedIndex: 0,
-      movies: [],
-      passMovie: {}
+      movies: []
     };
-
 
     this.db = firebase.firestore();
 
@@ -37,10 +31,10 @@ export class MovieCollectionPage extends React.Component {
         wishList: docData.wishList
       };
 
-      this.setState({ 
-        user: newUser, 
+      this.setState({
+        user: newUser,
         userCollectionData: docData.movies,
-        arrayholder: docData.movies,
+        arrayholder: docData.movies
       });
     });
 
@@ -87,9 +81,9 @@ export class MovieCollectionPage extends React.Component {
       <View
         style={{
           height: 1,
-          width: '86%',
-          backgroundColor: '#CED0CE',
-          marginLeft: '14%',
+          width: "86%",
+          backgroundColor: "#CED0CE",
+          marginLeft: "14%"
         }}
       />
     );
@@ -97,7 +91,7 @@ export class MovieCollectionPage extends React.Component {
 
   searchFilterFunction = text => {
     this.setState({
-      value: text,
+      value: text
     });
 
     const newData = this.state.arrayholder.filter(item => {
@@ -107,7 +101,7 @@ export class MovieCollectionPage extends React.Component {
       return itemData.indexOf(textData) > -1;
     });
     this.setState({
-      userCollectionData: newData,
+      userCollectionData: newData
     });
   };
 
@@ -126,7 +120,7 @@ export class MovieCollectionPage extends React.Component {
 
   // renderCollectionSearch = () => {
   //   return (
-  //     <View style={{ flex: 1 }}>          
+  //     <View style={{ flex: 1 }}>
   //       <FlatList
   //         data={this.state.userCollectionData}
   //         renderItem={({ item }) => (
@@ -138,7 +132,7 @@ export class MovieCollectionPage extends React.Component {
   //             subtitleStyle={{ color: 'black' }}
   //           />
   //         )}
-  //         keyExtractor={item => item.title} 
+  //         keyExtractor={item => item.title}
   //         ItemSeparatorComponent={this.renderSeparator}
   //         ListHeaderComponent={this.renderHeader}
   //       />
@@ -196,9 +190,9 @@ export class MovieCollectionPage extends React.Component {
               name="search"
               color="black"
               backgroundColor="transparent"
-               onPress={() => {
-                 this.renderCollectionSearch(); // calls the function for pulling up the search bar
-               }}
+              onPress={() => {
+                this.renderCollectionSearch(); // calls the function for pulling up the search bar
+              }}
             />
             <Icon.Button
               name="filter"
@@ -227,7 +221,7 @@ export class MovieCollectionPage extends React.Component {
                 </TouchableOpacity>
               );
             }}
-            keyExtractor={item => item.id} 
+            keyExtractor={item => item.id}
             ItemSeparatorComponent={this.renderSeparator}
             ListHeaderComponent={this.renderHeader}
           />
@@ -254,6 +248,4 @@ export class MovieCollectionPage extends React.Component {
       </View>
     );
   }
-
 }
-

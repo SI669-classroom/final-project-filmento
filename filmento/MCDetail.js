@@ -9,17 +9,17 @@ export class MCDetailPage extends React.Component {
 
     this.movie = this.props.navigation.getParam("movie", undefined);
     this.updateMovie = this.props.navigation.getParam("updateMovie");
-    
+
     this.state = {
       movie: this.movie
-    }
+    };
   }
 
   handleEdit(movieToUpdate) {
     this.props.navigation.navigate("EditMovieCollection", {
       movieInfo: movieToUpdate,
       mainScreen: this.mainScreen,
-      updateMovieDetail: movie => this.updateMovieDetail(movie),
+      updateMovieDetail: movie => this.updateMovieDetail(movie)
     });
   }
 
@@ -63,7 +63,9 @@ export class MCDetailPage extends React.Component {
             <Text style={styles.detailText}> {this.state.movie.emoji}</Text>
             <Text style={styles.detailTitle}>Labels</Text>
             <Text style={styles.detailText}> {this.state.movie.labels}</Text>
-            <Text style={styles.detailTitle}>Who watched this movie with me</Text>
+            <Text style={styles.detailTitle}>
+              Who watched this movie with me
+            </Text>
             <Text style={styles.detailText}> {this.state.movie.tag}</Text>
           </View>
         </View>
