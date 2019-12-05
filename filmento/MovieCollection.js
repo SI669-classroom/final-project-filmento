@@ -30,7 +30,8 @@ export class MovieCollectionPage extends React.Component {
     this.state = {
       user: [],
       selectedIndex: 0,
-      movies: []
+      movies: [],
+      passMovie: {}
     };
 
     // set up database
@@ -74,7 +75,6 @@ export class MovieCollectionPage extends React.Component {
         };
         newMovies.push(newMovie);
       });
-      // newEntries.sort((a, b) => (a.priority > b.priority) ? 1 : -1) //get sorting code from https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
       this.setState({ movies: newMovies });
     });
 
@@ -84,16 +84,7 @@ export class MovieCollectionPage extends React.Component {
   handleGoToMCDetail(clickedMovie) {
     this.props.navigation.navigate("MovieCollectionDetail", {
       movie: clickedMovie,
-      mainScreen: this,
-      updateMovie: (movie) => this.updateMovie(movie)
-    });
-  }
-
-  //still don't know how to navigate to other page
-  handleTab(item) {
-    this.props.navigation.navigate(navigatePage, {
-      user: this.state.user,
-      mainScreen: this
+      updateMovie: movie => this.updateMovie(movie)
     });
   }
 
@@ -108,9 +99,6 @@ export class MovieCollectionPage extends React.Component {
   }
 
   updateMovie(movieToUpdate) {
-    //let entryKey = entryToUpdate.key;
-    console.log('movieToUpdate', movieToUpdate);
-    console.log('movieToUpdate.releasedate', movieToUpdate.releaseDate);
     this.moviesRef
       .doc(movieToUpdate.key)
       .set({
@@ -135,20 +123,10 @@ export class MovieCollectionPage extends React.Component {
         }
         this.setState({ movies: newMovies });
       });
+      
   }
 
   render() {
-    // console.log(this.state.user);
-    console.log("test console log", this.state.movies);
-    let navigatePage = "";
-    if (this.state.selectedIndex == 0) {
-      navigatePage == "MovieCollection";
-    } else if (this.state.selectedIndex == 1) {
-      navigatePage == "WatchList";
-    } else if (this.state.selectedIndex == 2) {
-      navigatePage == "FriendList";
-    }
-
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
