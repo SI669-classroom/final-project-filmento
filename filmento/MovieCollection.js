@@ -15,7 +15,9 @@ export class MovieCollectionPage extends React.Component {
     this.state = {
       user: [],
       selectedIndex: 0,
-      movies: []
+      movies: [],
+      userCollectionData: [], // this array is for storing the user collection movie data, will be used for searching within collection	      movies: []
+      arrayholder: [], // also for storing user collection movie data
     };
 
     this.db = firebase.firestore();
