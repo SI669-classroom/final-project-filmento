@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
-import { ButtonGroup } from "react-native-elements";
+import { Overlay, ButtonGroup, SearchBar } from "react-native-elements";
 import { styles } from "./Styles";
 import firebase from "firebase";
 import "@firebase/firestore";
@@ -10,7 +10,7 @@ export class MovieCollectionPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.UID = this.props.navigation.getParam("UID");
+    //this.UID = this.props.navigation.getParam("UID");
 
     this.state = {
       user: [],
@@ -23,7 +23,9 @@ export class MovieCollectionPage extends React.Component {
     this.db = firebase.firestore();
 
     // read entries collection from database and store in state
-    this.usersRef = this.db.collection("users").doc(this.UID);
+
+    //this.usersRef = this.db.collection("users").doc(this.UID);
+    this.usersRef = this.db.collection("users").doc('testsub');
 
     this.usersRef.get().then(queryRef => {
       let docData = queryRef.data();
@@ -111,11 +113,15 @@ export class MovieCollectionPage extends React.Component {
     return (
       <SearchBar
         placeholder="Search within My Movies"
-        darkTheme
+        //placeholderTextColor='#'
+        lightTheme
         round
         onChangeText={text => this.searchFilterFunction(text)}
         autoCorrect={false}
         value={this.state.value}
+        containerStyle={styles.searchBar}
+        inputContainerStyle={{backgroundColor:'#eff0f1'}}
+        
       />
     );
   };
@@ -209,18 +215,20 @@ export class MovieCollectionPage extends React.Component {
             numColumns={2}
             renderItem={({ item }) => {
               return (
-                <TouchableOpacity
-                  style={styles.imageContainer}
-                  onPress={() => {
-                    this.handleGoToMCDetail(item);
-                  }}
-                >
-                  <Image
-                    style={styles.imageStyle}
-                    resizeMode="contain"
-                    source={{ uri: item.poster }}
-                  />
-                </TouchableOpacity>
+                <View style={styles.posterContianer}>
+                  <TouchableOpacity
+                    style={styles.imageContainer}
+                    onPress={() => {
+                      this.handleGoToMCDetail(item);
+                    }}
+                  >
+                    <Image
+                      style={styles.imageStyle}
+                      resizeMode="contain"
+                      source={{ uri: item.poster }}
+                    />
+                  </TouchableOpacity>
+                </View>
               );
             }}
             keyExtractor={item => item.id}

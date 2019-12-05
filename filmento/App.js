@@ -17,13 +17,14 @@ const AuthStack = createStackNavigator({
 });
 const AppStack = createStackNavigator({
   MovieCollection: MovieCollectionPage,
-  AddMovieToCollection: AddToMCPage
-  //MovieCollectionDetail: MCDetailPage,
+  AddMovieToCollection: AddToMCPage,
+  MovieCollectionDetail: MCDetailPage,
   //WatchList: WatchListPage,
   //AddMovietoWatchList: AddToWLPage,
   //WatchListDetail: WLDetailPage,
   //FriendList: FriendListPage,
-});
+}
+);
 
 const App = createSwitchNavigator(
   {
@@ -31,17 +32,17 @@ const App = createSwitchNavigator(
     App: AppStack,
     // Login: LoginPage,
     // SignUp: SignUpPage,
-    MovieCollection: MovieCollectionPage,
-    AddMovieToCollection: AddToMCPage,
-    EditMovieCollection: EditMCPage,
-    MovieCollectionDetail: MCDetailPage
+    //MovieCollection: MovieCollectionPage,
+    //AddMovieToCollection: AddToMCPage,
+    //EditMovieCollection: EditMCPage,
+    //MovieCollectionDetail: MCDetailPage
     //WatchList: WatchListPage,
     //AddMovietoWatchList: AddToWLPage,
     //WatchListDetail: WLDetailPage,
     //FriendList: FriendListPage,
   },
   {
-    initialRouteName: "Auth"
+    initialRouteName: "App"
   }
 );
 
