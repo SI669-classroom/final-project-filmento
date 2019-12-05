@@ -24,44 +24,41 @@ const firebaseConfig = {
   appId: "1:1085644586813:web:354b9a69d3c17cfdbb4f54"
 };
 
-export class MovieCollectionPage extends React.Component {
+export class FriendCollectionPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       user: {},
       selectedIndex: 0,
-      //prevIndex: 0, // Stores previous page index, initialize with number same as default
       userCollectionData: [], // this array is for storing the user collection movie data, will be used for searching within collection
       arrayholder: [], // also for storing user collection movie data
     };
 
+    this.friendAccountEmail = this.props.navigation.getParam('friendAccountEmail') // get friend accounnt email from previous screen
+
     this.navigatePage = "";
 
-    // set up database
-    firebase.initializeApp(firebaseConfig);
     this.db = firebase.firestore();
 
     // read entries collection from database and store in state
-    this.usersRef = this.db.collection("users").doc("testsub");
-    this.usersRef.get().then(queryRef => {
+    this.userRef = this.db.collection("users").doc(this.friendAccountEmail);
+    this.userRef.get().then(queryRef => {
       let docData = queryRef.data();
       let newUser = {
-        moviesCollection: docData.collection('movies'),
+        username: docData.username,
+        moviesCollection: docData.movies,
         password: docData.password,
         wishList: docData.wishList
-      };      
-      
+      };
+
       this.setState({ 
         user: newUser, 
-        userCollectionData: docData.collection('movies'),
-        arrayholder: docData.collection('movies'),
+        userCollectionData: docData.movies,
+        arrayholder: docData.movies,
       });
-      
-      alert('this.state.userCollectionData[0].director')
-
     });
 
-    this.tabs = ["My Movies", "Watch List", "Friend List"];
+    //this.tabs = ["My Movies", "Watch List", "Friend List"];
   }
 
   handleGoToInfo(clickedMovie) {
@@ -125,7 +122,7 @@ export class MovieCollectionPage extends React.Component {
   renderHeader = () => {
     return (
       <SearchBar
-        placeholder="Search within My Movies"
+        placeholder="Search within collection"
         lightTheme
         round
         onChangeText={text => this.searchFilterFunction(text)}
@@ -140,29 +137,23 @@ export class MovieCollectionPage extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>My Movies</Text>
+          <Text style={styles.friendCollectionHeaderText}>{this.state.user.username}'s Collection</Text>
           <View style={styles.headerButtons}>
             <Icon.Button
               name="search"
               color="black"
               backgroundColor="transparent"
-              //  onPress={() => {
-              //   //  this.renderCollectionSearch(); // calls the function for pulling up the search bar
-              //  }}
             />
             <Icon.Button
               name="filter"
               color="black"
               backgroundColor="transparent"
-              // onPress={() => {
-              //   this.handleEdit(item);
-              // }}
             />
           </View>
         </View>
         <View style={styles.bodyContainer}>
           <FlatList
-            data={this.state.userCollectionData}
+            data={this.state.user.moviesCollection}
             numColumns={2}
             renderItem={({ item }) => {
               return (
@@ -185,7 +176,7 @@ export class MovieCollectionPage extends React.Component {
             ListHeaderComponent={this.renderHeader}
           />
         </View>
-        <View style={styles.footerContainer}>
+        {/* <View style={styles.footerContainer}>
           <ButtonGroup
             onPress={ newIndex =>
               //newIndex =>
@@ -201,7 +192,7 @@ export class MovieCollectionPage extends React.Component {
             buttonStyle={styles.buttonGroupStyle}
             textStyle={styles.buttonGroupText}
           />
-        </View>
+        </View> */}
       </View>
     );
   }

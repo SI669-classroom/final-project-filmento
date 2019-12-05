@@ -19,6 +19,14 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10
   },
+  friendCollectionHeaderText: {
+    flex: 0.7,
+    fontSize: 18,
+    textAlign: "left",
+    alignItems: "center",
+    padding: 10,
+    marginTop: 14,
+  },
   headerButtons: {
     flex: 0.3,
     justifyContent: "flex-end",
@@ -33,7 +41,7 @@ export const styles = StyleSheet.create({
   imageContainer: {
     flex: 1, //here you can use flex:1 also
     aspectRatio: 1,
-    backgroundColor: "yellow"
+    backgroundColor: "white"
   },
   imageStyle: {
     width: "100%",
@@ -50,6 +58,19 @@ export const styles = StyleSheet.create({
     // flexDirection: 'column',
     flex: 0.8,
     width: '90%',
-    borderColor: '#4189D6'
+    //borderColor: '#4189D6'
+    borderColor: 'gray'
   },
+  buttonGroupStyle:{
+    backgroundColor: 'black'
+  },
+  buttonGroupText:{
+    color: '#b8b8b8'
+  },
+  buttonGroupSelected:{
+    backgroundColor: 'gray'
+  },
+  buttonGroupSelectedText:{
+    color: 'white'
+  }
 });

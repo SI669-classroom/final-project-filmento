@@ -9,6 +9,8 @@ import { WatchListPage } from './WatchList';
 //import { AddToWLPage } from './AddToWL';
 //import { WLDetailPage } from './WLDetail';
 import { FriendListPage } from './FriendList';
+import { FriendCollectionPage } from './FriendCollection';
+import { AddFriendPage } from './AddFriend';
 
 const AppNavigator = createStackNavigator(
   {
@@ -21,6 +23,8 @@ const AppNavigator = createStackNavigator(
     //AddMovietoWatchList: AddToWLPage,
     //WatchListDetail: WLDetailPage,
     FriendList: FriendListPage,
+    FriendCollection: FriendCollectionPage,
+    AddFriend: AddFriendPage,
   },
   {
     initialRouteName: "MovieCollection"
