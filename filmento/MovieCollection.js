@@ -64,7 +64,7 @@ export class MovieCollectionPage extends React.Component {
           key: docRef.id,
           title: docData.title,
           director: docData.director,
-          releasedate: docData.releaseDate,
+          releaseDate: docData.releaseDate,
           poster: docData.poster,
           genre: docData.genre,
           note: docData.note,
@@ -81,10 +81,11 @@ export class MovieCollectionPage extends React.Component {
     this.tabs = ["My Movies", "Watch List", "Friend List"];
   }
 
-  handleGoToInfo(clickedMovie) {
+  handleGoToMCDetail(clickedMovie) {
     this.props.navigation.navigate("MovieCollectionDetail", {
       movie: clickedMovie,
-      mainScreen: this
+      mainScreen: this,
+      updateMovie: (movie) => this.updateMovie(movie)
     });
   }
 
@@ -106,20 +107,22 @@ export class MovieCollectionPage extends React.Component {
     });
   }
 
-  updateEntry(movieToUpdate) {
+  updateMovie(movieToUpdate) {
     //let entryKey = entryToUpdate.key;
+    console.log('movieToUpdate', movieToUpdate);
+    console.log('movieToUpdate.releasedate', movieToUpdate.releaseDate);
     this.moviesRef
       .doc(movieToUpdate.key)
       .set({
-        title: docData.title,
-        director: docData.director,
-        releasedate: docData.releaseDate,
-        poster: docData.poster,
-        genre: docData.genre,
-        note: docData.note,
-        emoji: docData.emoji,
-        labels: docData.labels,
-        tag: docData.tag
+        title: movieToUpdate.title,
+        director: movieToUpdate.director,
+        releaseDate: movieToUpdate.releaseDate,
+        poster: movieToUpdate.poster,
+        genre: movieToUpdate.genre,
+        note: movieToUpdate.note,
+        emoji: movieToUpdate.emoji,
+        labels: movieToUpdate.labels,
+        tag: movieToUpdate.tag
       })
       .then(() => {
         let newMovies = [];
@@ -178,7 +181,7 @@ export class MovieCollectionPage extends React.Component {
                 <TouchableOpacity
                   style={styles.imageContainer}
                   onPress={() => {
-                    this.handleGoToInfo(item);
+                    this.handleGoToMCDetail(item);
                   }}
                 >
                   <Image

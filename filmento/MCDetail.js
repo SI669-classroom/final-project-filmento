@@ -3,6 +3,8 @@ import { View, Text, FlatList, Image } from "react-native";
 // import { Button, Input, CheckBox, ButtonGroup } from 'react-native-elements';
 import { styles } from "./Styles";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Overlay } from "react-native-elements";
+import { MovieCollectionPage } from "./MovieCollection";
 
 export class MCDetailPage extends React.Component {
   constructor(props) {
@@ -10,64 +12,19 @@ export class MCDetailPage extends React.Component {
 
     this.movie = this.props.navigation.getParam("movie", undefined);
     this.mainScreen = this.props.navigation.getParam("mainScreen");
+    this.updateMovie = this.props.navigation.getParam("updateMovie");
 
-    this.state = {};
+    this.state = {
+      movieDetail:this.movie,
+      emoji: this.movie.emoji
+    };
   }
-
-  //   componentDidMount() {
-  //     let newLabels = []
-  //     let initialCategoryIndex = 0;
-  //     let newPriotity = []
-  //     let initialPriorityIndex = 0;
-
-  //     let i = 0;
-  //     for (label of this.labelCollection) {
-  //       if (this.entryToUpdate && this.entryToUpdate.label && label.name.toLowerCase() == this.entryToUpdate.label.toLowerCase()) {
-  //         initialCategoryIndex = i;
-  //       }
-  //       newLabels.push(label.name)
-  //       i++;
-  //     };
-
-  //     let j = 0;
-  //     for (priority of this.priorities) {
-  //       if (this.entryToUpdate && this.entryToUpdate.priority && j == this.entryToUpdate.priority){
-  //         initialPriorityIndex = j;
-  //       }
-  //       newPriotity.push(priority)
-  //       j++
-  //     }
-
-  //     this.setState({
-  //       labels: newLabels,
-  //       categorySelectedIndex: initialCategoryIndex,
-  //       prioritySelectedIndex: initialPriorityIndex
-  //     });
-  //   }
-
-  //   handleSave = () => {
-  //     let { labels, categorySelectedIndex } = this.state;
-  //     let newEntry = {
-  //       summary: this.state.inputSummary,
-  //       detail:this.state.inputDetail,
-  //       timestamp: new Date(Date.now()),
-  //       label: labels[categorySelectedIndex],
-  //       priority: this.state.prioritySelectedIndex,
-  //       isCheck: this.state.isCheck
-  //     };
-  //     let mainScreen = this.props.navigation.getParam('mainScreen');
-  //     if (this.isAdd) {
-  //       mainScreen.addEntry(newEntry);
-  //     } else {
-  //       newEntry.key = this.entryToUpdate.key;
-  //       mainScreen.updateEntry(newEntry);
-  //     }
-  //     this.props.navigation.goBack();
-  //   }
-  handleEdit(infoToEdit) {
+  
+  handleEdit(movieToUpdate) {
     this.props.navigation.navigate("EditMovieCollection", {
-      movieInfo: infoToEdit,
-      mainScreen: this
+      movieInfo: movieToUpdate,
+      mainScreen: this.mainScreen,
+      updateMovie: movie => this.updateMovie(movie)
     });
   }
 
@@ -75,14 +32,14 @@ export class MCDetailPage extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>{this.movie.title}</Text>
+          <Text style={styles.headerText}>{this.state.movieDetail.title}</Text>
           <View style={styles.headerButtons}>
             <Icon.Button
               name="edit"
               color="black"
               backgroundColor="transparent"
               onPress={() => {
-                this.handleEdit(this.movie);
+                this.handleEdit(this.state.movieDetail);
               }}
             />
           </View>
@@ -100,15 +57,21 @@ export class MCDetailPage extends React.Component {
             <Image
               style={styles.imageStyle}
               resizeMode="contain"
-              source={{ uri: this.movie.poster }}
+              source={{ uri: this.state.movieDetail.poster }}
             />
           </View>
           <View style={styles.movieInfoContainer}>
             {/* <Text>Release Date: {this.movie["releaseDate"]}</Text> */}
-            <Text style={styles.detailText}>Note: {this.movie.note}</Text>
-            <Text style={styles.detailText}>Director: {this.movie.director}</Text>
-            <Text style={styles.detailText}>Mood: {this.movie.emoji}</Text>
-            <Text style={styles.detailText}>Genre: {this.movie.genre}</Text>
+            <Text style={styles.detailTitle}>Director</Text>
+            <Text style={styles.detailText}>{this.state.movieDetail.director} </Text>
+            <Text style={styles.detailTitle}>Genre</Text>
+            <Text style={styles.detailText}>{this.state.movieDetail.genre}</Text>
+            <Text style={styles.detailTitle}>Note</Text>
+            <Text style={styles.detailText}>{this.state.movieDetail.note}</Text>
+            <Text style={styles.detailTitle}>Mood</Text>
+            <Text style={styles.detailText}> {this.state.emoji}</Text>
+            <Text style={styles.detailTitle}>Labels</Text>
+            <Text style={styles.detailText}> {this.state.movieDetail.labels}</Text>
           </View>
         </View>
         <View style={styles.footerContainer}></View>
