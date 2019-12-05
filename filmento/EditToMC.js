@@ -10,14 +10,13 @@ export class EditMCPage extends React.Component {
 
     this.movie = this.props.navigation.getParam("movieInfo", undefined);
     this.mainScreen = this.props.navigation.getParam("mainScreen");
-    this.updateMovie = this.props.navigation.getParam("updateMovie");
-    this.isAdd = typeof this.movie === "undefined";
+    this.updateMovieDetail = this.props.navigation.getParam("updateMovieDetail");
 
-    console.log("movie", this.movie);
+    this.isAdd = typeof this.movie === "undefined";
 
     let initNote = "";
     let initMood = "";
-    this.emojiList = [" ", "😆", "🤔", "😪", "😱", "😡", "😭", "😍"];
+    this.emojiList = [ "😆", "🤔", "😪", "😱", "😡", "😭", "😍"];
 
     if (!this.isAdd) {
       initNote = this.movie.note;
@@ -36,7 +35,7 @@ export class EditMCPage extends React.Component {
     let newEmojiList = [];
     let initialIndex = 0;
     let i = 0;
-    
+
     for (emoji of this.emojiList) {
       if (emoji == this.movie.emoji) {
         initialIndex = i;
@@ -69,8 +68,7 @@ export class EditMCPage extends React.Component {
       mainScreen.addMovie(newMovie);
     } else {
       newMovie.key = this.movie.key;
-      // mainScreen.updateMovie(newMovie);
-      this.updateMovie(newMovie);
+      this.updateMovieDetail(newMovie);
     }
     this.props.navigation.goBack();
   };
