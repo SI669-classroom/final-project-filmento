@@ -1,10 +1,7 @@
 import React from "react";
-import { View, Text, FlatList, Image } from "react-native";
-// import { Button, Input, CheckBox, ButtonGroup } from 'react-native-elements';
+import { View, Text, Image } from "react-native";
 import { styles } from "./Styles";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Overlay } from "react-native-elements";
-import { MovieCollectionPage } from "./MovieCollection";
 
 export class MCDetailPage extends React.Component {
   constructor(props) {

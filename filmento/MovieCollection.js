@@ -1,14 +1,6 @@
 import React from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  Switch,
-  SegmentedControlIOSComponent,
-  Image,
-  TouchableOpacity
-} from "react-native";
-import { Overlay, ButtonGroup, SearchBar } from "react-native-elements";
+import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
+import { ButtonGroup } from "react-native-elements";
 import { styles } from "./Styles";
 import firebase from "firebase";
 import "@firebase/firestore";
@@ -192,7 +184,6 @@ export class MovieCollectionPage extends React.Component {
         }
         this.setState({ movies: newMovies });
       });
-      
   }
 
   render() {
@@ -213,9 +204,6 @@ export class MovieCollectionPage extends React.Component {
               name="filter"
               color="black"
               backgroundColor="transparent"
-              // onPress={() => {
-              //   this.handleEdit(item);
-              // }}
             />
           </View>
         </View>
@@ -250,10 +238,6 @@ export class MovieCollectionPage extends React.Component {
             selectedIndex={this.state.selectedIndex}
             buttons={this.tabs}
             containerStyle={styles.buttonGroupContainer}
-            // selectedButtonStyle={styles.buttonGroupSelected}
-            // selectedTextStyle={styles.buttonGroupSelectedText}
-            // buttonStyle={styles.buttonGroupStyle}
-            // textStyle={styles.buttonGroupText}
           />
           <Icon.Button
             name="plus-circle"

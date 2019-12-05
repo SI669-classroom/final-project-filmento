@@ -1,8 +1,7 @@
 import React from "react";
-import { View, Text, FlatList, Image, Picker } from "react-native";
-import { Button, Input, CheckBox, ButtonGroup } from "react-native-elements";
+import { View, Text, Image } from "react-native";
+import { Button, Input, ButtonGroup } from "react-native-elements";
 import { styles } from "./Styles";
-import Icon from "react-native-vector-icons/FontAwesome";
 
 export class EditMCPage extends React.Component {
   constructor(props) {
@@ -10,13 +9,15 @@ export class EditMCPage extends React.Component {
 
     this.movie = this.props.navigation.getParam("movieInfo", undefined);
     this.mainScreen = this.props.navigation.getParam("mainScreen");
-    this.updateMovieDetail = this.props.navigation.getParam("updateMovieDetail");
+    this.updateMovieDetail = this.props.navigation.getParam(
+      "updateMovieDetail"
+    );
 
     this.isAdd = typeof this.movie === "undefined";
 
     let initNote = "";
     let initMood = "";
-    this.emojiList = [ "😆", "🤔", "😪", "😱", "😡", "😭", "😍"];
+    this.emojiList = ["😆", "🤔", "😪", "😱", "😡", "😭", "😍"];
 
     if (!this.isAdd) {
       initNote = this.movie.note;
@@ -51,7 +52,6 @@ export class EditMCPage extends React.Component {
   }
 
   handleSave = () => {
-    // let { labels, categorySelectedIndex } = this.state;
     let newMovie = {
       note: this.state.inputNote,
       emoji: this.emojiList[this.state.selectedIndex],
@@ -88,7 +88,6 @@ export class EditMCPage extends React.Component {
             />
           </View>
           <View style={styles.movieInfoContainer}>
-            {/* <Text>Release Date: {this.movie["releaseDate"]}</Text> */}
             <Text style={styles.detailTitle}>Title</Text>
             <Text style={styles.detailText}>{this.movie.title} </Text>
             <Text style={styles.detailTitle}>Director</Text>
@@ -99,8 +98,6 @@ export class EditMCPage extends React.Component {
             <Input
               multiline={true}
               placeholder="Note"
-              // inputContainerStyle={styles.largeInput}
-              // containerStyle={{justifyContent: 'flex-start'}}
               value={this.state.inputNote}
               onChangeText={value => {
                 this.setState({ inputNote: value });
@@ -112,11 +109,6 @@ export class EditMCPage extends React.Component {
                 onPress={newIndex => this.setState({ selectedIndex: newIndex })}
                 selectedIndex={this.state.selectedIndex}
                 buttons={this.emojiList}
-                // containerStyle={styles.buttonGroupContainer}
-                // selectedButtonStyle={styles.buttonGroupSelected}
-                // selectedTextStyle={styles.buttonGroupSelectedText}
-                // buttonStyle={styles.buttonGroupStyle}
-                // textStyle={styles.buttonGroupText}
               />
             </View>
           </View>
@@ -129,11 +121,7 @@ export class EditMCPage extends React.Component {
               this.props.navigation.goBack();
             }}
           />
-          <Button
-            title="Save"
-            // containerStyle={styles.mediumButtonContainer}
-            onPress={this.handleSave}
-          />
+          <Button title="Save" onPress={this.handleSave} />
         </View>
       </View>
     );
