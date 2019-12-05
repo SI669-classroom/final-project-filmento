@@ -16,8 +16,8 @@ export class MovieCollectionPage extends React.Component {
       user: [],
       selectedIndex: 0,
       movies: [],
-      userCollectionData: [], // this array is for storing the user collection movie data, will be used for searching within collection	      movies: []
-      arrayholder: [], // also for storing user collection movie data
+      arrayholder: [] ,// also for storing user collection movie data
+      //value: ''
     };
 
     this.db = firebase.firestore();
@@ -25,20 +25,19 @@ export class MovieCollectionPage extends React.Component {
     // read entries collection from database and store in state
 
     //this.usersRef = this.db.collection("users").doc(this.UID);
-    this.usersRef = this.db.collection("users").doc('testsub');
+    this.usersRef = this.db.collection("users").doc("testsub");
 
     this.usersRef.get().then(queryRef => {
       let docData = queryRef.data();
-      let newUser = {
-        moviesCollection: docData.movies,
-
-        wishList: docData.wishList
-      };
+      //let newUser = {
+      // moviesCollection: docData.movies,
+      // wishList: docData.wishList
+      //};
 
       this.setState({
-        user: newUser,
-        userCollectionData: docData.movies,
-        arrayholder: docData.movies
+        //user: newUser,
+        userCollectionData: docData.collection("movies"),
+        arrayholder: docData.collection("movies")
       });
     });
 
@@ -65,7 +64,10 @@ export class MovieCollectionPage extends React.Component {
         };
         newMovies.push(newMovie);
       });
-      this.setState({ movies: newMovies });
+      this.setState({
+        movies: newMovies,
+        arrayholder: newMovies,
+      });
     });
 
     this.tabs = ["My Movies", "Watch List", "Friend List"];
@@ -91,12 +93,13 @@ export class MovieCollectionPage extends React.Component {
         }}
       />
     );
+    
   };
 
   searchFilterFunction = text => {
     this.setState({
-      value: text
-    });
+       value: text
+     });
 
     const newData = this.state.arrayholder.filter(item => {
       const itemData = `${item.title.toUpperCase()}`;
@@ -105,8 +108,11 @@ export class MovieCollectionPage extends React.Component {
       return itemData.indexOf(textData) > -1;
     });
     this.setState({
-      userCollectionData: newData
+      movies: newData,
+      //value: text
     });
+    console.log('check value', this.state.value)
+    console.log('newData', newData)
   };
 
   renderHeader = () => {
@@ -120,10 +126,10 @@ export class MovieCollectionPage extends React.Component {
         autoCorrect={false}
         value={this.state.value}
         containerStyle={styles.searchBar}
-        inputContainerStyle={{backgroundColor:'#eff0f1'}}
-        
+        inputContainerStyle={{ backgroundColor: "#eff0f1" }}
       />
     );
+    
   };
 
   // renderCollectionSearch = () => {
@@ -189,6 +195,7 @@ export class MovieCollectionPage extends React.Component {
   }
 
   render() {
+    console.log('test render')
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>

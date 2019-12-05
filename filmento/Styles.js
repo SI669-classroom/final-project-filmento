@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
   infoImageContainer: {
     flex: 0.6, //here you can use flex:1 also
     aspectRatio: 1,
-    backgroundColor: "yellow",
+    //backgroundColor: "yellow",
     alignItems: 'center',
     alignSelf: 'center',
   },
@@ -57,7 +57,7 @@ export const styles = StyleSheet.create({
   imageContainer: {
     flex: 1, //here you can use flex:1 also
     //aspectRatio: 1,
-    backgroundColor: "yellow",
+    //backgroundColor: "yellow",
     margin:16,
     overflow:'hidden',
     height:270,
