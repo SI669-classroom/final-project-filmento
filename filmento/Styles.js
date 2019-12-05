@@ -30,18 +30,40 @@ export const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "flex-start"
   },
+  infoImageContainer: {
+    flex: 0.6, //here you can use flex:1 also
+    aspectRatio: 1,
+    backgroundColor: "yellow",
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  movieInfoContainer: {
+    // marginTop: 10,
+    flex: 0.8,
+    width: "100%",
+  },
+  detailTitle:{
+    fontSize: 14,
+    textAlign: 'left',
+    marginLeft: 5,
+  },
+  detailText:{
+    fontSize: 16,
+    textAlign: 'left',
+    margin: 5,
+  },
   imageContainer: {
     flex: 1, //here you can use flex:1 also
     aspectRatio: 1,
     backgroundColor: "yellow"
   },
   imageStyle: {
-    width: "100%",
-    height: "100%",
-    alignSelf: "center"
+    width: "90%",
+    height: "90%",
+    alignSelf: "center",
   },
   footerContainer: {
-    flex: 0.2,
+    flex: 0.1,
     flexDirection: "row",
     width: "100%",
     justifyContent: "center"
