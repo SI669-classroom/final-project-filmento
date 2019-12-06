@@ -66,8 +66,8 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   imageStyle: {
-    width: "120%",
-    height: "120%",
+    width: "125%",
+    height: "125%",
     alignSelf: "center",
     resizeMode:'cover',
     
@@ -90,7 +90,10 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 1, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 3,
-    alignItems:'center'
+    alignItems:'center',
+  },
+  flatlistColumn:{
+    borderColor:'transparent',
   },
   searchBar:{
   backgroundColor:'transparent',
@@ -119,6 +122,10 @@ export const styles = StyleSheet.create({
     backgroundColor:'#eff0f1',
     borderRadius:20,
 
+  },
+  modalTagPressed:{
+    backgroundColor:'#000000',
+    borderRadius:20,
   },
   modalTagTitle:{
     fontSize:16,

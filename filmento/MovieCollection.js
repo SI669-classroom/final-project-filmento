@@ -20,7 +20,8 @@ export class MovieCollectionPage extends React.Component {
       arrayholder: [], // also for storing user collection movie data
       //value: ''
       isModalVisible: false,
-      genreTags: []
+      genreTags: [],
+      filterTags: []
     };
 
     this.db = firebase.firestore();
@@ -87,7 +88,7 @@ export class MovieCollectionPage extends React.Component {
 
   // The following functions are for searching within the collection
 
-  renderSeparator = () => {
+/*   renderSeparator = () => {
     return (
       <View
         style={{
@@ -98,7 +99,7 @@ export class MovieCollectionPage extends React.Component {
         }}
       />
     );
-  };
+  }; */
 
   searchFilterFunction = text => {
     this.setState({
@@ -150,6 +151,45 @@ export class MovieCollectionPage extends React.Component {
     };
     //newAllMovieGenres = new Set(AllMovieGenres);
     this.setState({genreTags:newAllMovieGenres});
+  };
+  
+  handleUpdateFilterGenre =(item) =>{
+    let newFilterTags =[]
+    
+    if (this.state.filterTags.includes(item)){
+      this.setState(this.state.filterTags.remove(item))
+      console.log('removed: ',this.state.filterTags)
+    }else{
+      newFilterTags.push(item);
+      console.log(': ',newFilterTags);
+      this.setState({filterTags: newFilterTags});
+    };
+    
+
+  };
+  handleSortMovieByFilterTag = () =>{
+    let filteredMoives =[];
+    if (this.state.filterTags != []){
+      for (movie of this.state.movies){
+        for (genre of movie.genre){
+          if (this.state.filterTags.includes(genre) && !filteredMoives.includes(movie)){
+            filteredMoives.push(movie);
+            console.log(filteredMoives);
+            this.setState({movies:filteredMoives});
+          }else{
+            //pass
+          }
+        }
+      }
+    }else{
+      //pass
+    }
+  handleFilterTagPress = (item) =>{
+    this.handleUpdateFilterGenre(item)
+    this.handleSortMovieByFilterTag();
+    
+  };  
+
   };
 
   // renderCollectionSearch = () => {
@@ -215,7 +255,7 @@ export class MovieCollectionPage extends React.Component {
   }
 
   render() {
-    console.log(this.state.genreTags);
+    //console.log(this.state.genreTags);
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -229,12 +269,15 @@ export class MovieCollectionPage extends React.Component {
                 this.renderCollectionSearch(); // calls the function for pulling up the search bar
               }}
             />
+            <TouchableOpacity >
             <Icon.Button
               name="filter"
               color="black"
               backgroundColor="transparent"
               onPress={this.toggleModal}
             />
+            </TouchableOpacity>
+            
           </View>
         </View>
         <View style={styles.bodyContainer}>
@@ -260,7 +303,6 @@ export class MovieCollectionPage extends React.Component {
               );
             }}
             keyExtractor={item => item.id}
-            ItemSeparatorComponent={this.renderSeparator}
             ListHeaderComponent={this.renderHeader}
           />
         </View>
@@ -311,7 +353,7 @@ export class MovieCollectionPage extends React.Component {
                     </TouchableOpacity>
                   </View>
                 );
-              }}
+              }}x
               keyExtractor={item => item.id}
             />
           </View>
