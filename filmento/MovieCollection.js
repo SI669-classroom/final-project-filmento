@@ -16,8 +16,7 @@ export class MovieCollectionPage extends React.Component {
       user: [],
       selectedIndex: 0,
       movies: [],
-      arrayholder: [] ,// also for storing user collection movie data
-      //value: ''
+      arrayholder: [] // also for storing user collection movie data
     };
     this.navigatePage = "";
     this.db = firebase.firestore();
@@ -36,8 +35,6 @@ export class MovieCollectionPage extends React.Component {
 
       this.setState({
         //user: newUser,
-        userCollectionData: docData.collection("movies"),
-        arrayholder: docData.collection("movies")
       });
     });
 
@@ -66,11 +63,37 @@ export class MovieCollectionPage extends React.Component {
       });
       this.setState({
         movies: newMovies,
-        arrayholder: newMovies,
+        arrayholder: newMovies
       });
     });
 
     this.tabs = ["My Movies", "Watch List", "Friend List"];
+  }
+
+  forceRenewMovieList() {
+    this.moviesRef.get().then(queryRef => {
+      let newMovies = [];
+      queryRef.forEach(docRef => {
+        let docData = docRef.data();
+        let newMovie = {
+          key: docRef.id,
+          title: docData.title,
+          director: docData.director,
+          releaseDate: docData.releaseDate,
+          poster: docData.poster,
+          genre: docData.genre,
+          note: docData.note,
+          emoji: docData.emoji,
+          labels: docData.labels,
+          tag: docData.tag
+        };
+        newMovies.push(newMovie);
+      });
+      this.setState({
+        movies: newMovies,
+        arrayholder: newMovies
+      });
+    });
   }
 
   handleGoToMCDetail(clickedMovie) {
@@ -117,8 +140,8 @@ export class MovieCollectionPage extends React.Component {
 
   searchFilterFunction = text => {
     this.setState({
-       value: text
-     });
+      value: text
+    });
 
     const newData = this.state.arrayholder.filter(item => {
       const itemData = `${item.title.toUpperCase()}`;
@@ -127,11 +150,9 @@ export class MovieCollectionPage extends React.Component {
       return itemData.indexOf(textData) > -1;
     });
     this.setState({
-      movies: newData,
+      movies: newData
       //value: text
     });
-    console.log('check value', this.state.value)
-    console.log('newData', newData)
   };
 
   renderHeader = () => {
@@ -148,17 +169,16 @@ export class MovieCollectionPage extends React.Component {
         inputContainerStyle={{ backgroundColor: "#eff0f1" }}
       />
     );
-    
   };
 
+  addMovie(newMovie) {
+    this.moviesRef.add(newMovie).then(docRef => {
+      newMovie.key = docRef.id;
+      let newMovies = this.state.movies.slice(); // clone the list
+      newMovies.push(newMovie);
 
- addEntry(newEntry) {
-    this.entriesRef.add(newEntry).then(docRef => {
-      newEntry.key = docRef.id;
-      let newEntries = this.state.entries.slice(); // clone the list
-      newEntries.push(newEntry);
-      newEntries.sort((a, b) => (a.priority > b.priority ? 1 : -1)); //get sorting code from https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
-      this.setState({ entries: newEntries });
+      this.setState({ movies: newMovies });
+
     });
   }
 
@@ -189,8 +209,13 @@ export class MovieCollectionPage extends React.Component {
       });
   }
 
+  updateMovieCollection(updatedMovie) {
+    this.updateMovie(updatedMovie);
+    // this.setState({ movies: [] });
+    this.forceRenewMovieList();
+  }
+
   render() {
-    console.log('test render')
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -250,7 +275,10 @@ export class MovieCollectionPage extends React.Component {
             onPress={() => {
               this.props.navigation.navigate("AddMovieToCollection", {
                 mainScreen: this,
-                movies: this.state.movies
+                updateMovie: movie => this.updateMovie(movie),
+                updateMovieCollection: movie =>
+                  this.updateMovieCollection(movie),
+                addMovie: movie => this.addMovie(movie)
               });
             }}
           />

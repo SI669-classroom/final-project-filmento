@@ -6,6 +6,7 @@ import { MovieCollectionPage } from "./MovieCollection";
 import { MCDetailPage } from './MCDetail';
 import { WatchListPage } from './WatchList';
 import { AddToMCPage } from "./AddToMC";
+import { AddMovieDetailPage } from "./AddMovieDetail";
 import { EditMCPage } from "./EditToMC";
 //import { AddToWLPage } from './AddToWL';
 //import { WLDetailPage } from './WLDetail';
@@ -20,7 +21,9 @@ const AuthStack = createStackNavigator({
 const AppStack = createStackNavigator({
   MovieCollection: MovieCollectionPage,
   AddMovieToCollection: AddToMCPage,
-  MovieCollectionDetail: MCDetailPage,
+  AddMovieDetail: AddMovieDetailPage,
+  MovieCollectionDetail: MCDetailPage, 
+  EditMovieCollection: EditMCPage,
   //WatchList: WatchListPage,
   //AddMovietoWatchList: AddToWLPage,
   //WatchListDetail: WLDetailPage,

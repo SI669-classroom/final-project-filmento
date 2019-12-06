@@ -1,18 +1,18 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1.0,
     justifyContent: "flex-start",
-    alignItems: "center",
+    alignItems: "center"
   },
   headerContainer: {
     flex: 0.1,
     justifyContent: "flex-start",
     width: "100%",
     flexDirection: "row",
-    borderBottomColor:'transparent',
-    borderTopColor:'transparent',
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent"
   },
   headerText: {
     flex: 0.7,
@@ -39,33 +39,33 @@ export const styles = StyleSheet.create({
   bodyContainer: {
     flex: 0.8,
     width: "100%",
-    justifyContent: 'space-between'
+    justifyContent: "space-between"
   },
   infoImageContainer: {
     flex: 0.6, //here you can use flex:1 also
     aspectRatio: 1,
     //backgroundColor: "yellow",
-    alignItems: 'center',
-    alignSelf: 'center',
+    alignItems: "center",
+    alignSelf: "center"
   },
   movieInfoContainer: {
     // marginTop: 10,
     flex: 0.8,
-    width: "100%",
+    width: "100%"
   },
-  detailTitle:{
+  detailTitle: {
     fontSize: 14,
-    textAlign: 'left',
-    marginLeft: 5,
+    textAlign: "left",
+    marginLeft: 5
   },
-  detailText:{
+  detailText: {
     fontSize: 16,
-    textAlign: 'left',
-    margin: 5,
+    textAlign: "left",
+    margin: 5
   },
   imageContainer: {
     flex: 1, //here you can use flex:1 also
-    aspectRatio: 1,
+    //aspectRatio: 1,
     backgroundColor: "white",
     margin:16,
     overflow:'hidden',
@@ -78,8 +78,7 @@ export const styles = StyleSheet.create({
     width: "120%",
     height: "120%",
     alignSelf: "center",
-    resizeMode:'cover',
-    
+    resizeMode: "cover"
   },
   footerContainer: {
     flex: 0.1,
@@ -106,18 +105,40 @@ export const styles = StyleSheet.create({
   buttonGroupSelectedText:{
     color: 'white'
   },
-  posterContianer:{
-    flex:1,
-    shadowColor:'#000',
+  posterContianer: {
+    flex: 1,
+    shadowColor: "#000",
     shadowOffset: { width: 1, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 3,
-    alignItems:'center'
+    alignItems: "center"
+  },
+  searchBar: {
+    backgroundColor: "transparent",
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent"
+  },
+  sliderWidth: {
+    width: 300
+  },
+  itemWidth: {
+    width: 100
+  },
+  carousel: {
+    height: 500,
+    width: '100%',
+  },
+  carouselImageStyle: {
+    width: "100%",
+    height: "100%",
+    alignSelf: "center",
+    resizeMode: "contain",
+    backgroundColor: 'yellow'
   },
   searchBar:{
   backgroundColor:'transparent',
   borderBottomColor:'transparent',
   borderTopColor:'transparent',
   }
-});
 
+});
