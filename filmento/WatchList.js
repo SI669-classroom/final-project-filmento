@@ -43,21 +43,43 @@ export class WatchListPage extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-          <View style={styles.headerContainer}>
-            <Text style={styles.headerText}>Watch List</Text>
-          </View>
-          <View style={styles.detailsBodyContainer}>
-            <View style={styles.detailListItemLeft}>
-              <View style={styles.detailsInputContainer}>
-              
-              </View>
-            </View>
-            <View style={styles.detailListItemRight}>
-              <View style={styles.detailsInputContainer}>
-                
-            </View>
-          </View>
+        <View style = {styles.MainTabsTopBlankSpace}></View>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>Watch List</Text>
+        <View style={styles.headerButtons}>
+          <Icon.Button
+            name="filter"
+            color="black"
+            backgroundColor="transparent"
+          />
         </View>
+      </View>
+      <View style={styles.bodyContainer}>
+        {/* <FlatList
+          data={this.state.movies}
+          numColumns={2}
+          renderItem={({ item }) => {
+            return (
+              <View style={styles.posterContianer}>
+                <TouchableOpacity
+                  style={styles.imageContainer}
+                  onPress={() => {
+                    this.handleGoToMCDetail(item);
+                  }}
+                >
+                  <Image
+                    style={styles.imageStyle}
+                    resizeMode="contain"
+                    source={{ uri: item.poster }}
+                  />
+                </TouchableOpacity>
+              </View>
+            );
+          }}
+          keyExtractor={item => item.id}
+          ListHeaderComponent={this.renderHeader}
+        /> */}
+      </View>
         
         <View style={styles.footerContainer}>
             <ButtonGroup
@@ -73,6 +95,18 @@ export class WatchListPage extends React.Component {
               buttonStyle={styles.buttonGroupStyle}
               textStyle={styles.buttonGroupText}
             />
+            <Icon.Button
+            name="plus-circle"
+            color="black"
+            backgroundColor="transparent"
+            size='40'
+            // onPress={() => {
+            //   this.props.navigation.navigate("AddMovieToCollection", {
+            //     mainScreen: this,
+            //     movies: this.state.movies
+            //   });
+            // }}
+          />
         </View>
       </View>
     );

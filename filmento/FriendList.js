@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, Image } from 'react-native';
 import { ListItem, SearchBar, ButtonGroup, Button } from 'react-native-elements';
 import { styles } from './Styles';
 
@@ -51,6 +51,7 @@ export class FriendListPage extends React.Component{
             movies: docData.movies,
             username: docData.username,
             wishlist: docData.wishlist,
+            profilepic: docData.profilepic,
             id: docRef.id,
             }
             newEntries.push(newEntry);
@@ -59,7 +60,7 @@ export class FriendListPage extends React.Component{
         this.setState({userData: newEntries});
 
         for (user of this.state.userData) {
-          if (user.email == 'jacktest2@gmail.com') {
+          if (user.email == 'rexsu@gmail.com') {
               for (i=0; i<user.friends.length; i++) {
                   this.friends.push(user.friends[i])
               }
@@ -137,6 +138,8 @@ export class FriendListPage extends React.Component{
             onChangeText={text => this.searchFilterFunction(text)}
             autoCorrect={false}
             value={this.state.value}
+            containerStyle={styles.searchBar}
+            inputContainerStyle={{ backgroundColor: "#eff0f1" }}
           />
         );
       };
@@ -145,6 +148,15 @@ export class FriendListPage extends React.Component{
         return (
         
         <View style={styles.container}>
+            <View style = {styles.friendPagesPersonalHeaderContainer}>
+              <View style = {styles.friendPagesPersonalHeaderContent}>
+                <Image
+                source={{uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu24phVCd5LT9fgqgWzDOfrO-kj3nHcvOSC7kH6JOu-er-s9kd&s"}}
+                style={{ width: 90, height: 90, borderRadius: 90 / 2 }}
+                />
+                {/* <Text>Charlene Ni</Text> */}
+              </View>
+            </View>
             <View style={styles.headerContainer}>
                 <Text style={styles.headerText}>Friends</Text>
                 <View style={styles.headerButtons}>
@@ -170,7 +182,7 @@ export class FriendListPage extends React.Component{
                 data={this.state.friendData}
                 renderItem={({ item }) => (
                     <ListItem
-                    leftAvatar={{ size: 'medium', rounded: true, }} //source: { uri: item.moviePosters[0] }
+                    leftAvatar={{ size: 'medium', rounded: true, source: { uri: item.profilepic }}} //
                     title={`${item.firstname}` + " " + `${item.lastname}`}
                     titleStyle={{ color: 'black', fontWeight: 'bold', fontSize: 20 }}
                     subtitle={`${item.username}`}
@@ -196,6 +208,18 @@ export class FriendListPage extends React.Component{
                     selectedTextStyle={styles.buttonGroupSelectedText}
                     buttonStyle={styles.buttonGroupStyle}
                     textStyle={styles.buttonGroupText}
+                />
+                <Icon.Button
+                  name="plus-circle"
+                  color="transparent"
+                  backgroundColor="transparent"
+                  size='40'
+                  // onPress={() => {
+                  //   this.props.navigation.navigate("AddMovieToCollection", {
+                  //     mainScreen: this,
+                  //     movies: this.state.movies
+                  //   });
+                  // }}
                 />
             </View>
         </View>
