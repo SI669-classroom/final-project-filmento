@@ -18,20 +18,16 @@ const firebaseConfig = {
     appId: "1:1085644586813:web:7118c2315988b465bb4f54"
   };
 
-export class FriendListPage extends React.Component{
+export class AddFriendPage extends React.Component{
     constructor(props) {
         super(props);
 
         this.state = {
-            selectedIndex: 2,
             loading: false,      
             userData: [], // for storing the data of all existing users
             friendData: [],      
             error: null,    
           };
-
-        this.navigatePage = "";
-        this.tabs = ["My Movies", "Watch List", "Friend List"];
 
         this.arrayholder = [];
         this.friends = [] // each item in this array is a string that represents the email of a friend account
@@ -54,7 +50,7 @@ export class FriendListPage extends React.Component{
             id: docRef.id,
             }
             newEntries.push(newEntry);
-            //this.arrayholder.push(newEntry); //
+            this.arrayholder.push(newEntry); //
         })
         this.setState({userData: newEntries});
 
@@ -71,7 +67,7 @@ export class FriendListPage extends React.Component{
           if (this.friends.includes(user.email)) {
             //alert(user.username)
             userToAddToFriendData.push(user); // push to temp array
-            this.arrayholder.push(user); // push to arrayholder, for search filter
+            //this.arrayholder.push(user); // push to arrayholder, for search filter
           }
         }
         //alert(userToAddToFriendData[0].movies[0].title)
@@ -93,24 +89,6 @@ export class FriendListPage extends React.Component{
           />
         );
       };
-
-      // Navigation logic
-      handleTab(newIndex) {
-        this.setState({ prevIndex: this.state.selectedIndex, selectedIndex: newIndex })
-        if (newIndex == 0 && newIndex != this.state.selectedIndex){
-          this.navigatePage = "MovieCollection"
-        } else if (newIndex == 1 && newIndex != this.state.selectedIndex){
-          this.navigatePage = "WatchList"
-        } else if (newIndex == 2 && newIndex != this.state.selectedIndex){
-          this.navigatePage = "FriendList"
-        }
-    
-        this.props.navigation.navigate(this.navigatePage, {
-          user: this.state.user,
-          mainScreen: this
-        });
-        this.setState({selectedIndex: 2}) // ser index back to the default for this page
-      }
     
       searchFilterFunction = text => {
         this.setState({
@@ -124,14 +102,14 @@ export class FriendListPage extends React.Component{
           return itemData.indexOf(textData) > -1;
         });
         this.setState({
-          friendData: newData,
+          userData: newData,
         });
       };
     
       renderHeader = () => {
         return (
           <SearchBar
-            placeholder="Search friend by username"
+            placeholder="Search by username"
             lightTheme
             round
             onChangeText={text => this.searchFilterFunction(text)}
@@ -146,28 +124,11 @@ export class FriendListPage extends React.Component{
         
         <View style={styles.container}>
             <View style={styles.headerContainer}>
-                <Text style={styles.headerText}>Friends</Text>
-                <View style={styles.headerButtons}>
-                    <Icon.Button
-                    name="inbox"
-                    color="black"
-                    backgroundColor="transparent"
-                    // onPress={() => {
-                    // }}
-                    />
-                    <Icon.Button
-                    name="user-plus"
-                    color="black"
-                    backgroundColor="transparent"
-                    onPress={() => {
-                      this.props.navigation.navigate("AddFriend")
-                    }}
-                    />
-                </View>
+                <Text style={styles.headerText}>Search Users</Text>
             </View>
             <View style={styles.bodyContainer}>
                 <FlatList
-                data={this.state.friendData}
+                data={this.state.userData}
                 renderItem={({ item }) => (
                     <ListItem
                     leftAvatar={{ size: 'medium', rounded: true, }} //source: { uri: item.moviePosters[0] }
@@ -183,7 +144,7 @@ export class FriendListPage extends React.Component{
                 ListHeaderComponent={this.renderHeader}
                 />
             </View>
-            <View style={styles.footerContainer}>
+            {/* <View style={styles.footerContainer}>
                 <ButtonGroup
                     onPress={ newIndex =>
                     this.handleTab(newIndex)
@@ -191,13 +152,8 @@ export class FriendListPage extends React.Component{
                     selectedIndex={this.state.selectedIndex}
                     buttons={this.tabs}
                     containerStyle={styles.buttonGroupContainer}
-                    underlayColor='black'
-                    selectedButtonStyle={styles.buttonGroupSelected}
-                    selectedTextStyle={styles.buttonGroupSelectedText}
-                    buttonStyle={styles.buttonGroupStyle}
-                    textStyle={styles.buttonGroupText}
                 />
-            </View>
+            </View> */}
         </View>
         );
       }

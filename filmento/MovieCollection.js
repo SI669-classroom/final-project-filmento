@@ -18,7 +18,7 @@ export class MovieCollectionPage extends React.Component {
       movies: [],
       arrayholder: [] // also for storing user collection movie data
     };
-
+    this.navigatePage = "";
     this.db = firebase.firestore();
 
     // read entries collection from database and store in state
@@ -99,24 +99,44 @@ export class MovieCollectionPage extends React.Component {
   handleGoToMCDetail(clickedMovie) {
     this.props.navigation.navigate("MovieCollectionDetail", {
       movie: clickedMovie,
+      mainScreen: this,
       updateMovie: movie => this.updateMovie(movie)
     });
   }
 
+  // Navigation logic
+  handleTab(newIndex) {
+    this.setState({ prevIndex: this.state.selectedIndex, selectedIndex: newIndex })
+    if (newIndex == 0 && newIndex != this.state.selectedIndex){
+      this.navigatePage = "MovieCollection"
+    } else if (newIndex == 1 && newIndex != this.state.selectedIndex){
+      this.navigatePage = "WatchList"
+    } else if (newIndex == 2 && newIndex != this.state.selectedIndex){
+      this.navigatePage = "FriendList"
+    }
+
+    this.props.navigation.navigate(this.navigatePage, {
+      user: this.state.user,
+      mainScreen: this
+    });
+    this.setState({selectedIndex: 0}) // ser index back to the default for this page
+  }
+
   // The following functions are for searching within the collection
 
-  renderSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "86%",
-          backgroundColor: "#CED0CE",
-          marginLeft: "14%"
-        }}
-      />
-    );
-  };
+  // renderSeparator = () => {
+  //   return (
+  //     <View
+  //       style={{
+  //         height: 1,
+  //         width: "86%",
+  //         backgroundColor: "#CED0CE",
+  //         marginLeft: "14%"
+  //       }}
+  //     />
+  //   );
+    
+  // };
 
   searchFilterFunction = text => {
     this.setState({
@@ -151,31 +171,6 @@ export class MovieCollectionPage extends React.Component {
     );
   };
 
-  // renderCollectionSearch = () => {
-  //   return (
-  //     <View style={{ flex: 1 }}>
-  //       <FlatList
-  //         data={this.state.userCollectionData}
-  //         renderItem={({ item }) => (
-  //           <ListItem
-  //             leftAvatar={{ size: 'medium', rounded: false, source: { uri: item.poster } }}
-  //             title={`${item.title}`}
-  //             titleStyle={{ color: 'black', fontWeight: 'bold', fontSize: '20' }}
-  //             subtitle={`${item.releaseDate}`}
-  //             subtitleStyle={{ color: 'black' }}
-  //           />
-  //         )}
-  //         keyExtractor={item => item.title}
-  //         ItemSeparatorComponent={this.renderSeparator}
-  //         ListHeaderComponent={this.renderHeader}
-  //       />
-  //     </View>
-  //   );
-  // }
-
-  // searchMyCollection() {
-  //   alert(this.state.userCollectionData[0].title)
-  // }
   addMovie(newMovie) {
     this.moviesRef.add(newMovie).then(docRef => {
       newMovie.key = docRef.id;
@@ -183,6 +178,7 @@ export class MovieCollectionPage extends React.Component {
       newMovies.push(newMovie);
 
       this.setState({ movies: newMovies });
+
     });
   }
 
@@ -226,14 +222,6 @@ export class MovieCollectionPage extends React.Component {
           <Text style={styles.headerText}>My Movies</Text>
           <View style={styles.headerButtons}>
             <Icon.Button
-              name="search"
-              color="black"
-              backgroundColor="transparent"
-              onPress={() => {
-                this.renderCollectionSearch(); // calls the function for pulling up the search bar
-              }}
-            />
-            <Icon.Button
               name="filter"
               color="black"
               backgroundColor="transparent"
@@ -263,16 +251,22 @@ export class MovieCollectionPage extends React.Component {
               );
             }}
             keyExtractor={item => item.id}
-            ItemSeparatorComponent={this.renderSeparator}
             ListHeaderComponent={this.renderHeader}
           />
         </View>
         <View style={styles.footerContainer}>
           <ButtonGroup
-            onPress={newIndex => this.setState({ selectedIndex: newIndex })}
+            onPress={ newIndex =>
+              this.handleTab(newIndex)
+            }
             selectedIndex={this.state.selectedIndex}
             buttons={this.tabs}
             containerStyle={styles.buttonGroupContainer}
+            underlayColor='black'
+            selectedButtonStyle={styles.buttonGroupSelected}
+            selectedTextStyle={styles.buttonGroupSelectedText}
+            buttonStyle={styles.buttonGroupStyle}
+            textStyle={styles.buttonGroupText}
           />
           <Icon.Button
             name="plus-circle"

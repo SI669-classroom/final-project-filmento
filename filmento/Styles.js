@@ -19,7 +19,16 @@ export const styles = StyleSheet.create({
     fontSize: 32,
     textAlign: "left",
     alignItems: "center",
-    padding: 10
+    padding: 10,
+    marginTop: 4,
+  },
+  friendCollectionHeaderText: {
+    flex: 0.7,
+    fontSize: 18,
+    textAlign: "left",
+    alignItems: "center",
+    padding: 10,
+    marginTop: 14,
   },
   headerButtons: {
     flex: 0.3,
@@ -57,13 +66,13 @@ export const styles = StyleSheet.create({
   imageContainer: {
     flex: 1, //here you can use flex:1 also
     //aspectRatio: 1,
-    //backgroundColor: "yellow",
-    margin: 16,
-    overflow: "hidden",
-    height: 270,
-    width: 180,
-    justifyContent: "center",
-    borderRadius: 10
+    backgroundColor: "white",
+    margin:16,
+    overflow:'hidden',
+    height:270,
+    width:180,
+    justifyContent:'center',
+    borderRadius: 10,
   },
   imageStyle: {
     width: "120%",
@@ -75,13 +84,26 @@ export const styles = StyleSheet.create({
     flex: 0.1,
     flexDirection: "row",
     width: "100%",
-    justifyContent: "center"
+    justifyContent: "center",
+    paddingTop: 12
   },
-  buttonGroupContainer: {
-    // flexDirection: 'column',
+  buttonGroupContainer:{
     flex: 0.8,
-    width: "90%",
-    borderColor: "#4189D6"
+    width: '90%',
+    borderColor: 'gray'
+  },
+  buttonGroupStyle:{
+    backgroundColor: 'white'
+  },
+  buttonGroupText:{
+    //color: '#b8b8b8',
+    color: 'black'
+  },
+  buttonGroupSelected:{
+    backgroundColor: 'gray'
+  },
+  buttonGroupSelectedText:{
+    color: 'white'
   },
   posterContianer: {
     flex: 1,
@@ -113,4 +135,10 @@ export const styles = StyleSheet.create({
     resizeMode: "contain",
     backgroundColor: 'yellow'
   },
+  searchBar:{
+  backgroundColor:'transparent',
+  borderBottomColor:'transparent',
+  borderTopColor:'transparent',
+  }
+
 });
