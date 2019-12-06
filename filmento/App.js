@@ -7,7 +7,6 @@ import { MCDetailPage } from './MCDetail';
 import { WatchListPage } from './WatchList';
 import { AddToMCPage } from "./AddToMC";
 import { EditMCPage } from "./EditToMC";
-import { MCDetailPage } from "./MCDetail";
 //import { AddToWLPage } from './AddToWL';
 //import { WLDetailPage } from './WLDetail';
 import { FriendListPage } from './FriendList';
@@ -26,6 +25,8 @@ const AppStack = createStackNavigator({
   //AddMovietoWatchList: AddToWLPage,
   //WatchListDetail: WLDetailPage,
   //FriendList: FriendListPage,
+  FriendCollection: FriendCollectionPage,
+  AddFriend: AddFriendPage,
 }
 );
 
@@ -39,14 +40,12 @@ const App = createSwitchNavigator(
     //AddMovieToCollection: AddToMCPage,
     MovieCollectionDetail: MCDetailPage,
     WatchList: WatchListPage,
+    FriendList: FriendListPage,
     //EditMovieCollection: EditMCPage,
     //MovieCollectionDetail: MCDetailPage
     //WatchList: WatchListPage,
     //AddMovietoWatchList: AddToWLPage,
     //WatchListDetail: WLDetailPage,
-    FriendList: FriendListPage,
-    FriendCollection: FriendCollectionPage,
-    AddFriend: AddFriendPage,
   },
   {
     initialRouteName: "App"

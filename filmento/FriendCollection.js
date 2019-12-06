@@ -176,23 +176,6 @@ export class FriendCollectionPage extends React.Component {
             ListHeaderComponent={this.renderHeader}
           />
         </View>
-        {/* <View style={styles.footerContainer}>
-          <ButtonGroup
-            onPress={ newIndex =>
-              //newIndex =>
-              //this.setState({ prevIndex: this.state.selectedIndex, selectedIndex: newIndex }),
-              this.handleTab(newIndex)
-            }
-            selectedIndex={this.state.selectedIndex}
-            buttons={this.tabs}
-            containerStyle={styles.buttonGroupContainer}
-            underlayColor='black'
-            selectedButtonStyle={styles.buttonGroupSelected}
-            selectedTextStyle={styles.buttonGroupSelectedText}
-            buttonStyle={styles.buttonGroupStyle}
-            textStyle={styles.buttonGroupText}
-          />
-        </View> */}
       </View>
     );
   }

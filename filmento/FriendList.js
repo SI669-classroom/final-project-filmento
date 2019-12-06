@@ -23,11 +23,15 @@ export class FriendListPage extends React.Component{
         super(props);
 
         this.state = {
+            selectedIndex: 2,
             loading: false,      
             userData: [], // for storing the data of all existing users
             friendData: [],      
             error: null,    
           };
+
+        this.navigatePage = "";
+        this.tabs = ["My Movies", "Watch List", "Friend List"];
 
         this.arrayholder = [];
         this.friends = [] // each item in this array is a string that represents the email of a friend account
@@ -89,6 +93,24 @@ export class FriendListPage extends React.Component{
           />
         );
       };
+
+      // Navigation logic
+      handleTab(newIndex) {
+        this.setState({ prevIndex: this.state.selectedIndex, selectedIndex: newIndex })
+        if (newIndex == 0 && newIndex != this.state.selectedIndex){
+          this.navigatePage = "MovieCollection"
+        } else if (newIndex == 1 && newIndex != this.state.selectedIndex){
+          this.navigatePage = "WatchList"
+        } else if (newIndex == 2 && newIndex != this.state.selectedIndex){
+          this.navigatePage = "FriendList"
+        }
+    
+        this.props.navigation.navigate(this.navigatePage, {
+          user: this.state.user,
+          mainScreen: this
+        });
+        this.setState({selectedIndex: 2}) // ser index back to the default for this page
+      }
     
       searchFilterFunction = text => {
         this.setState({
@@ -161,7 +183,7 @@ export class FriendListPage extends React.Component{
                 ListHeaderComponent={this.renderHeader}
                 />
             </View>
-            {/* <View style={styles.footerContainer}>
+            <View style={styles.footerContainer}>
                 <ButtonGroup
                     onPress={ newIndex =>
                     this.handleTab(newIndex)
@@ -169,8 +191,13 @@ export class FriendListPage extends React.Component{
                     selectedIndex={this.state.selectedIndex}
                     buttons={this.tabs}
                     containerStyle={styles.buttonGroupContainer}
+                    underlayColor='black'
+                    selectedButtonStyle={styles.buttonGroupSelected}
+                    selectedTextStyle={styles.buttonGroupSelectedText}
+                    buttonStyle={styles.buttonGroupStyle}
+                    textStyle={styles.buttonGroupText}
                 />
-            </View> */}
+            </View>
         </View>
         );
       }
