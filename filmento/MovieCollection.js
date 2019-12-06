@@ -17,13 +17,14 @@ export class MovieCollectionPage extends React.Component {
       user: [],
       selectedIndex: 0,
       movies: [],
+
       arrayholder: [], // also for storing user collection movie data
       //value: ''
       isModalVisible: false,
       genreTags: [],
       filterTags: []
     };
-
+    this.navigatePage = "";
     this.db = firebase.firestore();
 
     // read entries collection from database and store in state
@@ -40,8 +41,6 @@ export class MovieCollectionPage extends React.Component {
 
       this.setState({
         //user: newUser,
-        userCollectionData: docData.collection("movies"),
-        arrayholder: docData.collection("movies")
       });
     });
 
@@ -79,14 +78,60 @@ export class MovieCollectionPage extends React.Component {
     this.tabs = ["My Movies", "Watch List", "Friend List"];
   }
 
+  forceRenewMovieList() {
+    this.moviesRef.get().then(queryRef => {
+      let newMovies = [];
+      queryRef.forEach(docRef => {
+        let docData = docRef.data();
+        let newMovie = {
+          key: docRef.id,
+          title: docData.title,
+          director: docData.director,
+          releaseDate: docData.releaseDate,
+          poster: docData.poster,
+          genre: docData.genre,
+          note: docData.note,
+          emoji: docData.emoji,
+          labels: docData.labels,
+          tag: docData.tag
+        };
+        newMovies.push(newMovie);
+      });
+      this.setState({
+        movies: newMovies,
+        arrayholder: newMovies
+      });
+    });
+  }
+
   handleGoToMCDetail(clickedMovie) {
     this.props.navigation.navigate("MovieCollectionDetail", {
       movie: clickedMovie,
+      mainScreen: this,
       updateMovie: movie => this.updateMovie(movie)
     });
   }
 
+  // Navigation logic
+  handleTab(newIndex) {
+    this.setState({ prevIndex: this.state.selectedIndex, selectedIndex: newIndex })
+    if (newIndex == 0 && newIndex != this.state.selectedIndex){
+      this.navigatePage = "MovieCollection"
+    } else if (newIndex == 1 && newIndex != this.state.selectedIndex){
+      this.navigatePage = "WatchList"
+    } else if (newIndex == 2 && newIndex != this.state.selectedIndex){
+      this.navigatePage = "FriendList"
+    }
+
+    this.props.navigation.navigate(this.navigatePage, {
+      user: this.state.user,
+      mainScreen: this
+    });
+    this.setState({selectedIndex: 0}) // ser index back to the default for this page
+  }
+
   // The following functions are for searching within the collection
+
 
 /*   renderSeparator = () => {
     return (
@@ -100,6 +145,7 @@ export class MovieCollectionPage extends React.Component {
       />
     );
   }; */
+
 
   searchFilterFunction = text => {
     this.setState({
@@ -116,8 +162,7 @@ export class MovieCollectionPage extends React.Component {
       movies: newData
       //value: text
     });
-    console.log("check value", this.state.value);
-    console.log("newData", newData);
+
   };
 
   renderHeader = () => {
@@ -134,6 +179,7 @@ export class MovieCollectionPage extends React.Component {
         inputContainerStyle={{ backgroundColor: "#eff0f1" }}
       />
     );
+
   };
   toggleModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible });
@@ -190,40 +236,17 @@ export class MovieCollectionPage extends React.Component {
     
   };  
 
+
   };
 
-  // renderCollectionSearch = () => {
-  //   return (
-  //     <View style={{ flex: 1 }}>
-  //       <FlatList
-  //         data={this.state.userCollectionData}
-  //         renderItem={({ item }) => (
-  //           <ListItem
-  //             leftAvatar={{ size: 'medium', rounded: false, source: { uri: item.poster } }}
-  //             title={`${item.title}`}
-  //             titleStyle={{ color: 'black', fontWeight: 'bold', fontSize: '20' }}
-  //             subtitle={`${item.releaseDate}`}
-  //             subtitleStyle={{ color: 'black' }}
-  //           />
-  //         )}
-  //         keyExtractor={item => item.title}
-  //         ItemSeparatorComponent={this.renderSeparator}
-  //         ListHeaderComponent={this.renderHeader}
-  //       />
-  //     </View>
-  //   );
-  // }
+  addMovie(newMovie) {
+    this.moviesRef.add(newMovie).then(docRef => {
+      newMovie.key = docRef.id;
+      let newMovies = this.state.movies.slice(); // clone the list
+      newMovies.push(newMovie);
 
-  // searchMyCollection() {
-  //   alert(this.state.userCollectionData[0].title)
-  // }
-  addEntry(newEntry) {
-    this.entriesRef.add(newEntry).then(docRef => {
-      newEntry.key = docRef.id;
-      let newEntries = this.state.entries.slice(); // clone the list
-      newEntries.push(newEntry);
-      newEntries.sort((a, b) => (a.priority > b.priority ? 1 : -1)); //get sorting code from https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
-      this.setState({ entries: newEntries });
+      this.setState({ movies: newMovies });
+
     });
   }
 
@@ -254,14 +277,21 @@ export class MovieCollectionPage extends React.Component {
       });
   }
 
+  updateMovieCollection(updatedMovie) {
+    this.updateMovie(updatedMovie);
+    // this.setState({ movies: [] });
+    this.forceRenewMovieList();
+  }
+
   render() {
-    //console.log(this.state.genreTags);
+
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>My Movies</Text>
           <View style={styles.headerButtons}>
             <Icon.Button
+
               name="search"
               color="black"
               backgroundColor="transparent"
@@ -308,10 +338,17 @@ export class MovieCollectionPage extends React.Component {
         </View>
         <View style={styles.footerContainer}>
           <ButtonGroup
-            onPress={newIndex => this.setState({ selectedIndex: newIndex })}
+            onPress={ newIndex =>
+              this.handleTab(newIndex)
+            }
             selectedIndex={this.state.selectedIndex}
             buttons={this.tabs}
             containerStyle={styles.buttonGroupContainer}
+            underlayColor='black'
+            selectedButtonStyle={styles.buttonGroupSelected}
+            selectedTextStyle={styles.buttonGroupSelectedText}
+            buttonStyle={styles.buttonGroupStyle}
+            textStyle={styles.buttonGroupText}
           />
           <Icon.Button
             name="plus-circle"
@@ -320,7 +357,10 @@ export class MovieCollectionPage extends React.Component {
             onPress={() => {
               this.props.navigation.navigate("AddMovieToCollection", {
                 mainScreen: this,
-                movies: this.state.movies
+                updateMovie: movie => this.updateMovie(movie),
+                updateMovieCollection: movie =>
+                  this.updateMovieCollection(movie),
+                addMovie: movie => this.addMovie(movie)
               });
             }}
           />
