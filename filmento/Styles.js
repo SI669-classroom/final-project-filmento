@@ -96,8 +96,35 @@ export const styles = StyleSheet.create({
   backgroundColor:'transparent',
   borderBottomColor:'transparent',
   borderTopColor:'transparent',
+  },
+  modal: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  modalTitle:{
+    fontSize:20,
+    alignSelf:'center',
+    marginTop:16,
+    marginBottom:8,
+    fontWeight:'600',
+  },
+  modalFilterContainer:{
+    flexDirection:"column",
+    borderRadius:20,
+    marginLeft:15,
+    marginTop:15,
+
+  },
+  modalTag:{
+    backgroundColor:'#eff0f1',
+    borderRadius:20,
+
+  },
+  modalTagTitle:{
+    fontSize:16,
+    color:'#2d2d2d',
+    padding:10
   }
-  
 
 });
 

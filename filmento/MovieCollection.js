@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
-import { Overlay, ButtonGroup, SearchBar } from "react-native-elements";
+import { Overlay, ButtonGroup, SearchBar, Button } from "react-native-elements";
 import { styles } from "./Styles";
 import firebase from "firebase";
 import "@firebase/firestore";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Modal from "react-native-modal";
 
 export class MovieCollectionPage extends React.Component {
   constructor(props) {
@@ -16,8 +17,10 @@ export class MovieCollectionPage extends React.Component {
       user: [],
       selectedIndex: 0,
       movies: [],
-      arrayholder: [] ,// also for storing user collection movie data
+      arrayholder: [], // also for storing user collection movie data
       //value: ''
+      isModalVisible: false,
+      genreTags: []
     };
 
     this.db = firebase.firestore();
@@ -66,8 +69,10 @@ export class MovieCollectionPage extends React.Component {
       });
       this.setState({
         movies: newMovies,
-        arrayholder: newMovies,
+        arrayholder: newMovies
       });
+    }).then(()=>{
+      this.handleFetchAllMovieGenres()
     });
 
     this.tabs = ["My Movies", "Watch List", "Friend List"];
@@ -93,13 +98,12 @@ export class MovieCollectionPage extends React.Component {
         }}
       />
     );
-    
   };
 
   searchFilterFunction = text => {
     this.setState({
-       value: text
-     });
+      value: text
+    });
 
     const newData = this.state.arrayholder.filter(item => {
       const itemData = `${item.title.toUpperCase()}`;
@@ -108,11 +112,11 @@ export class MovieCollectionPage extends React.Component {
       return itemData.indexOf(textData) > -1;
     });
     this.setState({
-      movies: newData,
+      movies: newData
       //value: text
     });
-    console.log('check value', this.state.value)
-    console.log('newData', newData)
+    console.log("check value", this.state.value);
+    console.log("newData", newData);
   };
 
   renderHeader = () => {
@@ -129,7 +133,23 @@ export class MovieCollectionPage extends React.Component {
         inputContainerStyle={{ backgroundColor: "#eff0f1" }}
       />
     );
-    
+  };
+  toggleModal = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  };
+
+  handleFetchAllMovieGenres = () => {
+    let newAllMovieGenres = [];
+    for (movie of this.state.movies) {
+      for (genre of movie.genre.values()) {
+        //AllMovieGenres.push(genre)
+          if (!newAllMovieGenres.includes(genre)) {
+             newAllMovieGenres.push(genre);
+          }
+      }
+    };
+    //newAllMovieGenres = new Set(AllMovieGenres);
+    this.setState({genreTags:newAllMovieGenres});
   };
 
   // renderCollectionSearch = () => {
@@ -195,7 +215,7 @@ export class MovieCollectionPage extends React.Component {
   }
 
   render() {
-    console.log('test render')
+    console.log(this.state.genreTags);
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -213,6 +233,7 @@ export class MovieCollectionPage extends React.Component {
               name="filter"
               color="black"
               backgroundColor="transparent"
+              onPress={this.toggleModal}
             />
           </View>
         </View>
@@ -262,6 +283,39 @@ export class MovieCollectionPage extends React.Component {
             }}
           />
         </View>
+        <Modal
+          isVisible={this.state.isModalVisible}
+          onBackdropPress={() => this.setState({ isModalVisible: false })}
+          swipeDirection="down"
+          style={styles.modal}
+          onSwipeComplete={() => this.setState({ isModalVisible: false })}
+        >
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "#fff",
+              marginTop: 700,
+              borderRadius: 20,
+              justifyContent: "flex-start"
+            }}
+          >
+            <Text style={styles.modalTitle}>Select Genre</Text>
+            <FlatList
+              data={this.state.genreTags}
+              numColumns={3}
+              renderItem={({ item }) => {
+                return (
+                  <View style={styles.modalFilterContainer}>
+                    <TouchableOpacity style={styles.modalTag}>
+                      <Text style={styles.modalTagTitle}>{item}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              }}
+              keyExtractor={item => item.id}
+            />
+          </View>
+        </Modal>
       </View>
     );
   }
