@@ -25,6 +25,8 @@ const AppStack = createStackNavigator({
   //AddMovietoWatchList: AddToWLPage,
   //WatchListDetail: WLDetailPage,
   //FriendList: FriendListPage,
+  FriendCollection: FriendCollectionPage,
+  AddFriend: AddFriendPage,
 }
 );
 
@@ -38,14 +40,12 @@ const App = createSwitchNavigator(
     //AddMovieToCollection: AddToMCPage,
     MovieCollectionDetail: MCDetailPage,
     WatchList: WatchListPage,
+    FriendList: FriendListPage,
     //EditMovieCollection: EditMCPage,
     //MovieCollectionDetail: MCDetailPage
     //WatchList: WatchListPage,
     //AddMovietoWatchList: AddToWLPage,
     //WatchListDetail: WLDetailPage,
-    FriendList: FriendListPage,
-    FriendCollection: FriendCollectionPage,
-    AddFriend: AddFriendPage,
   },
   {
     initialRouteName: "App"

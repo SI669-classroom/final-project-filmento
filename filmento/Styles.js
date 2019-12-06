@@ -19,7 +19,8 @@ export const styles = StyleSheet.create({
     fontSize: 32,
     textAlign: "left",
     alignItems: "center",
-    padding: 10
+    padding: 10,
+    marginTop: 4,
   },
   friendCollectionHeaderText: {
     flex: 0.7,
@@ -84,20 +85,20 @@ export const styles = StyleSheet.create({
     flex: 0.1,
     flexDirection: "row",
     width: "100%",
-    justifyContent: "center"
+    justifyContent: "center",
+    paddingTop: 12
   },
   buttonGroupContainer:{
-    // flexDirection: 'column',
     flex: 0.8,
     width: '90%',
-    //borderColor: '#4189D6'
     borderColor: 'gray'
   },
   buttonGroupStyle:{
-    backgroundColor: 'black'
+    backgroundColor: 'white'
   },
   buttonGroupText:{
-    color: '#b8b8b8'
+    //color: '#b8b8b8',
+    color: 'black'
   },
   buttonGroupSelected:{
     backgroundColor: 'gray'

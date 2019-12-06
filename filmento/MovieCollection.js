@@ -68,9 +68,6 @@ export class MovieCollectionPage extends React.Component {
         movies: newMovies,
         arrayholder: newMovies,
       });
-      
-      alert('this.state.userCollectionData[0].director')
-
     });
 
     this.tabs = ["My Movies", "Watch List", "Friend List"];
@@ -84,11 +81,9 @@ export class MovieCollectionPage extends React.Component {
     });
   }
 
-  // Added navigation logic, may still contain a minor bug, but so far testing has been fine.
+  // Navigation logic
   handleTab(newIndex) {
     this.setState({ prevIndex: this.state.selectedIndex, selectedIndex: newIndex })
-    // alert('prev ' + this.state.prevIndex);
-    // alert('new ' + this.state.selectedIndex);
     if (newIndex == 0 && newIndex != this.state.selectedIndex){
       this.navigatePage = "MovieCollection"
     } else if (newIndex == 1 && newIndex != this.state.selectedIndex){
@@ -106,19 +101,19 @@ export class MovieCollectionPage extends React.Component {
 
   // The following functions are for searching within the collection
 
-  renderSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "86%",
-          backgroundColor: "#CED0CE",
-          marginLeft: "14%"
-        }}
-      />
-    );
+  // renderSeparator = () => {
+  //   return (
+  //     <View
+  //       style={{
+  //         height: 1,
+  //         width: "86%",
+  //         backgroundColor: "#CED0CE",
+  //         marginLeft: "14%"
+  //       }}
+  //     />
+  //   );
     
-  };
+  // };
 
   searchFilterFunction = text => {
     this.setState({
@@ -231,15 +226,12 @@ export class MovieCollectionPage extends React.Component {
               );
             }}
             keyExtractor={item => item.id}
-            ItemSeparatorComponent={this.renderSeparator}
             ListHeaderComponent={this.renderHeader}
           />
         </View>
         <View style={styles.footerContainer}>
           <ButtonGroup
             onPress={ newIndex =>
-              //newIndex =>
-              //this.setState({ prevIndex: this.state.selectedIndex, selectedIndex: newIndex }),
               this.handleTab(newIndex)
             }
             selectedIndex={this.state.selectedIndex}
