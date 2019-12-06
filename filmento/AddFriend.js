@@ -18,7 +18,7 @@ const firebaseConfig = {
     appId: "1:1085644586813:web:7118c2315988b465bb4f54"
   };
 
-export class FriendListPage extends React.Component{
+export class AddFriendPage extends React.Component{
     constructor(props) {
         super(props);
 
@@ -50,7 +50,7 @@ export class FriendListPage extends React.Component{
             id: docRef.id,
             }
             newEntries.push(newEntry);
-            //this.arrayholder.push(newEntry); //
+            this.arrayholder.push(newEntry); //
         })
         this.setState({userData: newEntries});
 
@@ -67,7 +67,7 @@ export class FriendListPage extends React.Component{
           if (this.friends.includes(user.email)) {
             //alert(user.username)
             userToAddToFriendData.push(user); // push to temp array
-            this.arrayholder.push(user); // push to arrayholder, for search filter
+            //this.arrayholder.push(user); // push to arrayholder, for search filter
           }
         }
         //alert(userToAddToFriendData[0].movies[0].title)
@@ -102,14 +102,14 @@ export class FriendListPage extends React.Component{
           return itemData.indexOf(textData) > -1;
         });
         this.setState({
-          friendData: newData,
+          userData: newData,
         });
       };
     
       renderHeader = () => {
         return (
           <SearchBar
-            placeholder="Search friend by username"
+            placeholder="Search by username"
             lightTheme
             round
             onChangeText={text => this.searchFilterFunction(text)}
@@ -124,28 +124,11 @@ export class FriendListPage extends React.Component{
         
         <View style={styles.container}>
             <View style={styles.headerContainer}>
-                <Text style={styles.headerText}>Friends</Text>
-                <View style={styles.headerButtons}>
-                    <Icon.Button
-                    name="inbox"
-                    color="black"
-                    backgroundColor="transparent"
-                    // onPress={() => {
-                    // }}
-                    />
-                    <Icon.Button
-                    name="user-plus"
-                    color="black"
-                    backgroundColor="transparent"
-                    onPress={() => {
-                      this.props.navigation.navigate("AddFriend")
-                    }}
-                    />
-                </View>
+                <Text style={styles.headerText}>Search Users</Text>
             </View>
             <View style={styles.bodyContainer}>
                 <FlatList
-                data={this.state.friendData}
+                data={this.state.userData}
                 renderItem={({ item }) => (
                     <ListItem
                     leftAvatar={{ size: 'medium', rounded: true, }} //source: { uri: item.moviePosters[0] }
