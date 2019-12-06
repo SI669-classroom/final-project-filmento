@@ -48,7 +48,10 @@ export class FriendCollectionPage extends React.Component {
         username: docData.username,
         moviesCollection: docData.movies,
         password: docData.password,
-        wishList: docData.wishList
+        wishList: docData.wishList,
+        firstName: docData.firstName,
+        lastName: docData.lastName,
+        profilepic: docData.profilepic,
       };
 
       this.setState({ 
@@ -128,6 +131,8 @@ export class FriendCollectionPage extends React.Component {
         onChangeText={text => this.searchFilterFunction(text)}
         autoCorrect={false}
         value={this.state.value}
+        containerStyle={styles.searchBar}
+        inputContainerStyle={{ backgroundColor: "#eff0f1" }}
       />
     );
   };
@@ -136,8 +141,22 @@ export class FriendCollectionPage extends React.Component {
 
     return (
       <View style={styles.container}>
+        <View style = {styles.friendPagesPersonalHeaderContainer}>
+          <View style = {styles.friendPagesPersonalHeaderContent}>
+            <Image
+              source={{uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu24phVCd5LT9fgqgWzDOfrO-kj3nHcvOSC7kH6JOu-er-s9kd&s"}}
+              style={{ width: 90, height: 90, borderRadius: 90 / 2 }}
+            />
+            {/* <Text>Charlene Ni</Text> */}
+          </View>
+        </View>
         <View style={styles.headerContainer}>
-          <Text style={styles.friendCollectionHeaderText}>{this.state.user.username}'s Collection</Text>
+          {/* <Image
+            source={{uri: user.profilepic}}
+            style={{ width: 40, height: 40, borderRadius: 40 / 2 }}
+          /> */}
+          <Text style={styles.friendCollectionHeaderText}>{this.state.user.username}'s movies</Text>
+          <Text></Text>
           <View style={styles.headerButtons}>
             <Icon.Button
               name="search"

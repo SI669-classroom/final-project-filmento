@@ -193,6 +193,7 @@ export class MovieCollectionPage extends React.Component {
     console.log('test render')
     return (
       <View style={styles.container}>
+        <View style = {styles.MainTabsTopBlankSpace}></View>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>My Movies</Text>
           <View style={styles.headerButtons}>
@@ -246,6 +247,8 @@ export class MovieCollectionPage extends React.Component {
           <Icon.Button
             name="plus-circle"
             color="black"
+            size='40'
+            //iconStyle={{paddingBottom: 100}}
             backgroundColor="transparent"
             onPress={() => {
               this.props.navigation.navigate("AddMovieToCollection", {
