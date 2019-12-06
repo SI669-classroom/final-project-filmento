@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
   imageContainer: {
     flex: 1, //here you can use flex:1 also
     aspectRatio: 1,
-    backgroundColor: "white"
+    backgroundColor: "white",
     margin:16,
     overflow:'hidden',
     height:270,
@@ -104,7 +104,7 @@ export const styles = StyleSheet.create({
   },
   buttonGroupSelectedText:{
     color: 'white'
-  }
+  },
   posterContianer:{
     flex:1,
     shadowColor:'#000',

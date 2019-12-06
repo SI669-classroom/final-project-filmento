@@ -156,7 +156,7 @@ export class MovieCollectionPage extends React.Component {
     
   };
 
-  render() {
+
  addEntry(newEntry) {
     this.entriesRef.add(newEntry).then(docRef => {
       newEntry.key = docRef.id;

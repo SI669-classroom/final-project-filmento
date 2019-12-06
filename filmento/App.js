@@ -7,7 +7,6 @@ import { MCDetailPage } from './MCDetail';
 import { WatchListPage } from './WatchList';
 import { AddToMCPage } from "./AddToMC";
 import { EditMCPage } from "./EditToMC";
-import { MCDetailPage } from "./MCDetail";
 //import { AddToWLPage } from './AddToWL';
 //import { WLDetailPage } from './WLDetail';
 import { FriendListPage } from './FriendList';
