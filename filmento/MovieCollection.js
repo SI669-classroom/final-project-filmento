@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { Overlay, ButtonGroup, SearchBar, Button } from "react-native-elements";
 import { styles } from "./Styles";
+import Firebase from './Firebase';
 import firebase from "firebase";
 import "@firebase/firestore";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -11,7 +12,7 @@ export class MovieCollectionPage extends React.Component {
   constructor(props) {
     super(props);
 
-    //this.UID = this.props.navigation.getParam("UID");
+    this.UID = this.props.navigation.getParam("UID");
 
     this.state = {
       user: [],
@@ -29,25 +30,25 @@ export class MovieCollectionPage extends React.Component {
 
     // read entries collection from database and store in state
 
-    //this.usersRef = this.db.collection("users").doc(this.UID);
-    this.usersRef = this.db.collection("users").doc("testsub");
+    this.usersRef = this.db.collection("users").doc(this.UID);
+    //this.usersRef = this.db.collection("users").doc("testsub");
 
     this.usersRef.get().then(queryRef => {
       let docData = queryRef.data();
-      //let newUser = {
-      // moviesCollection: docData.movies,
-      // wishList: docData.wishList
-      //};
+      let newUser = {
+      moviesCollection: docData.movies,
+      wishList: docData.wishList
+      };
 
       this.setState({
-        //user: newUser,
+        user: newUser,
       });
     });
 
     //get subcollection
     this.moviesRef = this.db
       .collection("users")
-      .doc("testsub")
+      .doc(this.UID)
       .collection("movies");
     this.moviesRef.get().then(queryRef => {
       let newMovies = [];

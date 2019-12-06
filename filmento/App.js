@@ -51,7 +51,7 @@ const App = createSwitchNavigator(
     //WatchListDetail: WLDetailPage,
   },
   {
-    initialRouteName: "App"
+    initialRouteName: "Auth"
   }
 );
 

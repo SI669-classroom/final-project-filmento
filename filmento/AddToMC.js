@@ -89,7 +89,7 @@ export class AddToMCPage extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Movie you want to add</Text>
+          <Text style={styles.headerText}>Add movie</Text>
           <View style={styles.headerButtons}>
             <Icon.Button
               name="search"
