@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Button, Input, ButtonGroup } from "react-native-elements";
 import { styles } from "./Styles";
+import Carousel from "react-native-anchor-carousel";
 
 export class AddMovieDetailPage extends React.Component {
   constructor(props) {
@@ -10,7 +11,9 @@ export class AddMovieDetailPage extends React.Component {
     this.movie = this.props.navigation.getParam("movie", undefined);
     this.mainScreen = this.props.navigation.getParam("mainScreen");
     this.updateMovie = this.props.navigation.getParam("updateMovie");
-    this.updateMovieCollection = this.props.navigation.getParam("updateMovieCollection");
+    this.updateMovieCollection = this.props.navigation.getParam(
+      "updateMovieCollection"
+    );
     this.addMovie = this.props.navigation.getParam("addMovie");
 
     this.isAdd = typeof this.movie === "undefined";
@@ -28,15 +31,17 @@ export class AddMovieDetailPage extends React.Component {
       emojis: [],
       inputNote: initNote,
       inputMood: initMood,
-      selectedIndex: 0
+      selectedIndex: 0,
+      posterIndex: 1
     };
-    this.labels =['test', '2019']
-    this.tag = ''
+    this.labels = ["test", "2019"];
+    this.tag = "";
   }
 
   componentDidMount() {
     let newEmojiList = [];
     let initialIndex = 0;
+
     let i = 0;
 
     for (emoji of this.emojiList) {
@@ -60,7 +65,7 @@ export class AddMovieDetailPage extends React.Component {
       title: this.movie.title,
       director: this.movie.director,
       releaseDate: this.movie.releaseDate,
-      poster: this.movie.moviePosters[0],
+      poster: this.movie.moviePosters[this.state.posterIndex],
       genre: this.movie.genre,
       labels: this.labels,
       tag: this.tag
@@ -75,7 +80,27 @@ export class AddMovieDetailPage extends React.Component {
     this.props.navigation.navigate("MovieCollection");
   };
 
+  renderItem = ({ item, index }) => {
+    const { backgroundColor } = item;
+    return (
+      <TouchableOpacity
+        style={[styles.item, { backgroundColor }]}
+        onPress={() => {
+          this._carousel.scrollToIndex(index);
+          this.setState({posterIndex: index});
+        }}
+      >
+        <Image
+          style={styles.carouselImageStyle}
+          // resizeMode="cover"
+          source={{ uri: item }}
+        />
+      </TouchableOpacity>
+    );
+  };
+
   render() {
+    console.log(this.state.posterIndex)
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -83,11 +108,24 @@ export class AddMovieDetailPage extends React.Component {
         </View>
         <View style={styles.bodyContainer}>
           <View style={styles.infoImageContainer}>
-            <Image
+            <Carousel
+              style={styles.carousel}
+              data={this.movie.moviePosters}
+              renderItem={this.renderItem}
+              itemWidth={200}
+              containerWidth={250}
+              separatorWidth={0}
+              ref={c => {
+                this._carousel = c;
+              }}
+              initialIndex={this.state.posterIndex}
+              //pagingEnable={false}
+            />
+            {/* <Image
               style={styles.imageStyle}
               resizeMode="contain"
               source={{ uri: this.movie.moviePosters[0] }}
-            />
+            /> */}
           </View>
           <View style={styles.movieInfoContainer}>
             <Text style={styles.detailTitle}>Title</Text>

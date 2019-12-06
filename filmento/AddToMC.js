@@ -86,7 +86,6 @@ export class AddToMCPage extends React.Component {
   }
 
   render() {
-    console.log("test render");
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
