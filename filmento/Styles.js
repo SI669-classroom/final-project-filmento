@@ -73,17 +73,8 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     flex: 0.4,
     width: "100%",
-    justifyContent: "space-around"
-  },
-  detailTitle: {
-    fontSize: 14,
-    textAlign: "left",
-    marginLeft: 5
-  },
-  detailText: {
-    fontSize: 16,
-    textAlign: "left",
-    margin: 5
+    justifyContent: "space-around",
+    backgroundColor: 'yellow'
   },
   imageContainer: {
     flex: 1, //here you can use flex:1 also
@@ -227,5 +218,18 @@ export const styles = StyleSheet.create({
     marginRight: 20,
     marginTop: 50,
     width: "100%"
-  }
+  },
+  detailTitle: {
+    fontSize: 14,
+    textAlign: "left",
+    marginLeft: 5,
+    marginTop: 20
+  },
+  detailText: {
+    fontSize: 16,
+    textAlign: "left",
+    marginTop: 50,
+    marginBottom: 50,
+    marginLeft: 5,
+  },
 });
