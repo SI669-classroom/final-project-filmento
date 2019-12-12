@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { Overlay, ButtonGroup, SearchBar, Button } from "react-native-elements";
 import { styles } from "./Styles";
-import Firebase from './Firebase';
+import Firebase from "./Firebase";
 import firebase from "firebase";
 import "@firebase/firestore";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -36,12 +36,12 @@ export class MovieCollectionPage extends React.Component {
     this.usersRef.get().then(queryRef => {
       let docData = queryRef.data();
       let newUser = {
-      moviesCollection: docData.movies,
-      wishList: docData.wishList
+        moviesCollection: docData.movies,
+        wishList: docData.wishList
       };
 
       this.setState({
-        user: newUser,
+        user: newUser
       });
     });
 
@@ -50,31 +50,34 @@ export class MovieCollectionPage extends React.Component {
       .collection("users")
       .doc(this.UID)
       .collection("movies");
-    this.moviesRef.get().then(queryRef => {
-      let newMovies = [];
-      queryRef.forEach(docRef => {
-        let docData = docRef.data();
-        let newMovie = {
-          key: docRef.id,
-          title: docData.title,
-          director: docData.director,
-          releaseDate: docData.releaseDate,
-          poster: docData.poster,
-          genre: docData.genre,
-          note: docData.note,
-          emoji: docData.emoji,
-          labels: docData.labels,
-          tag: docData.tag
-        };
-        newMovies.push(newMovie);
+    this.moviesRef
+      .get()
+      .then(queryRef => {
+        let newMovies = [];
+        queryRef.forEach(docRef => {
+          let docData = docRef.data();
+          let newMovie = {
+            key: docRef.id,
+            title: docData.title,
+            director: docData.director,
+            releaseDate: docData.releaseDate,
+            poster: docData.poster,
+            genre: docData.genre,
+            note: docData.note,
+            emoji: docData.emoji,
+            labels: docData.labels,
+            tag: docData.tag
+          };
+          newMovies.push(newMovie);
+        });
+        this.setState({
+          movies: newMovies,
+          arrayholder: newMovies
+        });
+      })
+      .then(() => {
+        this.handleFetchAllMovieGenres();
       });
-      this.setState({
-        movies: newMovies,
-        arrayholder: newMovies
-      });
-    }).then(()=>{
-      this.handleFetchAllMovieGenres()
-    });
 
     this.tabs = ["My Movies", "Watch List", "Friend List"];
   }
@@ -115,26 +118,28 @@ export class MovieCollectionPage extends React.Component {
 
   // Navigation logic
   handleTab(newIndex) {
-    this.setState({ prevIndex: this.state.selectedIndex, selectedIndex: newIndex })
-    if (newIndex == 0 && newIndex != this.state.selectedIndex){
-      this.navigatePage = "MovieCollection"
-    } else if (newIndex == 1 && newIndex != this.state.selectedIndex){
-      this.navigatePage = "WatchList"
-    } else if (newIndex == 2 && newIndex != this.state.selectedIndex){
-      this.navigatePage = "FriendList"
+    this.setState({
+      prevIndex: this.state.selectedIndex,
+      selectedIndex: newIndex
+    });
+    if (newIndex == 0 && newIndex != this.state.selectedIndex) {
+      this.navigatePage = "MovieCollection";
+    } else if (newIndex == 1 && newIndex != this.state.selectedIndex) {
+      this.navigatePage = "WatchList";
+    } else if (newIndex == 2 && newIndex != this.state.selectedIndex) {
+      this.navigatePage = "FriendList";
     }
 
     this.props.navigation.navigate(this.navigatePage, {
       user: this.state.user,
       mainScreen: this
     });
-    this.setState({selectedIndex: 0}) // ser index back to the default for this page
+    this.setState({ selectedIndex: 0 }); // ser index back to the default for this page
   }
 
   // The following functions are for searching within the collection
 
-
-/*   renderSeparator = () => {
+  /*   renderSeparator = () => {
     return (
       <View
         style={{
@@ -146,7 +151,6 @@ export class MovieCollectionPage extends React.Component {
       />
     );
   }; */
-
 
   searchFilterFunction = text => {
     this.setState({
@@ -163,7 +167,6 @@ export class MovieCollectionPage extends React.Component {
       movies: newData
       //value: text
     });
-
   };
 
   renderHeader = () => {
@@ -180,7 +183,6 @@ export class MovieCollectionPage extends React.Component {
         inputContainerStyle={{ backgroundColor: "#eff0f1" }}
       />
     );
-
   };
   toggleModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible });
@@ -191,53 +193,51 @@ export class MovieCollectionPage extends React.Component {
     for (movie of this.state.movies) {
       for (genre of movie.genre.values()) {
         //AllMovieGenres.push(genre)
-          if (!newAllMovieGenres.includes(genre)) {
-             newAllMovieGenres.push(genre);
-          }
+        if (!newAllMovieGenres.includes(genre)) {
+          newAllMovieGenres.push(genre);
+        }
       }
-    };
+    }
     //newAllMovieGenres = new Set(AllMovieGenres);
-    this.setState({genreTags:newAllMovieGenres});
+    this.setState({ genreTags: newAllMovieGenres });
   };
-  
-  handleUpdateFilterGenre =(item) =>{
-    let newFilterTags =[]
-    
-    if (this.state.filterTags.includes(item)){
-      this.setState(this.state.filterTags.remove(item))
-      console.log('removed: ',this.state.filterTags)
-    }else{
-      newFilterTags.push(item);
-      console.log(': ',newFilterTags);
-      this.setState({filterTags: newFilterTags});
-    };
-    
 
+  handleUpdateFilterGenre = item => {
+    let newFilterTags = [];
+
+    if (this.state.filterTags.includes(item)) {
+      this.setState(this.state.filterTags.remove(item));
+      console.log("removed: ", this.state.filterTags);
+    } else {
+      newFilterTags.push(item);
+      console.log(": ", newFilterTags);
+      this.setState({ filterTags: newFilterTags });
+    }
   };
-  handleSortMovieByFilterTag = () =>{
-    let filteredMoives =[];
-    if (this.state.filterTags != []){
-      for (movie of this.state.movies){
-        for (genre of movie.genre){
-          if (this.state.filterTags.includes(genre) && !filteredMoives.includes(movie)){
+  handleSortMovieByFilterTag = () => {
+    let filteredMoives = [];
+    if (this.state.filterTags != []) {
+      for (movie of this.state.movies) {
+        for (genre of movie.genre) {
+          if (
+            this.state.filterTags.includes(genre) &&
+            !filteredMoives.includes(movie)
+          ) {
             filteredMoives.push(movie);
             console.log(filteredMoives);
-            this.setState({movies:filteredMoives});
-          }else{
+            this.setState({ movies: filteredMoives });
+          } else {
             //pass
           }
         }
       }
-    }else{
+    } else {
       //pass
     }
-  handleFilterTagPress = (item) =>{
-    this.handleUpdateFilterGenre(item)
-    this.handleSortMovieByFilterTag();
-    
-  };  
-
-
+    handleFilterTagPress = item => {
+      this.handleUpdateFilterGenre(item);
+      this.handleSortMovieByFilterTag();
+    };
   };
 
   addMovie(newMovie) {
@@ -247,7 +247,6 @@ export class MovieCollectionPage extends React.Component {
       newMovies.push(newMovie);
 
       this.setState({ movies: newMovies });
-
     });
   }
 
@@ -285,15 +284,13 @@ export class MovieCollectionPage extends React.Component {
   }
 
   render() {
-
     return (
       <View style={styles.container}>
-        <View style = {styles.MainTabsTopBlankSpace}></View>
+        <View style={styles.MainTabsTopBlankSpace}></View>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>My Movies</Text>
           <View style={styles.headerButtons}>
             <Icon.Button
-
               name="search"
               color="black"
               backgroundColor="transparent"
@@ -301,15 +298,14 @@ export class MovieCollectionPage extends React.Component {
                 this.renderCollectionSearch(); // calls the function for pulling up the search bar
               }}
             />
-            <TouchableOpacity >
-            <Icon.Button
-              name="filter"
-              color="black"
-              backgroundColor="transparent"
-              onPress={this.toggleModal}
-            />
+            <TouchableOpacity>
+              <Icon.Button
+                name="filter"
+                color="black"
+                backgroundColor="transparent"
+                onPress={this.toggleModal}
+              />
             </TouchableOpacity>
-            
           </View>
         </View>
         <View style={styles.bodyContainer}>
@@ -340,13 +336,11 @@ export class MovieCollectionPage extends React.Component {
         </View>
         <View style={styles.footerContainer}>
           <ButtonGroup
-            onPress={ newIndex =>
-              this.handleTab(newIndex)
-            }
+            onPress={newIndex => this.handleTab(newIndex)}
             selectedIndex={this.state.selectedIndex}
             buttons={this.tabs}
             containerStyle={styles.buttonGroupContainer}
-            underlayColor='black'
+            underlayColor="black"
             selectedButtonStyle={styles.buttonGroupSelected}
             selectedTextStyle={styles.buttonGroupSelectedText}
             buttonStyle={styles.buttonGroupStyle}
@@ -355,7 +349,7 @@ export class MovieCollectionPage extends React.Component {
           <Icon.Button
             name="plus-circle"
             color="black"
-            size='40'
+            size="40"
             //iconStyle={{paddingBottom: 100}}
             backgroundColor="transparent"
             onPress={() => {
@@ -397,7 +391,7 @@ export class MovieCollectionPage extends React.Component {
                     </TouchableOpacity>
                   </View>
                 );
-              }}x
+              }}
               keyExtractor={item => item.id}
             />
           </View>

@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  KeyboardAvoidingView
+} from "react-native";
 import { Button, Input, ButtonGroup } from "react-native-elements";
 import { styles } from "./Styles";
 import Carousel from "react-native-anchor-carousel";
@@ -87,7 +93,7 @@ export class AddMovieDetailPage extends React.Component {
         style={[styles.item, { backgroundColor }]}
         onPress={() => {
           this._carousel.scrollToIndex(index);
-          this.setState({posterIndex: index});
+          this.setState({ posterIndex: index });
         }}
       >
         <Image
@@ -100,9 +106,9 @@ export class AddMovieDetailPage extends React.Component {
   };
 
   render() {
-    console.log(this.state.posterIndex)
+    console.log(this.state.posterIndex);
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior='padding'>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Add my movie</Text>
         </View>
@@ -163,7 +169,7 @@ export class AddMovieDetailPage extends React.Component {
           />
           <Button title="Save" onPress={this.handleSave} />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

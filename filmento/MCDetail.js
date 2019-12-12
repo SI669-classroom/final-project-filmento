@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
 import { styles } from "./Styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -31,27 +31,32 @@ export class MCDetailPage extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>{this.state.movie.title}</Text>
-          <View style={styles.headerButtons}>
-            <Icon.Button
-              name="edit"
-              color="black"
-              backgroundColor="transparent"
-              onPress={() => {
-                this.handleEdit(this.movie);
-              }}
-            />
-          </View>
+        <View style={styles.movieDetailHeaderContainer}>
+          <ImageBackground
+            style={styles.movieDetailPosterStyle}
+            imageStyle={{ opacity: 0.5 }}
+            resizeMode="cover"
+            source={{ uri: this.state.movie.poster }}
+          >
+            <Text style={styles.movieDetailHeaderText}>
+              {this.state.movie.title}
+            </Text>
+            <TouchableOpacity
+              style={styles.editButton}
+            >
+              <Icon.Button
+                name="edit"
+                color="white"
+                size={30}
+                backgroundColor="transparent"
+                onPress={() => {
+                  this.handleEdit(this.movie);
+                }}
+              />
+            </TouchableOpacity>
+          </ImageBackground>
         </View>
         <View style={styles.bodyContainer}>
-          <View style={styles.infoImageContainer}>
-            <Image
-              style={styles.imageStyle}
-              resizeMode="contain"
-              source={{ uri: this.state.movie.poster }}
-            />
-          </View>
           <View style={styles.movieInfoContainer}>
             <Text style={styles.detailTitle}>Director</Text>
             <Text style={styles.detailText}>{this.state.movie.director} </Text>
@@ -61,12 +66,6 @@ export class MCDetailPage extends React.Component {
             <Text style={styles.detailText}>{this.state.movie.note}</Text>
             <Text style={styles.detailTitle}>Mood</Text>
             <Text style={styles.detailText}> {this.state.movie.emoji}</Text>
-            <Text style={styles.detailTitle}>Labels</Text>
-            <Text style={styles.detailText}> {this.state.movie.labels}</Text>
-            <Text style={styles.detailTitle}>
-              Who watched this movie with me
-            </Text>
-            <Text style={styles.detailText}> {this.state.movie.tag}</Text>
           </View>
         </View>
         <View style={styles.footerContainer}></View>
