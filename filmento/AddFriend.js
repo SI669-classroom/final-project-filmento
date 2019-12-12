@@ -47,6 +47,7 @@ export class AddFriendPage extends React.Component{
             movies: docData.movies,
             username: docData.username,
             wishlist: docData.wishlist,
+            profilepic: docData.profilepic,
             id: docRef.id,
             }
             newEntries.push(newEntry);
@@ -115,6 +116,8 @@ export class AddFriendPage extends React.Component{
             onChangeText={text => this.searchFilterFunction(text)}
             autoCorrect={false}
             value={this.state.value}
+            containerStyle={styles.searchBar}
+            inputContainerStyle={{ backgroundColor: "#eff0f1" }}
           />
         );
       };
@@ -131,7 +134,7 @@ export class AddFriendPage extends React.Component{
                 data={this.state.userData}
                 renderItem={({ item }) => (
                     <ListItem
-                    leftAvatar={{ size: 'medium', rounded: true, }} //source: { uri: item.moviePosters[0] }
+                    leftAvatar={{ size: 'medium', rounded: true, source: { uri: item.profilepic }}} //
                     title={`${item.firstname}` + " " + `${item.lastname}`}
                     titleStyle={{ color: 'black', fontWeight: 'bold', fontSize: 20 }}
                     subtitle={`${item.username}`}

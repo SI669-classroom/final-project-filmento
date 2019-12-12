@@ -22,10 +22,38 @@ export const styles = StyleSheet.create({
     padding: 10,
     marginTop: 4
   },
+  MainTabsTopBlankSpace: {
+    flex: 0.05,
+    justifyContent: "flex-start",
+    width: "100%",
+    flexDirection: "row",
+    borderBottomColor:'transparent',
+    borderTopColor:'transparent',
+  },
+  friendPagesPersonalHeaderContainer: {
+    flex: 0.2,
+    justifyContent: "center",
+    alignContent: "center",
+    width: "100%",
+    flexDirection: "row",
+    borderBottomColor:'transparent',
+    borderTopColor:'transparent',
+    paddingTop: 35,
+  },
+  friendPagesPersonalHeaderContent: {
+    flex: 0.22,
+    justifyContent: "center",
+    alignContent: "center",
+    width: "100%",
+    flexDirection: "column",
+    borderBottomColor:'transparent',
+    borderTopColor:'transparent',
+  },
   friendCollectionHeaderText: {
     flex: 0.7,
     fontSize: 18,
-    textAlign: "left",
+    fontWeight: "bold",
+    textAlign: "center",
     alignItems: "center",
     padding: 10,
     marginTop: 14
@@ -77,8 +105,8 @@ export const styles = StyleSheet.create({
     borderRadius: 10
   },
   imageStyle: {
-    width: "120%",
-    height: "120%",
+    width: "125%",
+    height: "125%",
     alignSelf: "center",
     resizeMode: "cover"
   },
@@ -113,6 +141,12 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 1, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 3,
+
+    alignItems:'center',
+  },
+  flatlistColumn:{
+    borderColor:'transparent',
+
     alignItems: "center"
   },
   searchBar: {
@@ -136,11 +170,6 @@ export const styles = StyleSheet.create({
     alignSelf: "center",
     resizeMode: "contain",
     marginLeft: 30
-  },
-  searchBar: {
-    backgroundColor: "transparent",
-    borderBottomColor: "transparent",
-    borderTopColor: "transparent"
   },
   movieDetailImageStyle: {
     width: "120%",
@@ -181,5 +210,42 @@ export const styles = StyleSheet.create({
     height: "80%",
     alignSelf: "center",
     resizeMode: "cover"
+  },
+  searchBar:{
+  backgroundColor:'transparent',
+  borderBottomColor:'transparent',
+  borderTopColor:'transparent',
+  },
+  modal: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  modalTitle:{
+    fontSize:20,
+    alignSelf:'center',
+    marginTop:16,
+    marginBottom:8,
+    fontWeight:'600',
+  },
+  modalFilterContainer:{
+    flexDirection:"column",
+    borderRadius:20,
+    marginLeft:15,
+    marginTop:15,
+
+  },
+  modalTag:{
+    backgroundColor:'#eff0f1',
+    borderRadius:20,
+
+  },
+  modalTagPressed:{
+    backgroundColor:'#000000',
+    borderRadius:20,
+  },
+  modalTagTitle:{
+    fontSize:16,
+    color:'#2d2d2d',
+    padding:10
   }
 });

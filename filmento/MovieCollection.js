@@ -1,47 +1,54 @@
 import React from "react";
 import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
-import { Overlay, ButtonGroup, SearchBar } from "react-native-elements";
+import { Overlay, ButtonGroup, SearchBar, Button } from "react-native-elements";
 import { styles } from "./Styles";
+import Firebase from './Firebase';
 import firebase from "firebase";
 import "@firebase/firestore";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Modal from "react-native-modal";
 
 export class MovieCollectionPage extends React.Component {
   constructor(props) {
     super(props);
 
-    //this.UID = this.props.navigation.getParam("UID");
+    this.UID = this.props.navigation.getParam("UID");
 
     this.state = {
       user: [],
       selectedIndex: 0,
       movies: [],
-      arrayholder: [] // also for storing user collection movie data
+
+      arrayholder: [], // also for storing user collection movie data
+      //value: ''
+      isModalVisible: false,
+      genreTags: [],
+      filterTags: []
     };
     this.navigatePage = "";
     this.db = firebase.firestore();
 
     // read entries collection from database and store in state
 
-    //this.usersRef = this.db.collection("users").doc(this.UID);
-    this.usersRef = this.db.collection("users").doc("testsub");
+    this.usersRef = this.db.collection("users").doc(this.UID);
+    //this.usersRef = this.db.collection("users").doc("testsub");
 
     this.usersRef.get().then(queryRef => {
       let docData = queryRef.data();
-      //let newUser = {
-      // moviesCollection: docData.movies,
-      // wishList: docData.wishList
-      //};
+      let newUser = {
+      moviesCollection: docData.movies,
+      wishList: docData.wishList
+      };
 
       this.setState({
-        //user: newUser,
+        user: newUser,
       });
     });
 
     //get subcollection
     this.moviesRef = this.db
       .collection("users")
-      .doc("testsub")
+      .doc(this.UID)
       .collection("movies");
     this.moviesRef.get().then(queryRef => {
       let newMovies = [];
@@ -65,6 +72,8 @@ export class MovieCollectionPage extends React.Component {
         movies: newMovies,
         arrayholder: newMovies
       });
+    }).then(()=>{
+      this.handleFetchAllMovieGenres()
     });
 
     this.tabs = ["My Movies", "Watch List", "Friend List"];
@@ -124,19 +133,20 @@ export class MovieCollectionPage extends React.Component {
 
   // The following functions are for searching within the collection
 
-  // renderSeparator = () => {
-  //   return (
-  //     <View
-  //       style={{
-  //         height: 1,
-  //         width: "86%",
-  //         backgroundColor: "#CED0CE",
-  //         marginLeft: "14%"
-  //       }}
-  //     />
-  //   );
-    
-  // };
+
+/*   renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "86%",
+          backgroundColor: "#CED0CE",
+          marginLeft: "14%"
+        }}
+      />
+    );
+  }; */
+
 
   searchFilterFunction = text => {
     this.setState({
@@ -153,6 +163,7 @@ export class MovieCollectionPage extends React.Component {
       movies: newData
       //value: text
     });
+
   };
 
   renderHeader = () => {
@@ -169,6 +180,64 @@ export class MovieCollectionPage extends React.Component {
         inputContainerStyle={{ backgroundColor: "#eff0f1" }}
       />
     );
+
+  };
+  toggleModal = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  };
+
+  handleFetchAllMovieGenres = () => {
+    let newAllMovieGenres = [];
+    for (movie of this.state.movies) {
+      for (genre of movie.genre.values()) {
+        //AllMovieGenres.push(genre)
+          if (!newAllMovieGenres.includes(genre)) {
+             newAllMovieGenres.push(genre);
+          }
+      }
+    };
+    //newAllMovieGenres = new Set(AllMovieGenres);
+    this.setState({genreTags:newAllMovieGenres});
+  };
+  
+  handleUpdateFilterGenre =(item) =>{
+    let newFilterTags =[]
+    
+    if (this.state.filterTags.includes(item)){
+      this.setState(this.state.filterTags.remove(item))
+      console.log('removed: ',this.state.filterTags)
+    }else{
+      newFilterTags.push(item);
+      console.log(': ',newFilterTags);
+      this.setState({filterTags: newFilterTags});
+    };
+    
+
+  };
+  handleSortMovieByFilterTag = () =>{
+    let filteredMoives =[];
+    if (this.state.filterTags != []){
+      for (movie of this.state.movies){
+        for (genre of movie.genre){
+          if (this.state.filterTags.includes(genre) && !filteredMoives.includes(movie)){
+            filteredMoives.push(movie);
+            console.log(filteredMoives);
+            this.setState({movies:filteredMoives});
+          }else{
+            //pass
+          }
+        }
+      }
+    }else{
+      //pass
+    }
+  handleFilterTagPress = (item) =>{
+    this.handleUpdateFilterGenre(item)
+    this.handleSortMovieByFilterTag();
+    
+  };  
+
+
   };
 
   addMovie(newMovie) {
@@ -216,16 +285,31 @@ export class MovieCollectionPage extends React.Component {
   }
 
   render() {
+
     return (
       <View style={styles.container}>
+        <View style = {styles.MainTabsTopBlankSpace}></View>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>My Movies</Text>
           <View style={styles.headerButtons}>
             <Icon.Button
+
+              name="search"
+              color="black"
+              backgroundColor="transparent"
+              onPress={() => {
+                this.renderCollectionSearch(); // calls the function for pulling up the search bar
+              }}
+            />
+            <TouchableOpacity >
+            <Icon.Button
               name="filter"
               color="black"
               backgroundColor="transparent"
+              onPress={this.toggleModal}
             />
+            </TouchableOpacity>
+            
           </View>
         </View>
         <View style={styles.bodyContainer}>
@@ -272,6 +356,8 @@ export class MovieCollectionPage extends React.Component {
           <Icon.Button
             name="plus-circle"
             color="black"
+            size='40'
+            //iconStyle={{paddingBottom: 100}}
             backgroundColor="transparent"
             onPress={() => {
               this.props.navigation.navigate("AddMovieToCollection", {
@@ -284,6 +370,39 @@ export class MovieCollectionPage extends React.Component {
             }}
           />
         </View>
+        <Modal
+          isVisible={this.state.isModalVisible}
+          onBackdropPress={() => this.setState({ isModalVisible: false })}
+          swipeDirection="down"
+          style={styles.modal}
+          onSwipeComplete={() => this.setState({ isModalVisible: false })}
+        >
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "#fff",
+              marginTop: 700,
+              borderRadius: 20,
+              justifyContent: "flex-start"
+            }}
+          >
+            <Text style={styles.modalTitle}>Select Genre</Text>
+            <FlatList
+              data={this.state.genreTags}
+              numColumns={3}
+              renderItem={({ item }) => {
+                return (
+                  <View style={styles.modalFilterContainer}>
+                    <TouchableOpacity style={styles.modalTag}>
+                      <Text style={styles.modalTagTitle}>{item}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              }}x
+              keyExtractor={item => item.id}
+            />
+          </View>
+        </Modal>
       </View>
     );
   }
