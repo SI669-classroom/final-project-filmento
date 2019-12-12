@@ -20,15 +20,15 @@ export const styles = StyleSheet.create({
     textAlign: "left",
     alignItems: "center",
     padding: 10,
-    marginTop: 4,
+    marginTop: 4
   },
   MainTabsTopBlankSpace: {
     flex: 0.1,
     justifyContent: "flex-start",
     width: "100%",
     flexDirection: "row",
-    borderBottomColor:'transparent',
-    borderTopColor:'transparent',
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent"
   },
   friendPagesPersonalHeaderContainer: {
     flex: 0.1,
@@ -36,9 +36,9 @@ export const styles = StyleSheet.create({
     alignContent: "center",
     width: "100%",
     flexDirection: "row",
-    borderBottomColor:'transparent',
-    borderTopColor:'transparent',
-    paddingTop: 10,
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent",
+    paddingTop: 35
   },
   friendPagesPersonalHeaderContent: {
     flex: 0.22,
@@ -46,9 +46,8 @@ export const styles = StyleSheet.create({
     alignContent: "center",
     width: "100%",
     flexDirection: "column",
-    borderBottomColor:'transparent',
-    borderTopColor:'transparent',
-    paddingTop: 10,
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent"
   },
   friendCollectionHeaderText: {
     flex: 0.7,
@@ -57,7 +56,7 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
     padding: 10,
-    marginTop: 14,
+    marginTop: 14
   },
   headerButtons: {
     flex: 0.3,
@@ -70,38 +69,23 @@ export const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-between"
   },
-  infoImageContainer: {
-    flex: 0.6, //here you can use flex:1 also
-    aspectRatio: 1,
-    //backgroundColor: "yellow",
-    alignItems: "center",
-    alignSelf: "center"
-  },
   movieInfoContainer: {
-    marginButtom: 10,
-    flex: 0.8,
-    width: "100%"
-  },
-  detailTitle: {
-    fontSize: 14,
-    textAlign: "left",
-    marginLeft: 5
-  },
-  detailText: {
-    fontSize: 16,
-    textAlign: "left",
-    margin: 5
+    marginTop: 10,
+    flex: 0.4,
+    width: "100%",
+    justifyContent: "space-around",
+    backgroundColor: 'yellow'
   },
   imageContainer: {
     flex: 1, //here you can use flex:1 also
     //aspectRatio: 1,
     backgroundColor: "white",
-    margin:16,
-    overflow:'hidden',
-    height:270,
-    width:180,
-    justifyContent:'center',
-    borderRadius: 10,
+    margin: 16,
+    overflow: "hidden",
+    height: 270,
+    width: 180,
+    justifyContent: "center",
+    borderRadius: 10
   },
   imageStyle: {
     width: "125%",
@@ -116,23 +100,23 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     paddingTop: 12
   },
-  buttonGroupContainer:{
+  buttonGroupContainer: {
     flex: 0.8,
-    width: '90%',
-    borderColor: 'gray'
+    width: "90%",
+    borderColor: "gray"
   },
-  buttonGroupStyle:{
-    backgroundColor: 'white'
+  buttonGroupStyle: {
+    backgroundColor: "white"
   },
-  buttonGroupText:{
+  buttonGroupText: {
     //color: '#b8b8b8',
-    color: 'black'
+    color: "black"
   },
-  buttonGroupSelected:{
-    backgroundColor: 'gray'
+  buttonGroupSelected: {
+    backgroundColor: "gray"
   },
-  buttonGroupSelectedText:{
-    color: 'white'
+  buttonGroupSelectedText: {
+    color: "white"
   },
   posterContianer: {
     flex: 1,
@@ -141,10 +125,10 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 3,
 
-    alignItems:'center',
+    alignItems: "center"
   },
-  flatlistColumn:{
-    borderColor:'transparent',
+  flatlistColumn: {
+    borderColor: "transparent",
 
     alignItems: "center"
   },
@@ -161,51 +145,91 @@ export const styles = StyleSheet.create({
   },
   carousel: {
     height: 500,
-    width: '100%',
+    width: "100%"
   },
   carouselImageStyle: {
     width: "100%",
     height: "100%",
     alignSelf: "center",
-    resizeMode: "contain",
-
+    resizeMode: "contain"
   },
-  searchBar:{
-  backgroundColor:'transparent',
-  borderBottomColor:'transparent',
-  borderTopColor:'transparent',
+  searchBar: {
+    backgroundColor: "transparent",
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent"
   },
   modal: {
-    justifyContent: 'flex-end',
-    margin: 0,
+    justifyContent: "flex-end",
+    margin: 0
   },
-  modalTitle:{
-    fontSize:20,
-    alignSelf:'center',
-    marginTop:16,
-    marginBottom:8,
-    fontWeight:'600',
+  modalTitle: {
+    fontSize: 20,
+    alignSelf: "center",
+    marginTop: 16,
+    marginBottom: 8,
+    fontWeight: "600"
   },
-  modalFilterContainer:{
-    flexDirection:"column",
-    borderRadius:20,
-    marginLeft:15,
-    marginTop:15,
-
+  modalFilterContainer: {
+    flexDirection: "column",
+    borderRadius: 20,
+    marginLeft: 15,
+    marginTop: 15
   },
-  modalTag:{
-    backgroundColor:'#eff0f1',
-    borderRadius:20,
-
+  modalTag: {
+    backgroundColor: "#eff0f1",
+    borderRadius: 20
   },
-  modalTagPressed:{
-    backgroundColor:'#000000',
-    borderRadius:20,
+  modalTagPressed: {
+    backgroundColor: "#000000",
+    borderRadius: 20
   },
-  modalTagTitle:{
-    fontSize:16,
-    color:'#2d2d2d',
-    padding:10
-  }
-
+  modalTagTitle: {
+    fontSize: 16,
+    color: "#2d2d2d",
+    padding: 10
+  },
+  movieDetailHeaderContainer: {
+    flex: 0.8,
+    justifyContent: "flex-start",
+    width: "100%",
+    flexDirection: "row",
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent"
+  },
+  movieDetailPosterStyle: {
+    width: "100%",
+    backgroundColor: "black",
+    flexDirection: "row"
+  },
+  movieDetailHeaderText: {
+    flex: 0.8,
+    justifyContent: "flex-end",
+    fontSize: 32,
+    textAlign: "left",
+    alignItems: "center",
+    paddingLeft: 50,
+    paddingTop: 50,
+    color: "white"
+  },
+  editButton: {
+    flex: 0.2,
+    alignItems: "flex-start",
+    alignSelf: "flex-start",
+    marginRight: 20,
+    marginTop: 50,
+    width: "100%"
+  },
+  detailTitle: {
+    fontSize: 14,
+    textAlign: "left",
+    marginLeft: 5,
+    marginTop: 20
+  },
+  detailText: {
+    fontSize: 16,
+    textAlign: "left",
+    marginTop: 50,
+    marginBottom: 50,
+    marginLeft: 5,
+  },
 });
