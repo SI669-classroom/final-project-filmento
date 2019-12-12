@@ -294,9 +294,6 @@ export class MovieCollectionPage extends React.Component {
               name="search"
               color="black"
               backgroundColor="transparent"
-              onPress={() => {
-                this.renderCollectionSearch(); // calls the function for pulling up the search bar
-              }}
             />
             <TouchableOpacity>
               <Icon.Button
@@ -330,7 +327,7 @@ export class MovieCollectionPage extends React.Component {
                 </View>
               );
             }}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item.key}
             ListHeaderComponent={this.renderHeader}
           />
         </View>

@@ -95,9 +95,6 @@ export class AddToMCPage extends React.Component {
               name="search"
               color="black"
               backgroundColor="transparent"
-              onPress={() => {
-                this.mainScreen.renderCollectionSearch(); // calls the function for pulling up the search bar
-              }}
             />
             <Icon.Button
               name="filter"
@@ -128,7 +125,7 @@ export class AddToMCPage extends React.Component {
                 </View>
               );
             }}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item.key}
             ItemSeparatorComponent={this.mainScreen.renderSeparator}
             ListHeaderComponent={this.renderHeader}
           />
