@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, KeyboardAvoidingView } from "react-native";
 import { Button, Input, ButtonGroup } from "react-native-elements";
 import { styles } from "./Styles";
 
@@ -75,7 +75,7 @@ export class EditMCPage extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior='padding'> 
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Edit my movie</Text>
         </View>
@@ -123,7 +123,7 @@ export class EditMCPage extends React.Component {
           />
           <Button title="Save" onPress={this.handleSave} />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
