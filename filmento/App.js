@@ -24,7 +24,7 @@ const AppStack = createStackNavigator({
   AddMovieDetail: AddMovieDetailPage,
   MovieCollectionDetail: MCDetailPage, 
   EditMovieCollection: EditMCPage,
-  //WatchList: WatchListPage,
+  WatchList: WatchListPage,
   //AddMovietoWatchList: AddToWLPage,
   //WatchListDetail: WLDetailPage,
   FriendList: FriendListPage,
@@ -33,18 +33,16 @@ const AppStack = createStackNavigator({
 }
 );
 
-// work on fixing nav bar problems in later stage: use const
-
 const App = createSwitchNavigator(
   {
     Auth: AuthStack,
     App: AppStack,
     // Login: LoginPage,
     // SignUp: SignUpPage,
-    MovieCollection: MovieCollectionPage,
+    //MovieCollection: MovieCollectionPage,
     //AddMovieToCollection: AddToMCPage,
-    MovieCollectionDetail: MCDetailPage,
-    WatchList: WatchListPage,
+    //MovieCollectionDetail: MCDetailPage,
+    //WatchList: WatchListPage,
     //FriendList: FriendListPage,
     //EditMovieCollection: EditMCPage,
     //MovieCollectionDetail: MCDetailPage

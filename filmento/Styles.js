@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     marginTop: 4,
   },
   MainTabsTopBlankSpace: {
-    flex: 0.05,
+    flex: 0.1,
     justifyContent: "flex-start",
     width: "100%",
     flexDirection: "row",
@@ -31,14 +31,14 @@ export const styles = StyleSheet.create({
     borderTopColor:'transparent',
   },
   friendPagesPersonalHeaderContainer: {
-    flex: 0.2,
+    flex: 0.1,
     justifyContent: "center",
     alignContent: "center",
     width: "100%",
     flexDirection: "row",
     borderBottomColor:'transparent',
     borderTopColor:'transparent',
-    paddingTop: 35,
+    paddingTop: 10,
   },
   friendPagesPersonalHeaderContent: {
     flex: 0.22,
@@ -48,6 +48,7 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     borderBottomColor:'transparent',
     borderTopColor:'transparent',
+    paddingTop: 10,
   },
   friendCollectionHeaderText: {
     flex: 0.7,
@@ -77,7 +78,7 @@ export const styles = StyleSheet.create({
     alignSelf: "center"
   },
   movieInfoContainer: {
-    // marginTop: 10,
+    marginButtom: 10,
     flex: 0.8,
     width: "100%"
   },

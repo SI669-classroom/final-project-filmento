@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, Image, TouchableOpacity, AsyncStorage } from "react-native";
 import { Overlay, ButtonGroup, SearchBar, Button } from "react-native-elements";
 import { styles } from "./Styles";
 import Firebase from './Firebase';
@@ -13,6 +13,27 @@ export class MovieCollectionPage extends React.Component {
     super(props);
 
     this.UID = this.props.navigation.getParam("UID");
+
+    // const saveUserId = async () => {
+    //   try {
+    //     await AsyncStorage.setItem('userId', this.UID);
+    //   } catch (error) {
+    //     // Error retrieving data
+    //     console.log(error.message);
+    //   }
+    // };
+
+    // const getUserId = async () => {
+    //   let userId = '';
+    //   try {
+    //     userId = await AsyncStorage.getItem('userId') || 'none';
+    //   } catch (error) {
+    //     // Error retrieving data
+    //     console.log(error.message);
+    //   }
+    //   return userId;
+    // }
+
 
     this.state = {
       user: [],
@@ -293,13 +314,9 @@ export class MovieCollectionPage extends React.Component {
           <Text style={styles.headerText}>My Movies</Text>
           <View style={styles.headerButtons}>
             <Icon.Button
-
               name="search"
               color="black"
               backgroundColor="transparent"
-              onPress={() => {
-                this.renderCollectionSearch(); // calls the function for pulling up the search bar
-              }}
             />
             <TouchableOpacity >
             <Icon.Button
@@ -334,7 +351,7 @@ export class MovieCollectionPage extends React.Component {
                 </View>
               );
             }}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item.key}
             ListHeaderComponent={this.renderHeader}
           />
         </View>
@@ -397,7 +414,7 @@ export class MovieCollectionPage extends React.Component {
                     </TouchableOpacity>
                   </View>
                 );
-              }}x
+              }}
               keyExtractor={item => item.id}
             />
           </View>

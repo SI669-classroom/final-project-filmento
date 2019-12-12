@@ -35,6 +35,7 @@ export class FriendCollectionPage extends React.Component {
     };
 
     this.friendAccountEmail = this.props.navigation.getParam('friendAccountEmail') // get friend accounnt email from previous screen
+    
 
     this.navigatePage = "";
 
