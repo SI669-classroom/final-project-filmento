@@ -40,6 +40,7 @@ export class FriendListPage extends React.Component{
         // db reference for all users data
         this.userDataRef = db.collection('users'); 
         this.userDataRef.get().then(queryRef=>{
+
         let newEntries = [];
         queryRef.forEach(docRef=>{
             let docData = docRef.data();
@@ -152,7 +153,7 @@ export class FriendListPage extends React.Component{
               <View style = {styles.friendPagesPersonalHeaderContent}>
                 <Image
                 source={{uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu24phVCd5LT9fgqgWzDOfrO-kj3nHcvOSC7kH6JOu-er-s9kd&s"}}
-                style={{ width: 90, height: 90, borderRadius: 90 / 2 }}
+                style={{ width: 80, height: 80, borderRadius: 80 / 2 }}
                 />
                 {/* <Text>Charlene Ni</Text> */}
               </View>

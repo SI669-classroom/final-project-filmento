@@ -33,8 +33,6 @@ const AppStack = createStackNavigator({
 }
 );
 
-// work on fixing nav bar problems in later stage: use const
-
 const App = createSwitchNavigator(
   {
     Auth: AuthStack,

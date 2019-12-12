@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     marginTop: 4
   },
   MainTabsTopBlankSpace: {
-    flex: 0.05,
+    flex: 0.1,
     justifyContent: "flex-start",
     width: "100%",
     flexDirection: "row",
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     borderTopColor: "transparent"
   },
   friendPagesPersonalHeaderContainer: {
-    flex: 0.2,
+    flex: 0.1,
     justifyContent: "center",
     alignContent: "center",
     width: "100%",

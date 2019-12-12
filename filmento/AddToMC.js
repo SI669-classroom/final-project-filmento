@@ -56,7 +56,7 @@ export class AddToMCPage extends React.Component {
       return itemData.indexOf(textData) > -1;
     });
     this.setState({
-      movies: newData
+      moviesData: newData
     });
   };
 
@@ -95,9 +95,7 @@ export class AddToMCPage extends React.Component {
               name="search"
               color="black"
               backgroundColor="transparent"
-              onPress={() => {
-                this.mainScreen.renderCollectionSearch(); // calls the function for pulling up the search bar
-              }}
+
             />
             <Icon.Button
               name="filter"
@@ -109,7 +107,7 @@ export class AddToMCPage extends React.Component {
         <View style={styles.bodyContainer}>
           <FlatList
             data={this.state.moviesData}
-            numColumns={4}
+            numColumns={5}
             renderItem={({ item }) => {
               return (
                 <View style={styles.posterContianer}>
@@ -128,7 +126,7 @@ export class AddToMCPage extends React.Component {
                 </View>
               );
             }}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item.key}
             ItemSeparatorComponent={this.mainScreen.renderSeparator}
             ListHeaderComponent={this.renderHeader}
           />
