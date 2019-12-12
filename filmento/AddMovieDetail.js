@@ -22,17 +22,17 @@ export class AddMovieDetailPage extends React.Component {
     let initMood = "";
     this.emojiList = ["😆", "🤔", "😪", "😱", "😡", "😭", "😍"];
 
-    if (!this.isAdd) {
-      initNote = this.movie.note;
-      initMood = this.movie.emoji;
-    }
+    // if (!this.isAdd) {
+    //   initNote = this.movie.note;
+    //   initMood = this.movie.emoji;
+    // }
 
     this.state = {
       emojis: [],
       inputNote: initNote,
       inputMood: initMood,
       selectedIndex: 0,
-      posterIndex: 1
+      posterIndex: 0
     };
     this.labels = ["test", "2019"];
     this.tag = "";

@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, ImageBackground } from "react-native";
 import { styles } from "./Styles";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Tile } from "react-native-elements";
 
 export class MCDetailPage extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ export class MCDetailPage extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>{this.state.movie.title}</Text>
+          {/* <Text style={styles.headerText}>{this.state.movie.title}</Text>
           <View style={styles.headerButtons}>
             <Icon.Button
               name="edit"
@@ -41,16 +42,24 @@ export class MCDetailPage extends React.Component {
               onPress={() => {
                 this.handleEdit(this.movie);
               }}
+            /> 
+          </View> */}
+          <Tile
+              imageSrc={{uri: this.state.movie.poster}}
+              title={this.state.movie.title}
+              featured
+              imageContainerStyle = {styles.tileImageContainer}
+              containerStyle ={styles.tileContainer}
+              height={300}
             />
-          </View>
         </View>
         <View style={styles.bodyContainer}>
           <View style={styles.infoImageContainer}>
-            <Image
-              style={styles.imageStyle}
-              resizeMode="contain"
+            {/* <ImageBackground 
+              style={styles.movieDetailImageStyle}
+              resizeMode="stretch"
               source={{ uri: this.state.movie.poster }}
-            />
+            /> */}
           </View>
           <View style={styles.movieInfoContainer}>
             <Text style={styles.detailTitle}>Director</Text>

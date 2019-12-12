@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     textAlign: "left",
     alignItems: "center",
     padding: 10,
-    marginTop: 4,
+    marginTop: 4
   },
   friendCollectionHeaderText: {
     flex: 0.7,
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     textAlign: "left",
     alignItems: "center",
     padding: 10,
-    marginTop: 14,
+    marginTop: 14
   },
   headerButtons: {
     flex: 0.3,
@@ -61,18 +61,20 @@ export const styles = StyleSheet.create({
   detailText: {
     fontSize: 16,
     textAlign: "left",
-    margin: 5
+    marginLeft: 5,
+    marginTop: 5,
+    marginBottom: 20
   },
   imageContainer: {
     flex: 1, //here you can use flex:1 also
     //aspectRatio: 1,
     backgroundColor: "white",
-    margin:16,
-    overflow:'hidden',
-    height:270,
-    width:180,
-    justifyContent:'center',
-    borderRadius: 10,
+    margin: 16,
+    overflow: "hidden",
+    height: 270,
+    width: 180,
+    justifyContent: "center",
+    borderRadius: 10
   },
   imageStyle: {
     width: "120%",
@@ -87,23 +89,23 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     paddingTop: 12
   },
-  buttonGroupContainer:{
+  buttonGroupContainer: {
     flex: 0.8,
-    width: '90%',
-    borderColor: 'gray'
+    width: "90%",
+    borderColor: "gray"
   },
-  buttonGroupStyle:{
-    backgroundColor: 'white'
+  buttonGroupStyle: {
+    backgroundColor: "white"
   },
-  buttonGroupText:{
+  buttonGroupText: {
     //color: '#b8b8b8',
-    color: 'black'
+    color: "black"
   },
-  buttonGroupSelected:{
-    backgroundColor: 'gray'
+  buttonGroupSelected: {
+    backgroundColor: "gray"
   },
-  buttonGroupSelectedText:{
-    color: 'white'
+  buttonGroupSelectedText: {
+    color: "white"
   },
   posterContianer: {
     flex: 1,
@@ -126,19 +128,58 @@ export const styles = StyleSheet.create({
   },
   carousel: {
     height: 500,
-    width: '100%',
+    width: "100%"
   },
   carouselImageStyle: {
     width: "100%",
     height: "100%",
     alignSelf: "center",
     resizeMode: "contain",
-    backgroundColor: 'yellow'
+    marginLeft: 30
   },
-  searchBar:{
-  backgroundColor:'transparent',
-  borderBottomColor:'transparent',
-  borderTopColor:'transparent',
+  searchBar: {
+    backgroundColor: "transparent",
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent"
+  },
+  movieDetailImageStyle: {
+    width: "120%",
+    height: "120%",
+    justifyContent: "flex-start",
+    margin: 100,
+    overlayColor: "black"
+  },
+  tileImageContainer: {
+    justifyContent: "flex-start",
+    borderRadius: 10,
+    color: "#FFF",
+    overlayColor: "black"
+  },
+  tileContainer: {
+    justifyContent: "flex-start"
+  },
+  moviesDataImageStyle: {
+    width: "120%",
+    height: "120%",
+    justifyContent: "flex-start",
+    margin: 100,
+    overlayColor: "black"
+  },
+  movieDataImageContainer: {
+    flex: 1, //here you can use flex:1 also
+    //aspectRatio: 1,
+    backgroundColor: "white",
+    margin: 16,
+    overflow: "hidden",
+    height: 270,
+    width: 180,
+    justifyContent: "center",
+    borderRadius: 10
+  },
+  imageStyle: {
+    width: "80%",
+    height: "80%",
+    alignSelf: "center",
+    resizeMode: "cover"
   }
-
 });

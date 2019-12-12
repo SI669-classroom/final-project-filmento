@@ -114,13 +114,13 @@ export class AddToMCPage extends React.Component {
               return (
                 <View style={styles.posterContianer}>
                   <TouchableOpacity
-                    style={styles.imageContainer}
+                    style={styles.movieDataImageContainer}
                     onPress={() => {
                       this.handleGoToAddMovieDetail(item);
                     }}
                   >
                     <Image
-                      style={styles.imageStyle}
+                      style={styles.movieDataImageStyle}
                       resizeMode="contain"
                       source={{ uri: item.moviePosters[0] }}
                     />

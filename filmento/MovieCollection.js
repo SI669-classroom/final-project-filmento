@@ -143,9 +143,9 @@ export class MovieCollectionPage extends React.Component {
       value: text
     });
 
-    const newData = this.state.arrayholder.filter(item => {
-      const itemData = `${item.title.toUpperCase()}`;
-      const textData = text.toUpperCase();
+    let newData = this.state.arrayholder.filter(item => {
+      let itemData = `${item.title.toUpperCase()}`;
+      let textData = text.toUpperCase();
 
       return itemData.indexOf(textData) > -1;
     });
@@ -253,6 +253,7 @@ export class MovieCollectionPage extends React.Component {
             keyExtractor={item => item.id}
             ListHeaderComponent={this.renderHeader}
           />
+          
         </View>
         <View style={styles.footerContainer}>
           <ButtonGroup
