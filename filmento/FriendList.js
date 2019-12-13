@@ -28,7 +28,7 @@ export class FriendListPage extends React.Component {
     super(props);
 
     this.state = {
-      selectedIndex: 2,
+      selectedIndex: 1,
       loading: false,
       userData: [], // for storing the data of all existing users
       friendData: [],
@@ -114,7 +114,7 @@ export class FriendListPage extends React.Component {
       user: this.state.user,
       mainScreen: this
     });
-    this.setState({ selectedIndex: 2 }); // ser index back to the default for this page
+    this.setState({ selectedIndex: 1 }); // set index back to the default for this page
   }
 
   searchFilterFunction = text => {

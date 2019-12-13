@@ -95,7 +95,6 @@ export class AddToMCPage extends React.Component {
               name="search"
               color="black"
               backgroundColor="transparent"
-
             />
             <Icon.Button
               name="filter"
