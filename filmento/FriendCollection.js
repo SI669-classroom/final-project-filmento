@@ -66,7 +66,7 @@ export class FriendCollectionPage extends React.Component {
   }
 
   handleGoToInfo(clickedMovie) {
-    this.props.navigation.navigate("MovieCollectionDetail", {
+    this.props.navigation.navigate("FriendMovieDetail", {
       movie: clickedMovie,
       mainScreen: this
     });
