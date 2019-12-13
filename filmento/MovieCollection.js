@@ -316,14 +316,6 @@ export class MovieCollectionPage extends React.Component {
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>My Movies</Text>
           <View style={styles.headerButtons}>
-<<<<<<< HEAD
-            <Icon.Button
-              name="search"
-              color="black"
-              backgroundColor="transparent"
-            />
-=======
->>>>>>> 23e2f6cde71efad79b805dfb07634c32915d1d13
             <TouchableOpacity>
               <Icon.Button
                 name="filter"
