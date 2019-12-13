@@ -35,6 +35,8 @@ export class FriendListPage extends React.Component {
       error: null
     };
 
+    this.UID = this.props.navigation.getParam("uid"); // get the UID of the current user from last page
+
     this.navigatePage = "";
     this.tabs = ["My Movies", "Friend List"];
 
@@ -65,7 +67,7 @@ export class FriendListPage extends React.Component {
       this.setState({ userData: newEntries });
 
       for (user of this.state.userData) {
-        if (user.email == "rexsu@gmail.com") {
+        if (user.email == this.UID) {
           for (i = 0; i < user.friends.length; i++) {
             this.friends.push(user.friends[i]);
           }
