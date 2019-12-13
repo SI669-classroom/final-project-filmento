@@ -10,6 +10,7 @@ import { EditMCPage } from "./EditToMC";
 import { FriendListPage } from './FriendList';
 import { FriendCollectionPage } from './FriendCollection';
 import { AddFriendPage } from './AddFriend';
+import { FriendMovieDetailPage } from './FriendMovieDetail';
 
 const AuthStack = createStackNavigator({
   Login: LoginPage,
@@ -24,6 +25,7 @@ const AppStack = createStackNavigator({
   FriendList: FriendListPage,
   FriendCollection: FriendCollectionPage,
   AddFriend: AddFriendPage,
+  FriendMovieDetail: FriendMovieDetailPage,
 }
 );
 
