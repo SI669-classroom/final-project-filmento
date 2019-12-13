@@ -63,7 +63,7 @@ export class AddToMCPage extends React.Component {
   renderHeader = () => {
     return (
       <SearchBar
-        placeholder="Search within My Movies"
+        placeholder="Search for a movie"
         //placeholderTextColor='#'
         lightTheme
         round
@@ -91,11 +91,6 @@ export class AddToMCPage extends React.Component {
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Add movie</Text>
           <View style={styles.headerButtons}>
-            <Icon.Button
-              name="search"
-              color="black"
-              backgroundColor="transparent"
-            />
             <Icon.Button
               name="filter"
               color="black"

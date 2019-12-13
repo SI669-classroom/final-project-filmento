@@ -158,7 +158,8 @@ export class MovieCollectionPage extends React.Component {
     this.props.navigation.navigate(this.navigatePage, {
       user: this.state.user,
       mainScreen: this,
-      moives: this.state.movies
+      moives: this.state.movies,
+      uid: this.UID,
     });
     this.setState({ selectedIndex: 0 }); // ser index back to the default for this page
   }

@@ -160,11 +160,6 @@ export class FriendCollectionPage extends React.Component {
           <Text></Text>
           <View style={styles.headerButtons}>
             <Icon.Button
-              name="search"
-              color="black"
-              backgroundColor="transparent"
-            />
-            <Icon.Button
               name="filter"
               color="black"
               backgroundColor="transparent"
