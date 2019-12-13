@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, KeyboardAvoidingView } from "react-native";
+import { View, Text, Image, KeyboardAvoidingView, TextInput , FlatList} from "react-native";
 import { Button, Input, ButtonGroup } from "react-native-elements";
 import { styles } from "./Styles";
 
@@ -74,26 +74,37 @@ export class EditMCPage extends React.Component {
   };
 
   render() {
+    console.log(this.movie.genre);
     return (
-      <KeyboardAvoidingView style={styles.container} behavior='padding'> 
-        <View style={styles.headerContainer}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <View style={styles.movieDetailHeaderContainer}>
           <Text style={styles.headerText}>Edit my movie</Text>
+          <Image
+            style={styles.imageStyle}
+            resizeMode="contain"
+            source={{ uri: this.movie.poster }}
+          />
         </View>
         <View style={styles.bodyContainer}>
-          <View style={styles.infoImageContainer}>
-            <Image
-              style={styles.imageStyle}
-              resizeMode="contain"
-              source={{ uri: this.movie.poster }}
-            />
-          </View>
           <View style={styles.movieInfoContainer}>
             <Text style={styles.detailTitle}>Title</Text>
             <Text style={styles.detailText}>{this.movie.title} </Text>
             <Text style={styles.detailTitle}>Director</Text>
             <Text style={styles.detailText}>{this.movie.director} </Text>
             <Text style={styles.detailTitle}>Genre</Text>
-            <Text style={styles.detailText}>{this.movie.genre}</Text>
+            <FlatList
+              data={this.movie.genre}
+              horizontal={true}
+              renderItem={({ item }) => {
+                return (
+                  <View>
+                    <Text style={styles.detailText}>{item} |</Text>
+                  </View>
+                );
+              }}
+              keyExtractor={item => item.key}
+              ListHeaderComponent={this.renderHeader}
+            />
             <Text style={styles.detailTitle}>Note</Text>
             <Input
               multiline={true}

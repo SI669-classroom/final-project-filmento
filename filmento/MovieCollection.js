@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  AsyncStorage
+} from "react-native";
 import { Overlay, ButtonGroup, SearchBar, Button } from "react-native-elements";
 import { styles } from "./Styles";
 import Firebase from "./Firebase";
@@ -13,6 +20,26 @@ export class MovieCollectionPage extends React.Component {
     super(props);
 
     this.UID = this.props.navigation.getParam("UID");
+
+    // const saveUserId = async () => {
+    //   try {
+    //     await AsyncStorage.setItem('userId', this.UID);
+    //   } catch (error) {
+    //     // Error retrieving data
+    //     console.log(error.message);
+    //   }
+    // };
+
+    // const getUserId = async () => {
+    //   let userId = '';
+    //   try {
+    //     userId = await AsyncStorage.getItem('userId') || 'none';
+    //   } catch (error) {
+    //     // Error retrieving data
+    //     console.log(error.message);
+    //   }
+    //   return userId;
+    // }
 
     this.state = {
       user: [],
@@ -79,7 +106,7 @@ export class MovieCollectionPage extends React.Component {
         this.handleFetchAllMovieGenres();
       });
 
-    this.tabs = ["My Movies", "Watch List", "Friend List"];
+    this.tabs = ["My Movies", "Friend List"];
   }
 
   forceRenewMovieList() {
@@ -125,14 +152,13 @@ export class MovieCollectionPage extends React.Component {
     if (newIndex == 0 && newIndex != this.state.selectedIndex) {
       this.navigatePage = "MovieCollection";
     } else if (newIndex == 1 && newIndex != this.state.selectedIndex) {
-      this.navigatePage = "WatchList";
-    } else if (newIndex == 2 && newIndex != this.state.selectedIndex) {
       this.navigatePage = "FriendList";
     }
 
     this.props.navigation.navigate(this.navigatePage, {
       user: this.state.user,
-      mainScreen: this
+      mainScreen: this,
+      moives: this.state.movies
     });
     this.setState({ selectedIndex: 0 }); // ser index back to the default for this page
   }
@@ -290,11 +316,14 @@ export class MovieCollectionPage extends React.Component {
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>My Movies</Text>
           <View style={styles.headerButtons}>
+<<<<<<< HEAD
             <Icon.Button
               name="search"
               color="black"
               backgroundColor="transparent"
             />
+=======
+>>>>>>> 23e2f6cde71efad79b805dfb07634c32915d1d13
             <TouchableOpacity>
               <Icon.Button
                 name="filter"

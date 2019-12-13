@@ -4,12 +4,9 @@ import { LoginPage } from "./Login";
 import { SignUpPage } from "./SignUp";
 import { MovieCollectionPage } from "./MovieCollection";
 import { MCDetailPage } from './MCDetail';
-import { WatchListPage } from './WatchList';
 import { AddToMCPage } from "./AddToMC";
 import { AddMovieDetailPage } from "./AddMovieDetail";
 import { EditMCPage } from "./EditToMC";
-//import { AddToWLPage } from './AddToWL';
-//import { WLDetailPage } from './WLDetail';
 import { FriendListPage } from './FriendList';
 import { FriendCollectionPage } from './FriendCollection';
 import { AddFriendPage } from './AddFriend';
@@ -24,16 +21,11 @@ const AppStack = createStackNavigator({
   AddMovieDetail: AddMovieDetailPage,
   MovieCollectionDetail: MCDetailPage, 
   EditMovieCollection: EditMCPage,
-  WatchList: WatchListPage,
-  //AddMovietoWatchList: AddToWLPage,
-  //WatchListDetail: WLDetailPage,
   FriendList: FriendListPage,
   FriendCollection: FriendCollectionPage,
   AddFriend: AddFriendPage,
 }
 );
-
-// work on fixing nav bar problems in later stage: use const
 
 const App = createSwitchNavigator(
   {
