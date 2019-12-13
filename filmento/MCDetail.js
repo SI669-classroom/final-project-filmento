@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  FlatList
+} from "react-native";
 import { styles } from "./Styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -41,9 +47,7 @@ export class MCDetailPage extends React.Component {
             <Text style={styles.movieDetailHeaderText}>
               {this.state.movie.title}
             </Text>
-            <TouchableOpacity
-              style={styles.editButton}
-            >
+            <TouchableOpacity style={styles.editButton}>
               <Icon.Button
                 name="edit"
                 color="white"
@@ -61,7 +65,19 @@ export class MCDetailPage extends React.Component {
             <Text style={styles.detailTitle}>Director</Text>
             <Text style={styles.detailText}>{this.state.movie.director} </Text>
             <Text style={styles.detailTitle}>Genre</Text>
-            <Text style={styles.detailText}>{this.state.movie.genre}</Text>
+            <FlatList
+              data={this.state.movie.genre}
+              horizontal={true}
+              renderItem={({ item }) => {
+                return (
+                  <View>
+                    <Text style={styles.detailText}>{item} |</Text>
+                  </View>
+                );
+              }}
+              keyExtractor={item => item.key}
+              ListHeaderComponent={this.renderHeader}
+            />
             <Text style={styles.detailTitle}>Note</Text>
             <Text style={styles.detailText}>{this.state.movie.note}</Text>
             <Text style={styles.detailTitle}>Mood</Text>

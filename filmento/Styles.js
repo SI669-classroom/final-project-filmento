@@ -70,11 +70,9 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   movieInfoContainer: {
-    marginTop: 10,
-    flex: 0.4,
+    marginTop: 20,
     width: "100%",
-    justifyContent: "space-around",
-    backgroundColor: 'yellow'
+    justifyContent: "space-around"
   },
   imageContainer: {
     flex: 1, //here you can use flex:1 also
@@ -222,14 +220,14 @@ export const styles = StyleSheet.create({
   detailTitle: {
     fontSize: 14,
     textAlign: "left",
-    marginLeft: 5,
-    marginTop: 20
+    marginLeft: 10,
+    marginTop: 25,
+    marginBottom: 5
   },
   detailText: {
     fontSize: 16,
     textAlign: "left",
-    marginTop: 50,
-    marginBottom: 50,
-    marginLeft: 5,
-  },
+    marginBottom: 5,
+    marginLeft: 10
+  }
 });
