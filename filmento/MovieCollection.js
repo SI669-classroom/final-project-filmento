@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, FlatList, Image, TouchableOpacity, AsyncStorage } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  AsyncStorage
+} from "react-native";
 import { Overlay, ButtonGroup, SearchBar, Button } from "react-native-elements";
 import { styles } from "./Styles";
 import Firebase from "./Firebase";
@@ -33,7 +40,6 @@ export class MovieCollectionPage extends React.Component {
     //   }
     //   return userId;
     // }
-
 
     this.state = {
       user: [],
@@ -100,7 +106,7 @@ export class MovieCollectionPage extends React.Component {
         this.handleFetchAllMovieGenres();
       });
 
-    this.tabs = ["My Movies", "Watch List", "Friend List"];
+    this.tabs = ["My Movies", "Friend List"];
   }
 
   forceRenewMovieList() {
@@ -146,14 +152,13 @@ export class MovieCollectionPage extends React.Component {
     if (newIndex == 0 && newIndex != this.state.selectedIndex) {
       this.navigatePage = "MovieCollection";
     } else if (newIndex == 1 && newIndex != this.state.selectedIndex) {
-      this.navigatePage = "WatchList";
-    } else if (newIndex == 2 && newIndex != this.state.selectedIndex) {
       this.navigatePage = "FriendList";
     }
 
     this.props.navigation.navigate(this.navigatePage, {
       user: this.state.user,
-      mainScreen: this
+      mainScreen: this,
+      moives: this.state.movies
     });
     this.setState({ selectedIndex: 0 }); // ser index back to the default for this page
   }
@@ -311,11 +316,6 @@ export class MovieCollectionPage extends React.Component {
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>My Movies</Text>
           <View style={styles.headerButtons}>
-            <Icon.Button
-              name="search"
-              color="black"
-              backgroundColor="transparent"
-            />
             <TouchableOpacity>
               <Icon.Button
                 name="filter"
