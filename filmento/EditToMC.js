@@ -77,10 +77,10 @@ export class EditMCPage extends React.Component {
     console.log(this.movie.genre);
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <View style={styles.movieDetailHeaderContainer}>
-          <Text style={styles.headerText}>Edit my movie</Text>
+        <View style={styles.movieDetailHeaderContainerEdit}>
+          <Text style={styles.EditMCheaderText}>Edit my movie</Text>
           <Image
-            style={styles.imageStyle}
+            style={styles.EditMCimageStyle}
             resizeMode="contain"
             source={{ uri: this.movie.poster }}
           />
@@ -127,12 +127,14 @@ export class EditMCPage extends React.Component {
         <View style={styles.footerContainer}>
           <Button
             title="Cancel"
-            containerStyle={styles.mediumButtonContainer}
+            style={styles.mediumButtonContainer}
             onPress={() => {
               this.props.navigation.goBack();
             }}
           />
-          <Button title="Save" onPress={this.handleSave} />
+          <Button title="Save" 
+          style={styles.mediumButtonContainer}
+          onPress={this.handleSave} />
         </View>
       </KeyboardAvoidingView>
     );

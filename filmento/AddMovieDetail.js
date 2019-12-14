@@ -4,7 +4,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "react-native";
 import { Button, Input, ButtonGroup } from "react-native-elements";
 import { styles } from "./Styles";
@@ -167,7 +167,9 @@ export class AddMovieDetailPage extends React.Component {
               this.props.navigation.goBack();
             }}
           />
-          <Button title="Save" onPress={this.handleSave} />
+          <Button title="Save" 
+          containerStyle={styles.mediumButtonContainer}
+          onPress={this.handleSave} />
         </View>
       </KeyboardAvoidingView>
     );

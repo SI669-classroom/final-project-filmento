@@ -65,14 +65,14 @@ export const styles = StyleSheet.create({
     alignItems: "center"
   },
   bodyContainer: {
-    flex: 0.8,
+    flex: 0.95,
     width: "100%",
     justifyContent: "space-between"
   },
   movieInfoContainer: {
-    marginTop: 20,
+    marginTop: 10,
     width: "100%",
-    justifyContent: "space-around"
+    justifyContent: "flex-start"
   },
   imageContainer: {
     flex: 1, //here you can use flex:1 also
@@ -92,16 +92,19 @@ export const styles = StyleSheet.create({
     resizeMode: "cover"
   },
   footerContainer: {
-    flex: 0.1,
+    flex: 0.2,
     flexDirection: "row",
     width: "100%",
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingTop: 12
   },
   buttonGroupContainer: {
     flex: 0.8,
     width: "90%",
-    borderColor: "gray"
+    borderColor: "#000000",
+    backgroundColor:'#000000',
+    borderRadius:15,
+    marginTop:8
   },
   buttonGroupStyle: {
     backgroundColor: "white"
@@ -111,7 +114,7 @@ export const styles = StyleSheet.create({
     color: "black"
   },
   buttonGroupSelected: {
-    backgroundColor: "gray"
+    backgroundColor: "#000000"
   },
   buttonGroupSelectedText: {
     color: "white"
@@ -142,7 +145,7 @@ export const styles = StyleSheet.create({
     width: 100
   },
   carousel: {
-    height: 500,
+    height: 300,
     width: "100%"
   },
   carouselImageStyle: {
@@ -186,6 +189,14 @@ export const styles = StyleSheet.create({
     color: "#2d2d2d",
     padding: 10
   },
+  movieDetailHeaderContainerEdit: {
+    flex: 0.8,
+    justifyContent: "flex-start",
+    width: "100%",
+    flexDirection: "column",
+    borderBottomColor: "transparent",
+    borderTopColor: "transparent"
+  },
   movieDetailHeaderContainer: {
     flex: 0.8,
     justifyContent: "flex-start",
@@ -218,16 +229,38 @@ export const styles = StyleSheet.create({
     width: "100%"
   },
   detailTitle: {
-    fontSize: 14,
+    fontSize: 12,
     textAlign: "left",
     marginLeft: 10,
-    marginTop: 25,
-    marginBottom: 5
+    marginTop: 10,
+    marginBottom: 5,
+    color:'#3c3c3c'
   },
   detailText: {
     fontSize: 16,
     textAlign: "left",
     marginBottom: 5,
     marginLeft: 10
-  }
+  },
+  EditMCheaderText: {
+    flex: 0.2,
+    fontSize: 32,
+    fontWeight:'400',
+    textAlign: "left",
+    alignItems: "center",
+    padding: 10,
+    marginTop: 4
+  },
+  EditMCimageStyle: {
+    width: "125%",
+    height: "125%",
+    alignSelf: "center",
+    resizeMode: "cover",
+    flex:0.8
+  },
+  mediumButtonContainer: {
+    marginLeft: 15,
+    borderRadius:5
+  },
+
 });
