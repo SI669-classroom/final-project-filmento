@@ -58,4 +58,4 @@ If users like the lines in the movie and feel resonate with the lines, they can 
 
 
 ## Team Members:
-Ting-Wei Chang, Charlene Ni, Benjamin Yu
+[Ting-Wei Chang](https://www.eronchang.com/), [Charlene Ni](https://www.charleneni.com/), [Benjamin Yu](https://www.linkedin.com/in/benjamin-tse-bung-yu-940677172/)
