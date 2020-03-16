@@ -1,5 +1,3 @@
-# final-project-filmento
-final-project-filmento created by GitHub Classroom
 
 # Filmento
 
